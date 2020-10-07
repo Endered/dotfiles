@@ -57,7 +57,7 @@ nnoremap <Leader>wv :vs<CR>
 nnoremap <Leader>ws :split<CR>
 nnoremap <Leader>wd :q!<CR>
 nnoremap <Leader><Leader> :
-nnoremap <Leader>' :terminal<CR>
+nnoremap <Leader>' :terminal ++curwin<CR>
 nnoremap <Leader>tl gt
 nnoremap <Leader>th gT
 nnoremap <Leader>td :tabclose<CR>
