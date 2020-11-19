@@ -1,3 +1,6 @@
+let mapleader = "\<Space>"
+
+
 if &compatible
   set nocompatible
 endif
@@ -77,7 +80,6 @@ nnoremap k gk
 
 tnoremap fd <C-\><C-n>
 
-let mapleader = "\<Space>"
 nmap <Leader>w <Window>
 nnoremap <Window> <C-W>
 nnoremap <Window>v :vs<CR>
