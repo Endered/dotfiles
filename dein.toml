@@ -1,0 +1,25 @@
+[[plugins]]
+repo = 'w0rp/ale'
+hook_add = '''
+    " シンボルカラムを表示したままにする
+    let g:ale_sign_column_always = 1
+    " エラー行に表示するマーク
+    let g:ale_sign_error = '⨉'
+    let g:ale_sign_warning = '⚠'
+'''
+
+[[plugins]]
+repo = 'preservim/nerdtree'
+
+[[plugins]]
+repo = 'kovisoft/slimv'
+hook_add = '''
+    let g:slimv_swank_cmd = '! screen -d -m -t REPL-SBCL sbcl --load ~/.cache/dein/repos/github.com/kovisoft/slimv/slime/start-swank.lisp'
+    nmap <Leader>l <LISP>
+    nnoremap <LISP> :<BS>
+    nmap <LISP>e <LISP-EVAL>
+    nnoremap <LISP>c :call SlimvConnectServer()<CR>
+    nnoremap <LISP-EVAL> :<BS>
+    nnoremap <LISP-EVAL>d :call SlimvEvalDefun()<CR>
+    nnoremap <LISP-EVAL>b :call SlimvEvalBuffer()<CR>
+'''
