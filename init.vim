@@ -80,20 +80,20 @@ nnoremap k gk
 
 tnoremap fd <C-\><C-n>
 
-nmap <Leader>w <Window>
-nnoremap <Window> <C-W>
-nnoremap <Window>v :vs<CR>
-nnoremap <Window>s :split<CR>
-nnoremap <Window>d :q!<CR>
+nmap <Leader>w [WINDOW]
+nnoremap [WINDOW] <C-W>
+nnoremap [WINDOW]v :vs<CR>
+nnoremap [WINDOW]s :split<CR>
+nnoremap [WINDOW]d :q!<CR>
 nnoremap <Leader><Leader> :
 nnoremap <Leader>' :terminal<CR>
 
-nmap <Leader>t <TAB-MODE>
-nnoremap <TAB-MODE>l gt
-nnoremap <TAB-MODE>h gT
-nnoremap <TAB-MODE>d :tabclose<CR>
-nnoremap <TAB-MODE>n :tabnew<CR>
+nmap <Leader>t [TAB]
+nnoremap [TAB]l gt
+nnoremap [TAB]h gT
+nnoremap [TAB]d :tabclose<CR>
+nnoremap [TAB]n :tabnew<CR>
 
-nmap <Leader>f <FILE>
-nnoremap <FILE> :<BS>
-nnoremap <FILE>t :NERDTree<CR>
+nmap <Leader>f [FILE]
+nnoremap [FILE] :<BS>
+nnoremap [FILE]t :NERDTree<CR>

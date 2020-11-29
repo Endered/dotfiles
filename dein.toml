@@ -15,11 +15,11 @@ repo = 'preservim/nerdtree'
 repo = 'kovisoft/slimv'
 hook_add = '''
     let g:slimv_swank_cmd = '! screen -d -m -t REPL-SBCL sbcl --load ~/.cache/dein/repos/github.com/kovisoft/slimv/slime/start-swank.lisp'
-    nmap <Leader>l <LISP>
-    nnoremap <LISP> :<BS>
-    nmap <LISP>e <LISP-EVAL>
-    nnoremap <LISP>c :call SlimvConnectServer()<CR>
-    nnoremap <LISP-EVAL> :<BS>
-    nnoremap <LISP-EVAL>d :call SlimvEvalDefun()<CR>
-    nnoremap <LISP-EVAL>b :call SlimvEvalBuffer()<CR>
+nmap <Leader>l [LISP]
+nnoremap [LISP] :<BS>
+nmap [LISP]e [LISP-EVAL]
+nnoremap [LISP]c :call SlimvConnectServer()<CR>
+nnoremap [LISP-EVAL] :<BS>
+nnoremap [LISP-EVAL]d :call SlimvEvalDefun()<CR>
+nnoremap [LISP-EVAL]b :call SlimvEvalBuffer()<CR>
 '''
