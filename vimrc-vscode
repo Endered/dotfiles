@@ -1,0 +1,25 @@
+inoremap jj <ESC>
+inoremap fd <ESC>
+
+nnoremap <C-h> <LEFT>x
+nnoremap <C-a> ggVG
+nnoremap <C-i> mIggVG=`I
+nnoremap x "_x
+nnoremap s "_s
+nnoremap j gj
+nnoremap k gk
+tnoremap fd <C-\><C-n>
+
+nnoremap ; :
+nnoremap : ;
+nnoremap <Space>w <C-W>
+nnoremap <Space>wv :vs<CR>
+nnoremap <Space>ws :split<CR>
+nnoremap <Space>wd :q!<CR>
+nnoremap <Space><Space> :
+nnoremap <Space>' :terminal ++curwin<CR>
+nnoremap <Space>tl gt
+nnoremap <Space>th gT
+nnoremap <Space>td :tabclose<CR>
+nnoremap <Space>tn :tabnew<CR>
+nnoremap <Space>ft :NERDTree<CR>

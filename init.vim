@@ -62,6 +62,8 @@ set scrolloff=10
 set hlsearch
 set matchpairs& matchpairs+=<:>
 
+setlocal cindent cino+=j1,(0,ws,Ws
+
 "use make file
 "set makeprg=g++\ %:S\ -Wall\ -Wextra\ -fsyntax-only\ -DDEBUG
 
@@ -91,6 +93,8 @@ nnoremap <Leader>' :terminal<CR>
 nmap <Leader>t [TAB]
 nnoremap [TAB]l gt
 nnoremap [TAB]h gT
+nnoremap [TAB]L :+tabmove<CR>
+nnoremap [TAB]H :-tabmove<CR>
 nnoremap [TAB]d :tabclose<CR>
 nnoremap [TAB]n :tabnew<CR>
 
