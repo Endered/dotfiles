@@ -25,6 +25,13 @@
 			  `(define-key ,keymap ,key ',fun)))
 		      (mapcan #'rec body)))))
 
+(defmacro aif (expr then &optional else)
+  `(let ((it ,expr))
+     (if it ,then ,else)))
+
+(defmacro awhen (expr &rest then)
+  `(aif ,expr (progn ,@then)))
+
 (defconst my-packages '(rust-mode
 			company
 			lsp-mode
@@ -52,6 +59,7 @@
 (progn ;theme settings
   (load-theme 'spacemacs-dark t))
 
+
 (progn ;backup files settings
   (setq make-backup-files nil)
   (setq auto-save-default nil))
@@ -61,8 +69,15 @@
   )
 
 (progn ;scroll settings
-  (setq scroll-margin 10) ; scroll off
-  (setq scroll-conservatively 1) ; number of line at scroll
+  (setq-default scroll-margin 10) ; scroll off
+  (setq-default scroll-conservatively 1) ; number of line at scroll
+  )
+
+
+(progn ;etc
+  (column-number-mode 1)
+  (global-display-line-numbers-mode 1) ;show line number on left
+  (setq gc-cons-threshold 12800000)
   )
 
 
@@ -84,8 +99,11 @@
   (add-to-list 'auto-mode-alist '("\\.cpp$" . c++-mode))
   (add-hook 'c++-mode-hook
 	    (lambda ()
+	      (define-key evil-insert-state-map "\C-n" 'company-select-next)
+	      (define-key evil-insert-state-map "\C-p" 'company-select-previous)
 	      (lsp)
 	      (lsp-ui-mode)
+	      (electric-pair-mode 1)
 	      (setq tab-width 4
 		    c-basic-offset 4
 		    indent-tabs-mode nil
@@ -96,8 +114,14 @@
   (add-to-list 'auto-mode-alist '("\\.cs$" . csharp-mode))
   (add-hook 'csharp-mode-hook
 	    (lambda ()
+	      (define-key evil-insert-state-map "\C-n" 'company-select-next)
+	      (define-key evil-insert-state-map "\C-p" 'company-select-previous)
 	      (lsp)
-	      (lsp-ui-mode))))
+	      (lsp-ui-mode)
+	      (electric-pair-mode 1)
+	      (setq tab-width 4
+		    c-basic-offset 4
+		    indent-tabs-mode nil))))
 
 (progn ;common-lisp settings
   (add-hook 'lisp-mode-hook
@@ -147,6 +171,16 @@
     ("j" 'evil-next-visual-line)
     ("k" 'evil-previous-visual-line)
     (" "
+     ("b"
+      ("l" 'next-buffer)
+      ("h" 'previous-buffer)
+      ("d" 'kill-buffer))
+     ("o"
+      ("d" 'online-judge-download)
+      ("t" 'online-judge-test)
+      ("s" 'online-judge-submit))
+     ("'" 'open-terminal)
+     (";" 'eval-expression)
      ("w"
       ("h" 'evil-window-left)
       ("j" 'evil-window-down)
@@ -164,6 +198,73 @@
     (";" 'evil-ex)))
 
 
+(progn 
+  (defun set-exec-path-from-shell-PATH ()
+    (let ((path-from-shell (replace-regexp-in-string "[ \t\n]*$" "" (shell-command-to-string "$SHELL --login -i -c 'echo $PATH'"))))
+      (setenv "PATH" path-from-shell)
+      (setq exec-path (split-string path-from-shell path-separator))))
+  (set-exec-path-from-shell-PATH));setup PATH
+
+(defun concat-path (top &rest rest)
+  (reduce (lambda (a b)
+	    (concat (file-name-as-directory a)
+		    b))
+	  (cons top rest)))
+
+(defun open-terminal ()
+  (interactive)
+  (term "/bin/bash"))
+
+
+(defun online-judge-download (url)
+  (interactive "sProblem URL: ")
+  (labels ((remove-test-directory
+	    ()
+	    (let ((test-directory (concat-path default-directory "test")))
+	      (when (file-directory-p test-directory)
+		(delete-directory test-directory t)))))
+    (remove-test-directory)
+    (awhen (get-buffer "online-judge")
+	   (kill-buffer it))
+    (pop-to-buffer "online-judge")
+    (switch-to-buffer "online-judge")
+    (async-shell-command (format "oj d %s" url) (get-buffer "online-judge"))
+    (view-mode 1)))
+
+
+(defun online-judge-test ()
+  (interactive)
+  (labels ((get-appropriate-command
+	    (file-name)
+	    (some (lambda (cons)
+		    (and (string-match (car cons) file-name)
+			 (cdr cons)))
+		  '(("\.cpp" . "make \n oj t")
+		    ("\.lisp" . "oj t -c 'sbcl --script main.lisp'")
+		    ("\.py" . "oj t -c 'python3 main.py'")))))
+    (let ((command (get-appropriate-command (file-name-nondirectory
+					     (buffer-file-name)))))
+      (when command
+	(awhen (get-buffer "online-judge")
+	       (kill-buffer it))
+	(pop-to-buffer "online-judge")
+	(switch-to-buffer "online-judge")
+	(async-shell-command command (get-buffer "online-judge"))
+	(view-mode 1))))
+  nil)
+
+
+(defun online-judge-submit (url)
+  (interactive "sProblem URL: ")
+  (let ((command (format "oj s -w 0 -y %s %s" url (buffer-name))))
+    (awhen (get-buffer "online-judge")
+	   (kill-buffer it))
+    (pop-to-buffer "online-judge")
+    (switch-to-buffer "online-judge")
+    (async-shell-command command (get-buffer "online-judge"))
+    (view-mode 1)))
+
+
 (custom-set-variables
  ;; custom-set-variables was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
@@ -177,3 +278,4 @@
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
  )
+(put 'erase-buffer 'disabled nil)
