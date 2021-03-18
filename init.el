@@ -171,25 +171,34 @@
     ("j" 'evil-next-visual-line)
     ("k" 'evil-previous-visual-line)
     (" "
-     ("b"
+     ("b" ; buffer
       ("l" 'next-buffer)
       ("h" 'previous-buffer)
       ("d" 'kill-buffer))
-     ("o"
+     ("o" ; online judge
       ("d" 'online-judge-download)
       ("t" 'online-judge-test)
       ("s" 'online-judge-submit))
      ("'" 'open-terminal)
      (";" 'eval-expression)
-     ("w"
+     ("w" ; window
       ("h" 'evil-window-left)
       ("j" 'evil-window-down)
       ("k" 'evil-window-up)
       ("l" 'evil-window-right)
       ("d" 'delete-window)
       ("s" 'split-window-horizontally)
-      ("v" 'split-window-vertically))
-     ("t"
+      ("v" 'split-window-vertically)
+      ("<" 'evil-window-decrease-width)
+      (">" 'evil-window-increase-width)
+      ("-" 'evil-window-decrease-height)
+      ("-" 'evil-window-increase-height)
+      ("H" 'evil-window-move-far-left)
+      ("L" 'evil-window-move-far-right)
+      ("K" 'evil-window-move-very-top)
+      ("J" 'evil-window-move-very-bottom)
+      )
+     ("t" ; tab
       ("l" 'tab-bar-switch-to-next-tab)
       ("h" 'tab-bar-switch-to-prev-tab)
       ("d" 'tab-bar-close-tab)
