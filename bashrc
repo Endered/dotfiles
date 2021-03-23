@@ -2,10 +2,10 @@
 
 export PATH=$PATH:~/bin/
 export PATH=$PATH:~/.dotnet/
-export PATH=$PATH:~/.local/bin/
+export PATH=~/.local/bin/:$PATH
 export PATH=$PATH:~/.roswell/bin/
 export GST_ID3_TAG_ENCODING='CP932'
-export GOOGLE_DRIVE=/run/user/1000/gvfs/google-drive:host=gmail.com,user=yy56ga10ve
+source "$HOME/.cargo/env"
 xinput set-button-map 'Lenovo TrackPoint Keyboard II Mouse' 1 0 3 4 5 6 7
 xinput set-button-map 'TrackPoint Keyboard II Mouse' 1 0 3 4 5 6 7
 xinput set-button-map 'TPPS/2 IBM TrackPoint' 1 0 3 4 5 6 7
