@@ -43,7 +43,11 @@
 			rainbow-delimiters
 			slime
 			slime-company
-			paredit)) ;enumerate my packages
+			paredit
+			flycheck
+			add-node-modules-path
+			ivy
+			)) ;enumerate my packages
 
 (let ((uninstalled (remove-if 'package-installed-p 
 			      my-packages)))
@@ -77,6 +81,7 @@
   (column-number-mode 1)
   (global-display-line-numbers-mode 1) ;show line number on left
   (setq gc-cons-threshold 12800000)
+  (setq inhibit-startup-message t)
   )
 
 
@@ -86,18 +91,30 @@
   (setq company-minimum-prefix-length 3))
 
 (progn ;rust settings
-  (add-to-list 'exec-path (expand-file-name "~/.cargo/bin/rust-analyzer"))
+  (add-to-list 'exec-path (expand-file-name "~/.cargo/bin")) ;path to rust analyzer
   (add-to-list 'exec-path (expand-file-name "~/.cargo/bin"))
   (add-to-list 'auto-mode-alist '("\\.rs$'" . rust-mode))
-  (add-hook 'rust-mode-hook 'lsp)
-  (add-hook 'rust-mode-hook 'lsp-rust-server)
-  (add-hook 'rust-mode-hook 'lsp-ui-mode)
-  (add-hook 'rust-mode-hook 'cargo-minor-mode))
+  (add-hook 'rust-mode-hook
+	    (lambda ()
+	      (add-hook 'lsp-mode-hook
+			(lambda ()
+			  (setq lsp-rust-server 'rust-analyzer)
+			  (lsp-ui-mode 1)))
+	      (lsp 1)
+	      (cargo-minor-mode 1)
+	      (setq rust-format-on-save t)
+	      (define-key-tree
+		evil-normal-state-map
+		(" "
+		 ("c" ;cargo
+		  ("r" 'cargo-process-run)
+		  ("c" 'cargo-process-check)))))))
 
 (progn ;c++ settings
   (add-to-list 'auto-mode-alist '("\\.cpp$" . c++-mode))
   (add-hook 'c++-mode-hook
 	    (lambda ()
+	      (hs-minor-mode t)
 	      (define-key evil-insert-state-map "\C-n" 'company-select-next)
 	      (define-key evil-insert-state-map "\C-p" 'company-select-previous)
 	      (lsp)
@@ -150,7 +167,7 @@
 			(setq slime-default-lisp 'sbcl)
 			(setq slime-lisp-implementations
 			      '((sbcl ("ros" "-L" "sbcl" "-Q" "run") :coding-system utf-8-unix)))
-			(load (expand-file-name "~/.roswell/helper.el"))
+			;(load (expand-file-name "~/.roswell/helper.el"))
 			(slime-setup '(slime-fancy slime-company))))))
 
 (progn ;emacs-lisp settings
@@ -158,6 +175,22 @@
 	    (lambda ()
 	      (paredit-mode 1)
 	      (rainbow-delimiters-mode 1))))
+
+(progn ;markdown settings
+  (flycheck-define-checker textlint
+    "A linter for prose."
+    :command ("textlint" "--format" "unix" source-inplace)
+    :error-patterns
+    ((warning line-start (file-name) ":" line ":" column ": "
+	      (id (one-or-more (not (any " "))))
+	      (message (one-or-more not-newline)
+		       (zero-or-more "\n" (any " ") (one-or-more not-newline)))
+	      line-end))
+     :modes (text-mode markdown-mode))
+  (add-to-list 'flycheck-checkers 'textlint)
+  (add-hook 'markdown-mode-hook (lambda ()
+				  (flycheck-mode)
+				  (add-node-modules-path))))
 
 (progn ;tab-bar settings
   (tab-bar-mode 1))
@@ -196,6 +229,7 @@
       ("L" 'evil-window-move-far-right)
       ("K" 'evil-window-move-very-top)
       ("J" 'evil-window-move-very-bottom)
+      ("f" 'toggle-frame-maximized)
       )
      ("t" ; tab
       ("l" 'tab-bar-switch-to-next-tab)
@@ -273,13 +307,70 @@
     (view-mode 1)))
 
 
+(progn
+  (add-hook 'emacs-startup-hook
+	    (lambda ()
+	      (toggle-frame-maximized) ;maximize frame at startup
+	      )))
+
+(progn ;this is typing counter
+  (let ((file-path (expand-file-name "~/.emacs.d/myinits/typing-logger.el")))
+    (when (file-exists-p file-path)
+      (load-file file-path)
+      (add-hook 'pre-command-hook
+		(lambda ()
+		  (when evil-insert-state-minor-mode
+		    (add-typing-log))))
+      (add-hook 'kill-emacs-hook 'store-typing-log))))
+
+
+(progn ;scheme
+  (modify-coding-system-alist 'process' "gosh" '(utf-8 . utf-8))
+  (setq scheme-program-name "gosh -i")
+  (autoload 'scheme-mode "cmuscheme" "Major mode for Scheme." t)
+  (autoload 'run-scheme "cmuscheme" "Run an inferior Scheme process." t)
+
+(add-hook 'scheme-mode-hook
+	    (lambda ()
+	      (hs-minor-mode 1)
+	      (rainbow-delimiters-mode 1)
+	      (paredit-mode 1)
+	      (define-key-tree
+		evil-normal-state-map
+		(" "
+		 ("l"
+		  ("e"
+		   ("d" 'scheme-send-definition))
+		  ("h" 'paredit-backward-slurp-sexp)
+		  ("l" 'paredit-forward-slurp-sexp)
+		  ("H" 'paredit-backward-barf-sexp)
+		  ("L" 'paredit-forward-barf-sexp)
+		  ("k" 'paredit-splice-sexp)
+		  ("j" 'paredit-wrap-sexp))))
+	      (define-key-tree
+		evil-visual-state-map
+		(" "
+		 ("l"
+		  ("e"
+		   ("r" 'scheme-send-region)))))))
+
+  (defun scheme-other-window ()
+    "Run scheme on other window"
+    (interactive)
+    (switch-to-buffer-other-window
+     (get-buffer-create "*scheme*"))
+    (run-scheme scheme-program-name))
+
+  (define-key global-map
+    "\C-cs" 'scheme-other-window))
+
 (custom-set-variables
  ;; custom-set-variables was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
  '(package-selected-packages
-   '(rainbow-delimiters spacemacs-theme lsp-ui leaf-keywords key-chord hydra evil-escape evil el-get company cargo blackout)))
+   '(disable-mouse rainbow-delimiters spacemacs-theme lsp-ui leaf-keywords key-chord hydra evil-escape evil el-get company cargo blackout)))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
