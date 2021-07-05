@@ -6,16 +6,24 @@ export PATH=~/.local/bin/:$PATH
 export PATH=$PATH:~/.roswell/bin/
 export GST_ID3_TAG_ENCODING='CP932'
 source "$HOME/.cargo/env"
-xinput set-button-map 'Lenovo TrackPoint Keyboard II Mouse' 1 0 3 4 5 6 7
-xinput set-button-map 'TrackPoint Keyboard II Mouse' 1 0 3 4 5 6 7
-xinput set-button-map 'TPPS/2 IBM TrackPoint' 1 0 3 4 5 6 7
 
 #settings for chrome remote desktop. Because it will hide repeat key.
 gsettings set org.gnome.desktop.peripherals.keyboard repeat 'false' #It is necesarry to recorver.
 gsettings set org.gnome.desktop.peripherals.keyboard repeat 'true'
 
+# disable middle pointer of thinkpad keyboard
+for id in `xinput list | grep 'with TrackPoint' | grep -E 'slave\ *pointer' | grep -P '(?<=id=)\d*' -o | cat`
+do
+    xinput set-button-map $THINKPAD_KEYBOARD_ID 1 0 3 4 5 6 7
+done
+
 #disable alert (i.e. at typing backspace)
 gsettings set org.gnome.desktop.sound event-sounds false
+
+# Haskell
+alias ghci='stack ghci'
+alias ghc='stack ghc --'
+alias runghc='stack runghc --'
 
 if [ ! -e /tmp/mytmp ];then
     mkdir /tmp/mytmp
@@ -26,7 +34,12 @@ function catc(){
 }
 
 function cd(){
-    command cd "$*"
+    if [ "$#" -ge "1" ];
+    then
+        command cd "$*"
+    else
+        command cd
+    fi
     ls
 }
 
