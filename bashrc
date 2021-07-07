@@ -14,7 +14,7 @@ gsettings set org.gnome.desktop.peripherals.keyboard repeat 'true'
 # disable middle pointer of thinkpad keyboard
 for id in `xinput list | grep 'with TrackPoint' | grep -E 'slave\ *pointer' | grep -P '(?<=id=)\d*' -o | cat`
 do
-    xinput set-button-map $THINKPAD_KEYBOARD_ID 1 0 3 4 5 6 7
+    xinput set-button-map $id 1 0 3 4 5 6 7
 done
 
 #disable alert (i.e. at typing backspace)
