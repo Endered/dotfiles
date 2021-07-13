@@ -47,6 +47,12 @@
 			flycheck
 			add-node-modules-path
 			ivy
+			matlab-mode
+			magit
+			neotree
+			haskell-mode
+			go-mode
+			company-go
 			)) ;enumerate my packages
 
 (let ((uninstalled (remove-if 'package-installed-p 
@@ -82,7 +88,8 @@
   (global-display-line-numbers-mode 1) ;show line number on left
   (setq gc-cons-threshold 12800000)
   (setq inhibit-startup-message t)
-  )
+  (menu-bar-mode 0)
+  (tool-bar-mode 0))
 
 
 (progn ;company settings
@@ -132,6 +139,8 @@
 	    (lambda ()
 	      (define-key evil-insert-state-map "\C-n" 'company-select-next)
 	      (define-key evil-insert-state-map "\C-p" 'company-select-previous)
+	      (add-hook 'before-save-hook
+			'lsp-format-buffer)
 	      (lsp)
 	      (lsp-ui-mode)
 	      (electric-pair-mode 1)
@@ -168,7 +177,7 @@
 			(setq slime-lisp-implementations
 			      '((sbcl ("ros" "-L" "sbcl" "-Q" "run") :coding-system utf-8-unix)))
 			;(load (expand-file-name "~/.roswell/helper.el"))
-			(slime-setup '(slime-fancy slime-company))))))
+			(slime-setup '(slime-fancy slime-company)))))) 
 
 (progn ;emacs-lisp settings
   (add-hook 'emacs-lisp-mode-hook
@@ -229,16 +238,19 @@
       ("L" 'evil-window-move-far-right)
       ("K" 'evil-window-move-very-top)
       ("J" 'evil-window-move-very-bottom)
-      ("f" 'toggle-frame-maximized)
-      )
+      ("f" 'toggle-frame-maximized))
      ("t" ; tab
       ("l" 'tab-bar-switch-to-next-tab)
       ("h" 'tab-bar-switch-to-prev-tab)
       ("d" 'tab-bar-close-tab)
       ("n" 'tab-bar-new-tab))
+     ("r" ; tab-line
+      ("l" 'tab-line-switch-to-next-tab)
+      ("h" 'tab-line-switch-to-prev-tab))
+     ("f" ; file
+      ("t" 'neotree))
      (" " 'execute-extended-command))
     (";" 'evil-ex)))
-
 
 (progn 
   (defun set-exec-path-from-shell-PATH ()
@@ -363,6 +375,58 @@
 
   (define-key global-map
     "\C-cs" 'scheme-other-window))
+
+(progn ;haskell
+  (add-to-list 'auto-mode-alist '("\\.hs$" . haskell-mode))
+  (add-to-list 'auto-mode-alist '("\\.lhs$" . haskell-mode))
+  (add-to-list 'auto-mode-alist '("\\.cable$" . haskell-mode)))
+
+(progn ;matlab
+  (autoload 'matlab-mode "matlab" "Matlab Editing Mode" t)
+  (add-to-list
+   'auto-mode-alist
+   '("\\.m$" . matlab-mode))
+  (setq matlab-indent-function t)
+  (setq matlab-shell-command "matlab"))
+
+(progn ;git
+  (setenv "GIT_EDITOR" "emacsclient")
+  (add-hook 'shell-mode-hook 'with-editor-export-git-editor)
+  (define-key evil-normal-state-map " g" 'magit-status)
+  )
+
+(progn ;neotree
+  (add-hook 'neotree-mode-hook
+	    (lambda ()
+	      (define-key evil-normal-state-local-map (kbd "RET") 'neotree-enter)
+	      (define-key evil-normal-state-local-map (kbd "v") 'neotree-quick-look)
+	      (define-key evil-normal-state-local-map (kbd "R") 'neotree-refresh)
+	      (define-key evil-normal-state-local-map (kbd "q") 'neotree-hide)
+	      (define-key evil-normal-state-local-map (kbd "A") 'neotree-stretch-toggle)
+	      (define-key evil-normal-state-local-map (kbd "H") 'neotree-hidden-file-toggle))))
+
+(progn ;golang ;https://qiita.com/kod314/items/2232d480411c5c2ab002
+  (add-to-list 'exec-path (expand-file-name "/usr/local/go/bin/"))
+  (add-to-list 'exec-path (expand-file-name "$HOME/go/bin"))
+  (add-hook 'go-mode-hook 'flycheck-mode)
+  (add-hook 'go-mode-hook (lambda ()
+			    (add-hook 'before-save-hook 'gofmt-before-save)
+			    (set (make-local-variable 'company-backends) '(company-go))
+			    (setq indent-tabs-mode nil)
+			    (setq c-basic-offset 4)
+			    (setq tab-width 4)))
+  (require 'company-go)
+  (add-hook 'go-mode-hook (lambda ()
+			    (company-mode)
+			    (electric-pair-mode t)
+			    (setq company-transformers '(company-sort-by-backend-importance)) ;; ソート順
+			    (setq company-idle-delay 0) ; 遅延なしにすぐ表示
+			    (setq company-minimum-prefix-length 3) ; デフォルトは4
+			    (setq company-selection-wrap-around t) ; 候補の最後の次は先頭に戻る
+			    (setq completion-ignore-case t)
+			    (setq company-dabbrev-downcase nil)
+			    (define-key company-active-map (kbd "C-n") 'company-select-next)
+			    (define-key company-active-map (kbd "C-p") 'company-select-previous))))
 
 (custom-set-variables
  ;; custom-set-variables was added by Custom.
