@@ -129,7 +129,9 @@
 	      (electric-pair-mode 1)
 	      (setq tab-width 4
 		    c-basic-offset 4
+		    lsp-prefer-capf t
 		    indent-tabs-mode nil
+		    company-minimum-prefix-length 2
 		    lsp-enable-indentation nil
 		    lsp-clients-clangd-executable "clangd"))))
 
@@ -427,6 +429,13 @@
 			    (setq company-dabbrev-downcase nil)
 			    (define-key company-active-map (kbd "C-n") 'company-select-next)
 			    (define-key company-active-map (kbd "C-p") 'company-select-previous))))
+
+(progn ;makefile
+  (add-hook 'makefile-mode-hook (lambda ()
+				  (setq indent-tabs-mode nil)
+				  (setq c-basic-offset 4)
+				  (setq tab-width 4)))
+  )
 
 (custom-set-variables
  ;; custom-set-variables was added by Custom.
