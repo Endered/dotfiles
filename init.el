@@ -133,7 +133,9 @@
 		    indent-tabs-mode nil
 		    company-minimum-prefix-length 2
 		    lsp-enable-indentation nil
-		    lsp-clients-clangd-executable "clangd"))))
+		    lsp-clients-clangd-executable "clangd"
+		    read-process-output-max (* 1024 1024)
+		    lsp-idle-delay 2.000))))
 
 (progn ;C# settings
   (add-to-list 'auto-mode-alist '("\\.cs$" . csharp-mode))
