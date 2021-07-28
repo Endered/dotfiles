@@ -33,6 +33,10 @@ function catc(){
     cat $1 | xsel --clipboard
 }
 
+function emacs(){
+    command emacs "$*" &
+}
+
 function cd(){
     if [ "$#" -ge "1" ];
     then
