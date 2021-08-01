@@ -101,3 +101,4 @@ nnoremap [TAB]n :tabnew<CR>
 nmap <Leader>f [FILE]
 nnoremap [FILE] :<BS>
 nnoremap [FILE]t :NERDTree<CR>
+nnoremap [FILE]y yaWa<C-c><C-\><C-n>:sleep 100m<CR>areadlink -f <C-\><C-n>pa<CR><C-\><C-n>:sleep 100m<CR>a<C-\><C-n>kyy:e <C-r>+<CR>
