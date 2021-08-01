@@ -345,9 +345,19 @@
   (setq scheme-program-name "gosh -i")
   (autoload 'scheme-mode "cmuscheme" "Major mode for Scheme." t)
   (autoload 'run-scheme "cmuscheme" "Run an inferior Scheme process." t)
-
-(add-hook 'scheme-mode-hook
+  (add-hook 'scheme-mode-hook
 	    (lambda ()
+	      (defun scheme-send-buffer ()
+		(interactive)
+		(let ((pos (count-lines 1 (point)))
+		      (start nil)
+		      (end nil))
+		  (evil-goto-first-line)
+		  (setq start (point))
+		  (evil-goto-line)
+		  (setq end (point))
+		  (scheme-send-region start end)
+		  (evil-goto-line pos)))
 	      (hs-minor-mode 1)
 	      (rainbow-delimiters-mode 1)
 	      (paredit-mode 1)
@@ -356,7 +366,8 @@
 		(" "
 		 ("l"
 		  ("e"
-		   ("d" 'scheme-send-definition))
+		   ("d" 'scheme-send-definition)
+		   ("b" 'scheme-send-buffer))
 		  ("h" 'paredit-backward-slurp-sexp)
 		  ("l" 'paredit-forward-slurp-sexp)
 		  ("H" 'paredit-backward-barf-sexp)
@@ -374,8 +385,9 @@
     "Run scheme on other window"
     (interactive)
     (switch-to-buffer-other-window
-     (get-buffer-create "*scheme*"))
-    (run-scheme scheme-program-name))
+     (get-buffer-create "*scheme*")) 
+    (run-scheme scheme-program-name)
+    (other-window 1))
 
   (define-key global-map
     "\C-cs" 'scheme-other-window))
@@ -434,7 +446,6 @@
 
 (progn ;makefile
   (add-hook 'makefile-mode-hook (lambda ()
-				  (setq indent-tabs-mode nil)
 				  (setq c-basic-offset 4)
 				  (setq tab-width 4)))
   )
