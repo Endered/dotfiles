@@ -37,6 +37,15 @@ function emacs(){
     command emacs "$*" &
 }
 
+
+# Please download base16-shell before exec
+# 'git clone https://github.com/chriskempson/base16-shell.git ~/.config/base16-shell'
+# this is vim color helper
+BASE16_SHELL="$HOME/.config/base16-shell/"
+[ -n "$PS1" ] && \
+    [ -s "$BASE16_SHELL/profile_helper.sh" ] && \
+        eval "$("$BASE16_SHELL/profile_helper.sh")"
+
 function cd(){
     if [ "$#" -ge "1" ];
     then

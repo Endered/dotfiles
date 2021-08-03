@@ -39,6 +39,7 @@
 			evil
 			evil-escape
 			spacemacs-theme
+			monokai-theme
 			csharp-mode
 			rainbow-delimiters
 			slime
@@ -66,7 +67,8 @@
 
 
 (progn ;theme settings
-  (load-theme 'spacemacs-dark t))
+  ;(load-theme 'spacemacs-dark t)
+  (load-theme 'monokai t))
 
 
 (progn ;backup files settings
