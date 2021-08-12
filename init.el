@@ -111,6 +111,7 @@
 			  (lsp-ui-mode 1)))
 	      (lsp 1)
 	      (cargo-minor-mode 1)
+	      (electric-pair-mode)
 	      (setq rust-format-on-save t)
 	      (define-key-tree
 		evil-normal-state-map
