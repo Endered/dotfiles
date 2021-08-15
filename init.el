@@ -112,6 +112,8 @@
 	      (lsp 1)
 	      (cargo-minor-mode 1)
 	      (electric-pair-mode)
+	      (define-key evil-insert-state-map "\C-n" 'company-select-next)
+	      (define-key evil-insert-state-map "\C-p" 'company-select-previous)
 	      (setq rust-format-on-save t)
 	      (define-key-tree
 		evil-normal-state-map
@@ -182,7 +184,12 @@
 		      (lambda ()
 			(setq slime-default-lisp 'sbcl)
 			(setq slime-lisp-implementations
-			      '((sbcl ("ros" "-L" "sbcl" "-Q" "run") :coding-system utf-8-unix)))
+			      '((sbcl ("ros"
+				       "-e" ; ignore shebang
+				       "(set-dispatch-macro-character
+ #\\# #\\! 
+(lambda (stream character n) (declare (ignore character n)) (read-line stream nil nil t) nil))"
+				       "-L" "sbcl" "-Q" "run") :coding-system utf-8-unix)))
 			;(load (expand-file-name "~/.roswell/helper.el"))
 			(slime-setup '(slime-fancy slime-company)))))) 
 
