@@ -54,6 +54,8 @@
 			haskell-mode
 			go-mode
 			company-go
+			clojure-mode
+			cider
 			)) ;enumerate my packages
 
 (let ((uninstalled (remove-if 'package-installed-p 
@@ -194,6 +196,34 @@
 				       "-L" "sbcl" "-Q" "run") :coding-system utf-8-unix)))
 			;(load (expand-file-name "~/.roswell/helper.el"))
 			(slime-setup '(slime-fancy slime-company)))))) 
+
+(progn ;clojure settings
+  (add-hook 'clojure-mode-hook
+	    (lambda ()
+	      (hs-minor-mode 1)
+	      (slime-mode 1)
+	      (rainbow-delimiters-mode 1)
+	      (paredit-mode 1)
+	      (define-key evil-insert-state-map "\C-n" 'company-select-next)
+	      (define-key evil-insert-state-map "\C-p" 'company-select-previous)
+	      (define-key-tree
+		evil-normal-state-map
+		(" "
+		 ("l"
+		  ("'" 'cider-jack-in)
+		  ("e"
+		   ("d" 'cider-eval-defun-at-point)
+		   ("b" 'cider-eval-buffer))
+		  ("p"
+		   ("b" 'cider-load-buffer))
+		  ("t"
+		   ("l" 'cider-test-run-loaded-tests))
+		  ("h" 'paredit-backward-slurp-sexp)
+		  ("l" 'paredit-forward-slurp-sexp)
+		  ("H" 'paredit-backward-barf-sexp)
+		  ("L" 'paredit-forward-barf-sexp)
+		  ("k" 'paredit-splice-sexp)
+		  ("j" 'paredit-wrap-sexp)))))))
 
 (progn ;emacs-lisp settings
   (add-hook 'emacs-lisp-mode-hook
