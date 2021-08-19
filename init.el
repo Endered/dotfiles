@@ -101,7 +101,6 @@
 
 (progn ;rust settings
   (add-to-list 'exec-path (expand-file-name "~/.cargo/bin")) ;path to rust analyzer
-  (add-to-list 'exec-path (expand-file-name "~/.cargo/bin"))
   (add-to-list 'auto-mode-alist '("\\.rs$'" . rust-mode))
   (add-hook 'rust-mode-hook
 	    (lambda ()
@@ -111,13 +110,17 @@
 			  (lsp-ui-mode 1)))
 	      (lsp 1)
 	      (cargo-minor-mode 1)
+	      (electric-pair-mode 1)
 	      (setq rust-format-on-save t)
+	      (define-key evil-insert-state-map "\C-n" 'company-select-next)
+	      (define-key evil-insert-state-map "\C-p" 'company-select-previous)
 	      (define-key-tree
 		evil-normal-state-map
 		(" "
 		 ("c" ;cargo
 		  ("r" 'cargo-process-run)
-		  ("c" 'cargo-process-check)))))))
+		  ("c" 'cargo-process-check)
+		  ("a" 'cargo-process-add)))))))
 
 (progn ;c++ settings
   (add-to-list 'auto-mode-alist '("\\.cpp$" . c++-mode))
@@ -425,7 +428,7 @@
 
 (progn ;golang ;https://qiita.com/kod314/items/2232d480411c5c2ab002
   (add-to-list 'exec-path (expand-file-name "/usr/local/go/bin/"))
-  (add-to-list 'exec-path (expand-file-name "$HOME/go/bin"))
+  (add-to-list 'exec-path (expand-file-name "/home/endered/go/bin/"))
   (add-hook 'go-mode-hook 'flycheck-mode)
   (add-hook 'go-mode-hook (lambda ()
 			    (add-hook 'before-save-hook 'gofmt-before-save)
