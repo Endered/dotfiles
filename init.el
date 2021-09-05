@@ -142,7 +142,7 @@
 		    indent-tabs-mode nil
 		    company-minimum-prefix-length 2
 		    lsp-enable-indentation nil
-		    lsp-clients-clangd-executable "clangd"
+		    lsp-clients-clangd-executable "clangd-12"
 		    read-process-output-max (* 1024 1024)
 		    lsp-idle-delay 2.000))))
 
