@@ -56,6 +56,7 @@
 			company-go
 			clojure-mode
 			cider
+			evil-terminal-cursor-changer
 			)) ;enumerate my packages
 
 (let ((uninstalled (remove-if 'package-installed-p 
@@ -253,6 +254,14 @@
 (progn ; evil settings
   (evil-mode 1)
   (evil-escape-mode 1)
+  (unless (display-graphic-p)
+    (etcc-mode 1)
+    (evil-terminal-cursor-changer-activate)
+    (setq evil-motion-state-cursor 'box
+	  evil-visual-state-cursor 'box
+	  evil-normal-state-cursor 'box
+	  evil-insert-state-cursor 'bar
+	  evil-emacs-state-cursor 'hbar))
   (define-key-tree
     evil-normal-state-map
     ("j" 'evil-next-visual-line)
