@@ -513,3 +513,5 @@
  ;; If there is more than one, they won't work right.
  )
 (put 'erase-buffer 'disabled nil)
+
+(setq ring-bell-function 'ignore)
