@@ -480,10 +480,14 @@
 			    (setq indent-tabs-mode nil)
 			    (setq c-basic-offset 4)
 			    (setq tab-width 4)
+			    (setq lsp-enable-snippet nil)
 			    (company-mode)
-			    (lsp-deferred)
-			    (lsp-ui)
-			    (electric-pair-mode t)
+			    (lsp)
+			    (add-hook 'lsp-mode-hook
+				      (lambda ()
+					(lsp-ui)
+					(lsp-deferred)))
+			    (electric-pair-mode 1)
 			    (setq company-transformers '(company-sort-by-backend-importance)) ;; ソート順
 			    (setq company-idle-delay 0) ; 遅延なしにすぐ表示
 			    (setq company-minimum-prefix-length 3) ; デフォルトは4
