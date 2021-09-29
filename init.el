@@ -79,7 +79,8 @@
   (setq auto-save-default nil))
 
 (progn ;parenthes settings
-  (show-paren-mode 1) ;highlight correspond parenthes
+  ;(show-paren-mode 1) ;highlight correspond parenthes
+  (rainbow-delimiters-mode 1) ;change parenthes color
   )
 
 (progn ;scroll settings
