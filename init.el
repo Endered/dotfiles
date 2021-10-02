@@ -289,7 +289,7 @@
       ("<" 'evil-window-decrease-width)
       (">" 'evil-window-increase-width)
       ("-" 'evil-window-decrease-height)
-      ("-" 'evil-window-increase-height)
+      ("+" 'evil-window-increase-height)
       ("H" 'evil-window-move-far-left)
       ("L" 'evil-window-move-far-right)
       ("K" 'evil-window-move-very-top)
