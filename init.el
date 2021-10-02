@@ -477,6 +477,8 @@
   (add-to-list 'exec-path (expand-file-name "/usr/local/go/bin/"))
   (add-to-list 'exec-path (expand-file-name "/home/endered/go/bin/"))
   (add-hook 'go-mode-hook (lambda ()
+			    (hs-minor-mode 1)
+			    (setq gofmt-command "goimports")
 			    (add-hook 'before-save-hook 'gofmt-before-save)
 			    (setq indent-tabs-mode nil)
 			    (setq c-basic-offset 4)
