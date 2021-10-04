@@ -5,7 +5,9 @@ export PATH=$PATH:~/.dotnet/
 export PATH=~/.local/bin/:$PATH
 export PATH=$PATH:~/.roswell/bin/
 export GST_ID3_TAG_ENCODING='CP932'
-source "$HOME/.cargo/env"
+if [ -f $HOME/.cargo/env ]; then
+    source "$HOME/.cargo/env"
+fi
 
 #settings for chrome remote desktop. Because it will hide repeat key.
 gsettings set org.gnome.desktop.peripherals.keyboard repeat 'false' #It is necesarry to recorver.
