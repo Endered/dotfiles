@@ -41,7 +41,11 @@ function catc(){
 }
 
 function emacs(){
-    command emacs "$*" &
+    command emacs "$@" &
+}
+
+function temacs(){
+    command emacs -nw "$@"
 }
 
 
