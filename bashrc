@@ -82,7 +82,7 @@ function ojt(){
 }
 
 function ojs(){
-    oj s $(cat .problem_url) main.cpp
+    oj s $(cat .problem_url) main.cpp --no-open -y
 }
 
 function ojtc(){
