@@ -57,6 +57,7 @@
 			clojure-mode
 			cider
 			evil-terminal-cursor-changer
+			vterm
 			)) ;enumerate my packages
 
 (let ((uninstalled (remove-if 'package-installed-p 
@@ -95,7 +96,9 @@
   (setq gc-cons-threshold 12800000)
   (setq inhibit-startup-message t)
   (menu-bar-mode 0)
-  (tool-bar-mode 0))
+  (tool-bar-mode 0)
+  (setq-default truncate-lines t) ; disable line wrap at default
+  )
 
 
 (progn ;company settings
@@ -276,7 +279,7 @@
       ("d" 'online-judge-download)
       ("t" 'online-judge-test)
       ("s" 'online-judge-submit))
-     ("'" 'open-terminal)
+     ("'" 'vterm)
      (";" 'eval-expression)
      ("w" ; window
       ("h" 'evil-window-left)
@@ -320,11 +323,6 @@
 	    (concat (file-name-as-directory a)
 		    b))
 	  (cons top rest)))
-
-(defun open-terminal ()
-  (interactive)
-  (term "/bin/bash"))
-
 
 (defun online-judge-download (url)
   (interactive "sProblem URL: ")
