@@ -174,6 +174,7 @@
   (add-hook 'lisp-mode-hook
 	    (lambda ()
 	      (hs-minor-mode 1)
+	      (load (expand-file-name "~/.roswell/helper.el"))
 	      (slime-mode 1)
 	      (rainbow-delimiters-mode 1)
 	      (paredit-mode 1)
