@@ -494,9 +494,9 @@
 					(lsp-ui)
 					(lsp-deferred)))
 			    (electric-pair-mode 1)
-			    (setq company-transformers '(company-sort-by-backend-importance)) ;; ソート順
+		    (setq company-transformers '(company-sort-by-backend-importance)) ;; ソート順
 			    (setq company-idle-delay 0) ; 遅延なしにすぐ表示
-			    (setq company-minimum-prefix-length 3) ; デフォルトは4
+			    (setq company-minimum-prefix-length 1) ; デフォルトは4
 			    (setq company-selection-wrap-around t) ; 候補の最後の次は先頭に戻る
 			    (setq completion-ignore-case t)
 			    (setq company-dabbrev-downcase nil)
