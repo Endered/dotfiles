@@ -97,9 +97,13 @@
   (setq inhibit-startup-message t)
   (menu-bar-mode 0)
   (tool-bar-mode 0)
-  (setq-default truncate-lines t) ; disable line wrap at default
   )
 
+(progn ;terminal
+  (setq-default truncate-lines t) ; disable line wrap at default
+  (add-hook 'vterm-mode-hook
+            (lambda ()
+	      (evil-define-key 'normal vterm-mode-map "p" 'vterm-yank))))
 
 (progn ;company settings
   (add-hook 'after-init-hook 'global-company-mode) ;enable company in all mode
