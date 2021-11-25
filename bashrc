@@ -90,7 +90,7 @@ function ojtc(){
 }
 function ojsc(){
     cat header.lisp main.lisp > submit.lisp
-    oj s $(cat .problem_url) submit.lisp
+    oj s $(cat .problem_url) submit.lisp --no-open -y
 }
 
 function workspace(){
