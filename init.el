@@ -97,10 +97,12 @@
   (setq inhibit-startup-message t)
   (menu-bar-mode 0)
   (tool-bar-mode 0)
-  )
+  (setq backup-directory-alist '((".*" . "~/.emacs_auto/backup")))
+  (setq auto-save-file-name-transforms '((".*" "~/.emacs_auto/tmp" t)))
+  (setq create-lockfiles nil))
 
 (progn ;terminal
-  (setq-default truncate-lines t) ; disable line wrap at default
+  (setq-default truncate-lines nil) ; disable line wrap at default
   (add-hook 'vterm-mode-hook
             (lambda ()
 	      (evil-define-key 'normal vterm-mode-map "p" 'vterm-yank))))
