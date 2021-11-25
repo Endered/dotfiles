@@ -3,9 +3,9 @@
 
 (setq package-archives
       '(("melpa" . "https://melpa.org/packages/")
-        ;; ("melpa-stable" . "https://stable.melpa.org/packages/")
-        ("org" . "https://orgmode.org/elpa/")
-        ("gnu" . "https://elpa.gnu.org/packages/")))
+	;; ("melpa-stable" . "https://stable.melpa.org/packages/")
+	("org" . "https://orgmode.org/elpa/")
+	("gnu" . "https://elpa.gnu.org/packages/")))
 (package-initialize)
 
 (defmacro define-key-tree (keymap &rest body)
@@ -71,7 +71,7 @@
 
 
 (progn ;theme settings
-  ;(load-theme 'spacemacs-dark t)
+					;(load-theme 'spacemacs-dark t)
   (load-theme 'monokai t))
 
 
@@ -80,7 +80,7 @@
   (setq auto-save-default nil))
 
 (progn ;parenthes settings
-  ;(show-paren-mode 1) ;highlight correspond parenthes
+					;(show-paren-mode 1) ;highlight correspond parenthes
   (rainbow-delimiters-mode 1) ;change parenthes color
   )
 
@@ -102,7 +102,7 @@
 (progn ;terminal
   (setq-default truncate-lines t) ; disable line wrap at default
   (add-hook 'vterm-mode-hook
-            (lambda ()
+	    (lambda ()
 	      (evil-define-key 'normal vterm-mode-map "p" 'vterm-yank))))
 
 (progn ;company settings
@@ -196,6 +196,7 @@
 		  ("j" 'paredit-wrap-sexp)))))
 	    (add-hook 'slime-mode-hook
 		      (lambda ()
+			(require 'slime-autoloads)
 			(setq slime-default-lisp 'sbcl)
 			(setq slime-lisp-implementations
 			      '((sbcl ("ros"
@@ -204,8 +205,8 @@
  #\\# #\\! 
 (lambda (stream character n) (declare (ignore character n)) (read-line stream nil nil t) nil))"
 				       "-L" "sbcl" "-Q" "run") :coding-system utf-8-unix)))
-			;(load (expand-file-name "~/.roswell/helper.el"))
-			(slime-setup '(slime-fancy slime-company)))))) 
+					;(load (expand-file-name "~/.roswell/helper.el"))
+			(slime-setup '(slime-fancy slime-company slime-banner slime-repl))))))
 
 (progn ;clojure settings
   (add-hook 'clojure-mode-hook
@@ -251,7 +252,7 @@
 	      (message (one-or-more not-newline)
 		       (zero-or-more "\n" (any " ") (one-or-more not-newline)))
 	      line-end))
-     :modes (text-mode markdown-mode))
+    :modes (text-mode markdown-mode))
   (add-to-list 'flycheck-checkers 'textlint)
   (add-hook 'markdown-mode-hook (lambda ()
 				  (flycheck-mode)
@@ -494,7 +495,7 @@
 					(lsp-ui)
 					(lsp-deferred)))
 			    (electric-pair-mode 1)
-		    (setq company-transformers '(company-sort-by-backend-importance)) ;; ソート順
+			    (setq company-transformers '(company-sort-by-backend-importance)) ;; ソート順
 			    (setq company-idle-delay 0) ; 遅延なしにすぐ表示
 			    (setq company-minimum-prefix-length 1) ; デフォルトは4
 			    (setq company-selection-wrap-around t) ; 候補の最後の次は先頭に戻る
