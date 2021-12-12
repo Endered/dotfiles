@@ -58,6 +58,7 @@
 			cider
 			evil-terminal-cursor-changer
 			vterm
+			typescript-mode
 			)) ;enumerate my packages
 
 (let ((uninstalled (remove-if 'package-installed-p 
@@ -506,6 +507,13 @@
 			    (define-key company-active-map (kbd "C-n") 'company-select-next)
 			    (define-key company-active-map (kbd "C-p") 'company-select-previous))))
 
+(progn ;typescript
+  (add-hook 'typescript-mode-hook
+	    (lambda ()
+	      (lsp)
+	      (lsp-deferred)))
+  )
+
 (progn ;makefile
   (add-hook 'makefile-mode-hook (lambda ()
 				  (setq c-basic-offset 4)
@@ -518,7 +526,7 @@
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
  '(package-selected-packages
-   '(disable-mouse rainbow-delimiters spacemacs-theme lsp-ui leaf-keywords key-chord hydra evil-escape evil el-get company cargo blackout)))
+   '(typescript-mode disable-mouse rainbow-delimiters spacemacs-theme lsp-ui leaf-keywords key-chord hydra evil-escape evil el-get company cargo blackout)))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
