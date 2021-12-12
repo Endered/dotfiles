@@ -183,6 +183,7 @@
 	      (paredit-mode 1)
 	      (define-key evil-insert-state-map "\C-n" 'company-select-next)
 	      (define-key evil-insert-state-map "\C-p" 'company-select-previous)
+	      (define-key evil-normal-state-map "gd" 'slime-edit-definition)
 	      (define-key-tree
 		evil-normal-state-map
 		(" "
