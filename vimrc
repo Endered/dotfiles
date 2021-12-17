@@ -47,6 +47,8 @@ nnoremap s "_s
 "if wraped a line, move according to visual
 nnoremap j gj
 nnoremap k gk
+nnoremap ; :
+nnoremap : ;
 filetype indent plugin on
 
 tnoremap fd <C-\><C-n>
