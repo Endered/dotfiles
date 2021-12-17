@@ -59,6 +59,7 @@
 			evil-terminal-cursor-changer
 			vterm
 			typescript-mode
+			ein
 			)) ;enumerate my packages
 
 (let ((uninstalled (remove-if 'package-installed-p 
@@ -512,7 +513,10 @@
   (add-hook 'typescript-mode-hook
 	    (lambda ()
 	      (lsp)
-	      (lsp-deferred)))
+	      (lsp-deferred)
+	      (setq indent-tabs-mode nil)
+	      (add-hook 'before-save-hook
+			'lsp-format-buffer)))
   )
 
 (progn ;makefile
