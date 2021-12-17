@@ -84,6 +84,7 @@
 (progn ;parenthes settings
 					;(show-paren-mode 1) ;highlight correspond parenthes
   (rainbow-delimiters-mode 1) ;change parenthes color
+  (electric-pair-mode 1)
   )
 
 (progn ;scroll settings
@@ -125,7 +126,6 @@
 			  (lsp-ui-mode 1)))
 	      (lsp 1)
 	      (cargo-minor-mode 1)
-	      (electric-pair-mode 1)
 	      (define-key evil-insert-state-map "\C-n" 'company-select-next)
 	      (define-key evil-insert-state-map "\C-p" 'company-select-previous)
 	      (setq rust-format-on-save t)
@@ -148,7 +148,6 @@
 	      (define-key evil-insert-state-map "\C-p" 'company-select-previous)
 	      (lsp)
 	      (lsp-ui-mode)
-	      (electric-pair-mode 1)
 	      (setq tab-width 4
 		    c-basic-offset 4
 		    lsp-prefer-capf t
@@ -169,7 +168,6 @@
 			'lsp-format-buffer)
 	      (lsp)
 	      (lsp-ui-mode)
-	      (electric-pair-mode 1)
 	      (setq tab-width 4
 		    c-basic-offset 4
 		    indent-tabs-mode nil))))
@@ -499,7 +497,6 @@
 				      (lambda ()
 					(lsp-ui)
 					(lsp-deferred)))
-			    (electric-pair-mode 1)
 			    (setq company-transformers '(company-sort-by-backend-importance)) ;; ソート順
 			    (setq company-idle-delay 0) ; 遅延なしにすぐ表示
 			    (setq company-minimum-prefix-length 1) ; デフォルトは4
