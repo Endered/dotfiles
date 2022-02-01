@@ -1,9 +1,9 @@
 (in-package :lem-user)
 
 (load (uiop:merge-pathnames* ".lem/util" (uiop/common-lisp:user-homedir-pathname)))
+(load (uiop:merge-pathnames* ".lem/vim" (uiop/common-lisp:user-homedir-pathname)))
 
 (setf (variable-value 'lem.line-numbers:line-numbers :global) t)
-  
 
 (define-color-theme "monokai" ()
   (foreground "#eeeeee")
@@ -34,10 +34,13 @@
     ("h" 'lem:window-move-left)
     ("j" 'lem:window-move-down)
     ("k" 'lem:window-move-up)
-    ("l" 'lem:window-move-right))
+    ("l" 'lem:window-move-right)
+    ("s" 'lem-vi-mode::split-active-window-horizontally)
+    ("v" 'lem-vi-mode::split-active-window-vertically))
    ("b"
     ("h" 'lem:previous-buffer)
-    ("l" 'lem:next-buffer))))
+    ("l" 'lem:next-buffer)
+    ("d" 'lem:kill-buffer))))
 
 (settings.util:define-key-tree lem-vi-mode.core:*insert-keymap*
   ("Return" 'lem.language-mode:newline-and-indent))
@@ -63,3 +66,13 @@
    (settings.util:define-key-tree lem-vi-mode.core:*insert-keymap*
      ("Space" 'lem-lisp-mode.autodoc::lisp-insert-space-and-autodoc))))
 
+(settings.vim:vim-noremap "fd" "<Escape>") 
+(settings.vim:vim-map "<Space>w" "[WINDOW]")
+(settings.vim:vim-noremap "[WINDOW]" "<Space>w")
+(settings.vim:vim-noremap "[WINDOW]v" ":vs<Return>")
+(settings.vim:vim-noremap "[WINDOW]s" ":split<Return>")
+(settings.vim:vim-noremap "[WINDOW]h" "<C-w>h")
+(settings.vim:vim-noremap "[WINDOW]j" "<C-w>j")
+(settings.vim:vim-noremap "[WINDOW]k" "<C-w>k")
+(settings.vim:vim-noremap "[WINDOW]l" "<C-w>l")
+(settings.vim:vim-noremap "[WINDOW]d" ":q<Return>")
