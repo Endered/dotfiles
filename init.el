@@ -58,8 +58,13 @@
 			cider
 			evil-terminal-cursor-changer
 			vterm
+			multi-vterm
 			typescript-mode
 			ein
+			scala-mode
+			sbt-mode
+			lsp-metals
+			xclip
 			)) ;enumerate my packages
 
 (let ((uninstalled (remove-if 'package-installed-p 
@@ -94,6 +99,7 @@
 
 
 (progn ;etc
+  (xclip-mode 1)
   (column-number-mode 1)
   (global-display-line-numbers-mode 1) ;show line number on left
   (setq gc-cons-threshold 12800000)
@@ -248,7 +254,7 @@
 (progn ;markdown settings
   (flycheck-define-checker textlint
     "A linter for prose."
-    :command ("textlint" "--format" "unix" source-inplace)
+    :command ("npm" "run" "textlint" "--format" "unix" source-inplace)
     :error-patterns
     ((warning line-start (file-name) ":" line ":" column ": "
 	      (id (one-or-more (not (any " "))))
@@ -288,7 +294,7 @@
       ("d" 'online-judge-download)
       ("t" 'online-judge-test)
       ("s" 'online-judge-submit))
-     ("'" 'vterm)
+     ("'" 'multi-vterm)
      (";" 'eval-expression)
      ("w" ; window
       ("h" 'evil-window-left)
@@ -528,7 +534,7 @@
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
  '(package-selected-packages
-   '(typescript-mode disable-mouse rainbow-delimiters spacemacs-theme lsp-ui leaf-keywords key-chord hydra evil-escape evil el-get company cargo blackout)))
+   '(xclip yasnippet typescript-mode disable-mouse rainbow-delimiters spacemacs-theme lsp-ui leaf-keywords key-chord hydra evil-escape evil el-get company cargo blackout)))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
@@ -538,3 +544,6 @@
 (put 'erase-buffer 'disabled nil)
 
 (setq ring-bell-function 'ignore)
+
+
+(load "~/.emacs.d/scala.el")
