@@ -118,6 +118,10 @@
 	      (define-key vterm-mode-map "\C-c\C-d" 'vterm-send-C-d)
 	      )))
 
+(progn ; lsp settings
+  (setq lsp-ui-sideline-show-hover t) ; show document in hover
+  )
+
 (progn ;company settings
   (add-hook 'after-init-hook 'global-company-mode) ;enable company in all mode
   (setq company-idle-delay 0)
