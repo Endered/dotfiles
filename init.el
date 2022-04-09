@@ -65,6 +65,7 @@
 			sbt-mode
 			lsp-metals
 			xclip
+			yaml-mode
 			)) ;enumerate my packages
 
 (let ((uninstalled (remove-if 'package-installed-p 
