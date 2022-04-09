@@ -115,7 +115,13 @@
   (setq-default truncate-lines nil) ; disable line wrap at default
   (add-hook 'vterm-mode-hook
 	    (lambda ()
-	      (evil-define-key 'normal vterm-mode-map "p" 'vterm-yank))))
+	      (evil-define-key 'normal vterm-mode-map "p" 'vterm-yank)
+	      (define-key vterm-mode-map "\C-c\C-d" 'vterm-send-C-d)
+	      )))
+
+(progn ; lsp settings
+  (setq lsp-ui-sideline-show-hover t) ; show document in hover
+  )
 
 (progn ;company settings
   (add-hook 'after-init-hook 'global-company-mode) ;enable company in all mode
@@ -161,7 +167,6 @@
 		    indent-tabs-mode nil
 		    company-minimum-prefix-length 2
 		    lsp-enable-indentation nil
-		    lsp-clients-clangd-executable "clangd"
 		    read-process-output-max (* 1024 1024)
 		    lsp-idle-delay 2.000))))
 
