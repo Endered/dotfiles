@@ -123,6 +123,13 @@
   (setq lsp-ui-sideline-show-hover t) ; show document in hover
   )
 
+(progn ; lsp treemacs settings
+  (add-hook 'lsp-treemacs-generic-mode-hook
+	    (lambda ()
+	      (evil-define-key 'normal lsp-treemacs-generic-map (kbd "TAB") 'treemacs-TAB-action))
+	    )
+  )
+
 (progn ;company settings
   (add-hook 'after-init-hook 'global-company-mode) ;enable company in all mode
   (setq company-idle-delay 0)
