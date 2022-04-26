@@ -218,6 +218,7 @@
 		    indent-tabs-mode nil))))
 
 (progn ;paredit settings
+  (require-or-install 'paredit)
   (add-hook 'paredit-mode-hook
 	    (lambda ()
 	      (define-key-tree
