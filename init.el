@@ -399,10 +399,7 @@
 			    (setq c-basic-offset 4)
 			    (setq tab-width 4)
 			    (setq lsp-enable-snippet nil)
-			    (lsp)
-			    (add-hook 'lsp-mode-hook
-				      (lambda ()
-					(lsp-deferred)))
+			    (lsp 1)
 			    (setq company-transformers '(company-sort-by-backend-importance)) ;; ソート順
 			    (setq completion-ignore-case t)
 			    (setq company-dabbrev-downcase nil)
