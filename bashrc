@@ -59,12 +59,9 @@ BASE16_SHELL="$HOME/.config/base16-shell/"
             eval "$("$BASE16_SHELL/profile_helper.sh")"
 
 function cd(){
-    if [ "$#" -ge "1" ];
-    then
-        command cd "$*"
-    else
-        command cd
-    fi
+    # cdコマンド引数なしのときにホームディレクトリに移されるの嫌じゃない？
+    # 私は嫌です
+    command cd "$*"
     ls
 }
 
