@@ -182,6 +182,7 @@
   (add-hook 'rust-mode-hook
 	    (lambda ()
 	      (setq lsp-rust-server 'rust-analyzer)
+	      (lsp 1)
 	      (cargo-minor-mode 1)
 	      (define-key evil-insert-state-map "\C-n" 'company-select-next)
 	      (define-key evil-insert-state-map "\C-p" 'company-select-previous)
