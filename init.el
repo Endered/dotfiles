@@ -156,6 +156,7 @@
   (add-hook 'lsp-mode-hook
 	    (lambda ()
 	      (lsp-ui-mode 1)
+	      (yas-minor-mode 1)
 	      (setq lsp-prefer-capf t)
 	      (setq read-process-output-max (* 1024 1024))
 	      (setq lsp-idle-delay 1.000)))
