@@ -153,6 +153,7 @@
   (require-or-install 'lsp-ui)
   (require-or-install 'lsp-metals)
   (require-or-install 'flycheck)
+  (require-or-install 'yasnippet)
   (setq lsp-ui-sideline-show-hover t) ; show document in hover
   (add-hook 'lsp-mode-hook
 	    (lambda ()
