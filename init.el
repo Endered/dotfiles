@@ -163,7 +163,9 @@
 		evil-normal-state-map
 		(" "
 		 ("l"
-		  ("d" 'lsp-describe-thing-at-point))))
+		  ("d" 'lsp-describe-thing-at-point)))
+		("g"
+		 ("d" 'xref-find-definitions)))
 	      (setq lsp-prefer-capf t)
 	      (setq read-process-output-max (* 1024 1024))
 	      (setq lsp-idle-delay 1.000)))
