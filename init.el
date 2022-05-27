@@ -97,6 +97,7 @@
       ("k" 'evil-window-up)
       ("l" 'evil-window-right)
       ("d" 'delete-window)
+      ("D" 'delete-other-windows)
       ("s" 'split-window-horizontally)
       ("v" 'split-window-vertically)
       ("<" 'evil-window-decrease-width)
@@ -157,6 +158,11 @@
 	    (lambda ()
 	      (lsp-ui-mode 1)
 	      (yas-minor-mode 1)
+	      (define-key-tree
+		evil-normal-state-map
+		(" "
+		 ("l"
+		  ("d" 'lsp-describe-thing-at-point))))
 	      (setq lsp-prefer-capf t)
 	      (setq read-process-output-max (* 1024 1024))
 	      (setq lsp-idle-delay 1.000)))
