@@ -436,6 +436,18 @@
 	    (setq lsp-completion-provider :capf)))
 
   )
+
+(progn ;jupyter node book settings
+  (require-or-install 'ein)
+  (setq ein:worksheet-enable-undo t)
+  (setq ein:output-area-inlined-images t)
+  )
+
+(progn
+  (require-or-install 'nix-mode)
+  )
+
+
 (custom-set-variables
  ;; custom-set-variables was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
