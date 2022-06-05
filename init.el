@@ -351,7 +351,9 @@
 		 ("l"
 		  ("e"
 		   ("d" 'scheme-send-definition)
-		   ("b" 'scheme-send-buffer)))))
+		   ("b" 'scheme-send-buffer))))
+		("\C-c"
+		 ("s" 'scheme-other-window)))
 	      (define-key-tree
 		evil-visual-state-map
 		(" "
@@ -366,8 +368,7 @@
      (get-buffer-create "*scheme*")) 
     (run-scheme scheme-program-name)
     (other-window 1))
-  (define-key global-map
-    "\C-cs" 'scheme-other-window))
+  )
 
 (progn ;haskell settings
   (require-or-install 'haskell-mode)
