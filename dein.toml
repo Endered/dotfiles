@@ -24,20 +24,26 @@ nnoremap [LISP-EVAL]d :call SlimvEvalDefun()<CR>
 nnoremap [LISP-EVAL]b :call SlimvEvalBuffer()<CR>
 '''
 
+#[[plugins]]
+#repo = 'jdkanani/vim-material-theme'
+#hook_add = '''
+#"set t_Co=256
+#"set termguicolors
+#"set background=dark
+#"colorscheme material-theme
+#'''
+#[[plugins]]
+#repo = 'chriskempson/base16-vim'
+#hook_add = '''
+#if filereadable(expand("~/.vimrc_background"))
+#  let base16colorspace=256
+#  source ~/.vimrc_background
+#endif
+#colorscheme base16-monokai
+#'''
+
 [[plugins]]
-repo = 'jdkanani/vim-material-theme'
+repo = 'RRethy/nvim-base16'
 hook_add = '''
-"set t_Co=256
-"set termguicolors
-"set background=dark
-"colorscheme material-theme
-'''
-[[plugins]]
-repo = 'chriskempson/base16-vim'
-hook_add = '''
-if filereadable(expand("~/.vimrc_background"))
-  let base16colorspace=256
-  source ~/.vimrc_background
-endif
 colorscheme base16-monokai
 '''
