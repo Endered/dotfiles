@@ -9,10 +9,6 @@ if [ -f $HOME/.cargo/env ]; then
     source "$HOME/.cargo/env"
 fi
 
-#settings for chrome remote desktop. Because it will hide repeat key.
-gsettings set org.gnome.desktop.peripherals.keyboard repeat 'false' #It is necesarry to recorver.
-gsettings set org.gnome.desktop.peripherals.keyboard repeat 'true'
-
 # disable middle pointer of thinkpad keyboard
 for id in `xinput list | grep 'with TrackPoint' | grep -E 'slave\ *pointer' | grep -P '(?<=id=)\d*' -o | cat`
 do
