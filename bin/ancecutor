@@ -1,0 +1,22 @@
+#!/usr/bin/env bash
+
+target="$1"
+cwd=$PWD
+shift 
+
+while :
+do
+    if [ -e "$cwd/$target" ]; then
+        cd $cwd
+        "$@"
+        exit
+    fi
+    next=$(dirname $cwd)
+    if [ "$cwd" == "$next" ]; then
+        break
+    fi
+    cwd=$next
+done
+
+echo Could not find that file "$target"
+exit 1

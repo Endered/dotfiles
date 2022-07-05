@@ -4,6 +4,7 @@ export PATH=$PATH:~/bin/
 export PATH=$PATH:~/.dotnet/
 export PATH=~/.local/bin/:$PATH
 export PATH=$PATH:~/.roswell/bin/
+export PATH=$HOME/dotfiles/bin:$PATH
 export GST_ID3_TAG_ENCODING='CP932'
 if [ -f $HOME/.cargo/env ]; then
     source "$HOME/.cargo/env"
