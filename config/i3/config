@@ -197,7 +197,7 @@ exec --no-startup-id fcitx
 
 # link password
 exec --no-startup-id /usr/bin/gnome-keyring-daemon --start --components=secrets
-bindsym $mod+Shift+Return exec google-chrome --password-store=gnome
+bindsym $mod+Shift+Return exec google-chrome-stable || google-chrome --password-store=gnome
 
 # class                 border  bground text    indicator child_border
 client.focused          #712299 #571D99 #FFFFFF #7F3BF4   #5D2A77
