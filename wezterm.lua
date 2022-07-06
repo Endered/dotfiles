@@ -4,6 +4,7 @@ return {
     use_ime = true,
     font_size = 9.0,
     enable_tab_bar = false,
+    exit_behavior = "Close",
 
     -- https://github.com/oneKelvinSmith/monokai-emacs
     -- reference
