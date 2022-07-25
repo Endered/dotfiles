@@ -308,6 +308,11 @@
 (progn ;markdown settings
   (require-or-install 'flycheck)
   (require-or-install 'add-node-modules-path)
+  (require-or-install 'markdown-mode)
+  (require-or-install 'markdown-preview-mode)
+  (require-or-install 'websocket)
+  (require-or-install 'web-server)
+  (require-or-install 'uuidgen)
   (flycheck-define-checker textlint
     "A linter for prose."
     :command ("npm" "run" "textlint" "--format" "unix" source-inplace)
@@ -320,6 +325,7 @@
     :modes (text-mode markdown-mode))
   (add-to-list 'flycheck-checkers 'textlint)
   (add-hook 'markdown-mode-hook (lambda ()
+				  (setq markdown-command "multimarkdown")
 				  (flycheck-mode)
 				  (add-node-modules-path))))
 
@@ -390,6 +396,12 @@
   (setenv "GIT_EDITOR" "emacs")
   (add-hook 'shell-mode-hook 'with-editor-export-git-editor)
   (define-key evil-normal-state-map " g" 'magit-status))
+
+(progn ;sql settings
+  (add-hook 'sql-mode-hook
+	    (lambda ()
+	      (setq tab-width 4
+		    indent-tabs-mode nil))))
 
 (progn ;neotree settings
   (require-or-install 'neotree)
