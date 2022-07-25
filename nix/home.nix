@@ -35,6 +35,10 @@
     baobab
     tmux
     wezterm
+    vifm
+    vlc
+    translate-shell
+    neofetch
   ];
 
   # EDITOR
@@ -72,6 +76,7 @@
                       xinput enable $id
                   done
                }
+               export EDITOR=nvim
     '';
   };
 
