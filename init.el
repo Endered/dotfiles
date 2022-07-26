@@ -472,6 +472,10 @@
   (require-or-install 'nix-mode)
   )
 
+(progn ;; mode-line settings
+  (require-or-install 'doom-modeline)
+  (doom-modeline-mode 1))
+
 
 (custom-set-variables
  ;; custom-set-variables was added by Custom.
