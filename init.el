@@ -146,7 +146,8 @@
   (add-hook 'vterm-mode-hook
 	    (lambda ()
 	      (evil-define-key 'normal vterm-mode-map "p" 'vterm-yank)
-	      (define-key vterm-mode-map "\C-c\C-d" 'vterm-send-C-d))))
+	      (define-key vterm-mode-map "\C-c\C-d" 'vterm-send-C-d)
+	      (define-key vterm-mode-map "\C-c\C-a" 'vterm-send-C-a))))
 
 (progn ;lsp settings
   (require-or-install 'lsp-mode)
