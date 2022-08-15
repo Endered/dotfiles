@@ -32,11 +32,6 @@ done
 #disable alert (i.e. at typing backspace)
 gsettings set org.gnome.desktop.sound event-sounds false
 
-# Haskell
-alias ghci='stack ghci'
-alias ghc='stack ghc --'
-alias runghc='stack runghc --'
-
 if [ ! -e /tmp/mytmp ];then
     mkdir /tmp/mytmp
 fi
