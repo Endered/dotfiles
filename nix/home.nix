@@ -115,11 +115,6 @@
     ".wezterm.lua" = {
       source = ~/dotfiles/wezterm.lua;
     };
-    ".emacs.d/init.el" = {
-      text = ''
-             (load "~/dotfiles/init.el")
-'';
-    };
   };
 
   programs.home-manager.enable = true;
