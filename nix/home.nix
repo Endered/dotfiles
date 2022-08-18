@@ -107,6 +107,11 @@
     ".config/nvim/dein_lazy.toml" = {
       source = ~/dotfiles/dein_lazy.toml;
     };
+    ".emacs.d/init.el" = {
+      text = ''
+             (load "~/dotfiles/init.el")
+'';
+    };
     ".wezterm.lua" = {
       source = ~/dotfiles/wezterm.lua;
     };
