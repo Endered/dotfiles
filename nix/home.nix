@@ -115,6 +115,9 @@
     ".wezterm.lua" = {
       source = ~/dotfiles/wezterm.lua;
     };
+    ".vifm/vifmrc" = {
+      source = ~/dotfiles/vifmrc;
+    };
   };
 
   programs.home-manager.enable = true;
