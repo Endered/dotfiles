@@ -379,9 +379,13 @@
 
 (progn ;haskell settings
   (require-or-install 'haskell-mode)
+  (require-or-install 'lsp-haskell)
   (add-to-list 'auto-mode-alist '("\\.hs$" . haskell-mode))
   (add-to-list 'auto-mode-alist '("\\.lhs$" . haskell-mode))
-  (add-to-list 'auto-mode-alist '("\\.cable$" . haskell-mode)))
+  (add-to-list 'auto-mode-alist '("\\.cable$" . haskell-mode))
+  (add-hook 'haskell-mode-hook
+	    (lambda ()
+	      (lsp 1))))
 
 (progn ;matlab settings
   (require-or-install 'ein)
