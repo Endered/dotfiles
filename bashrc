@@ -24,7 +24,7 @@ do
     xinput disable $id
 done
 
-for id in `xinput list | grep 'Lenovo TrackPoint Keyboard II Mouse' | grep -E 'slave\ *pointer' | grep -P '(?<=id=)\d*' -o | cat`
+for id in `xinput list | grep 'Lenovo TrackPoint Keyboard II' | grep -E 'slave\ *pointer' | grep -P '(?<=id=)\d*' -o | cat`
 do
     xinput set-button-map $id 1 0 3 4 5 6 7
 done
