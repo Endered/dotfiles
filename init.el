@@ -346,7 +346,7 @@
    (list 1 2 3 4 5 6 7 8 9))
   (custom-set-variables
    '(tab-bar-tab-hints 1)
-   (tab-bar-tab-name-function 'tab-bar-tab-name-truncated)))
+   '(tab-bar-tab-name-function 'tab-bar-tab-name-truncated)))
 
 (progn ;scheme settings
   (modify-coding-system-alist 'process' "gosh" '(utf-8 . utf-8))
