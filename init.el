@@ -179,7 +179,11 @@
 	      (setq lsp-ui-doc-show-with-cursor t)))
   (add-hook 'lsp-treemacs-generic-mode-hook
 	    (lambda ()
-	      (evil-define-key 'normal lsp-treemacs-generic-map (kbd "TAB") 'treemacs-TAB-action))))
+	      (evil-define-key 'normal lsp-treemacs-generic-map (kbd "TAB") 'treemacs-TAB-action)))
+  (add-hook 'lsp-after-apply-edits-hook
+	    (lambda (operation)
+	      (when (eq operation 'rename)
+		(save-buffer)))))
 
 (progn ;company settings
   (require-or-install 'company)
