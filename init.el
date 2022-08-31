@@ -339,7 +339,14 @@
 				  (add-node-modules-path))))
 
 (progn ;tab-bar settings
-  (tab-bar-mode 1))
+  (tab-bar-mode 1)
+  (mapcar
+   (lambda (n)
+     (define-key evil-normal-state-map (format " t%d" n) `(lambda () (interactive) (tab-bar-select-tab ,n))))
+   (list 1 2 3 4 5 6 7 8 9))
+  (custom-set-variables
+   '(tab-bar-tab-hints 1)
+   (tab-bar-tab-name-function 'tab-bar-tab-name-truncated)))
 
 (progn ;scheme settings
   (modify-coding-system-alist 'process' "gosh" '(utf-8 . utf-8))
