@@ -496,17 +496,7 @@
   (require-or-install 'doom-modeline)
   (doom-modeline-mode 1))
 
-
-(custom-set-variables
- ;; custom-set-variables was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
- '(package-selected-packages
-   '(eink-theme yasnippet yaml-mode xclip use-package typescript-mode spacemacs-theme slime-company sbt-mode rust-mode rainbow-delimiters paredit neotree multi-vterm monokai-theme matlab-mode magit lsp-ui lsp-metals ivy haskell-mode flycheck evil-terminal-cursor-changer evil-escape ein csharp-mode company-go cider cargo add-node-modules-path)))
-(custom-set-faces
- ;; custom-set-faces was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
- )
+(progn ;; customize
+  (setq custom-file "~/.emacs.d/custom.el")
+  (if (file-exists-p custom-file)
+      (load custom-file)))
