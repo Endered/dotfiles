@@ -125,6 +125,12 @@
            }
 '';
     };
+    ".config/gtk-3.0/settings.ini" = {
+      text = ''
+           [Settings]
+           gtk-application-prefer-dark-theme = true
+'';
+    };
   };
 
   programs.home-manager.enable = true;
