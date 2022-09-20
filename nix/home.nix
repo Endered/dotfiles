@@ -131,6 +131,14 @@
            gtk-application-prefer-dark-theme = true
 '';
     };
+    ".background-image" = {
+      text = ''
+             P3
+             1 1
+             255
+             78 4 87
+'';
+    };
   };
 
   programs.home-manager.enable = true;
