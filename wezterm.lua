@@ -6,6 +6,7 @@ return {
     enable_tab_bar = false,
     exit_behavior = "Close",
     check_for_updates = false,
+    harfbuzz_features = { 'calt=0', 'clig=0', 'liga=0' },
 
     -- https://github.com/oneKelvinSmith/monokai-emacs
     -- reference
