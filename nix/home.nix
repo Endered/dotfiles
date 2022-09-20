@@ -118,6 +118,13 @@
     ".vifm/vifmrc" = {
       source = ~/dotfiles/vifmrc;
     };
+    ".config/discord/settings.json" = {
+      text = ''
+           {
+               "SKIP_HOST_UPDATE": true
+           }
+'';
+    };
   };
 
   programs.home-manager.enable = true;
