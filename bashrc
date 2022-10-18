@@ -10,24 +10,26 @@ if [ -f $HOME/.cargo/env ]; then
     source "$HOME/.cargo/env"
 fi
 
-# disable middle pointer of thinkpad keyboard
-for id in `xinput list | grep 'with TrackPoint' | grep -E 'slave\ *pointer' | grep -P '(?<=id=)\d*' -o | cat`
-do
-    xinput set-button-map $id 1 0 3 4 5 6 7
-done
-for id in `xinput list | grep 'ETPS/2 Elantech TrackPoint' | grep -E 'slave\ *pointer' | grep -P '(?<=id=)\d*' -o | cat`
-do
-    xinput set-button-map $id 1 0 3 4 5 6 7
-done
-for id in `xinput list | grep 'ETPS/2 Elantech Touchpad' | grep -E 'slave\ *pointer' | grep -P '(?<=id=)\d*' -o | cat`
-do
-    xinput disable $id
-done
+if [ "$DISPLAY" != "" ]; then
+    # disable middle pointer of thinkpad keyboard
+    for id in `xinput list | grep 'with TrackPoint' | grep -E 'slave\ *pointer' | grep -P '(?<=id=)\d*' -o | cat`
+    do
+        xinput set-button-map $id 1 0 3 4 5 6 7
+    done
+    for id in `xinput list | grep 'ETPS/2 Elantech TrackPoint' | grep -E 'slave\ *pointer' | grep -P '(?<=id=)\d*' -o | cat`
+    do
+        xinput set-button-map $id 1 0 3 4 5 6 7
+    done
+    for id in `xinput list | grep 'ETPS/2 Elantech Touchpad' | grep -E 'slave\ *pointer' | grep -P '(?<=id=)\d*' -o | cat`
+    do
+        xinput disable $id
+    done
 
-for id in `xinput list | grep 'Lenovo TrackPoint Keyboard II' | grep -E 'slave\ *pointer' | grep -P '(?<=id=)\d*' -o | cat`
-do
-    xinput set-button-map $id 1 0 3 4 5 6 7
-done
+    for id in `xinput list | grep 'Lenovo TrackPoint Keyboard II' | grep -E 'slave\ *pointer' | grep -P '(?<=id=)\d*' -o | cat`
+    do
+        xinput set-button-map $id 1 0 3 4 5 6 7
+    done
+fi
 
 #disable alert (i.e. at typing backspace)
 gsettings set org.gnome.desktop.sound event-sounds false
