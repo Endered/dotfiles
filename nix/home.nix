@@ -39,6 +39,7 @@
     vlc
     translate-shell
     neofetch
+    direnv
   ];
 
   # EDITOR
@@ -78,6 +79,7 @@
                }
                neofetch
                export EDITOR=nvim
+               eval "$(direnv hook bash)"
     '';
   };
 
