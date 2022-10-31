@@ -1,0 +1,2 @@
+#!/usr/bin/env bash
+nix-shell -p x2x --run 'x2x -west -to :0'
