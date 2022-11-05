@@ -115,3 +115,12 @@ function workspace(){
     fi
     echo move add del
 }
+
+function ttmux(){
+    if [ "$1" = "n" ]; then
+        tmux new -s "$2"
+    fi
+    if [ "$1" = "a" ]; then
+        tmux a -t "$2"
+    fi
+}
