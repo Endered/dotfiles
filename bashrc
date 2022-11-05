@@ -10,7 +10,7 @@ if [ -f $HOME/.cargo/env ]; then
     source "$HOME/.cargo/env"
 fi
 
-if [ "$DISPLAY" != "" ]; then
+if [ "$SSH_CLIENT" = "" ]; then
     # disable middle pointer of thinkpad keyboard
     for id in `xinput list | grep 'with TrackPoint' | grep -E 'slave\ *pointer' | grep -P '(?<=id=)\d*' -o | cat`
     do
