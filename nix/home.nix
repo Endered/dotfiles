@@ -77,7 +77,6 @@
                       xinput enable $id
                   done
                }
-               neofetch
                export EDITOR=nvim
                eval "$(direnv hook bash)"
     '';
