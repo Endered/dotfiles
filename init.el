@@ -473,7 +473,7 @@
   (require-or-install 'lsp-metals)
   (add-hook 'scala-mode-hook
 	  (lambda ()
-	    (add-hook 'before-save-hook 'lsp-format-buffer)
+	    ;; (add-hook 'before-save-hook 'lsp-format-buffer)
 	    (lsp 1)
 	    (lsp-lens-mode 1)
 	    (setq lsp-prefer-flymake nil)
