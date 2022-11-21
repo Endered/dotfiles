@@ -215,6 +215,7 @@
 		(" "
 		 ("c" ;cargo
 		  ("r" 'cargo-process-run)
+		  ("t" 'cargo-process-test)
 		  ("c" 'cargo-process-check)
 		  ("a" 'cargo-process-add)))))))
 
