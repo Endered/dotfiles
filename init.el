@@ -459,7 +459,11 @@
 	    (lambda ()
 	      (lsp)
 	      (lsp-deferred)
-	      (setq indent-tabs-mode nil)
+	      (setq tab-width 2
+		    c-basic-offset 2
+		    js-indent-level 2
+		    typescript-indent-level 2
+		    indent-tabs-mode nil)
 	      (add-hook 'before-save-hook
 			'lsp-format-buffer))))
 
@@ -480,6 +484,16 @@
 	    (setq lsp-prefer-flymake nil)
 	    (setq lsp-completion-provider :capf)))
 
+  )
+
+(progn ; js mode
+  (add-hook 'js-mode-hook
+	    (lambda ()
+	      (lsp 1)
+	      (setq tab-width 2
+		    c-basic-offset 2
+		    js-indent-level 2
+		    indent-tabs-mode nil)))
   )
 
 (progn ;jupyter node book settings
