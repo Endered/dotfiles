@@ -117,3 +117,21 @@ function workspace(){
 }
 
 alias ttmux='tmux new-session -A -s'
+
+_ttmux() {
+    local cur prev cword servers
+    _get_comp_words_by_ref -n : cur prev cword
+    servers=$(tmux ls 2> /dev/null)
+    if [ $? != 0 ]; then
+	servers=""
+    fi
+
+    if [ $cword != 1 ]; then
+	servers=""
+    fi
+
+    servers=$(echo "$servers" | grep -oP '^\S*(?=:)')
+    COMPREPLY=($(compgen -W "${servers}" -- "${cur}"))
+}
+
+complete -F _ttmux ttmux
