@@ -173,7 +173,7 @@
 		 ("d" 'xref-find-definitions)))
 	      (setq lsp-prefer-capf t)
 	      (setq read-process-output-max (* 1024 1024))
-	      (setq lsp-idle-delay 1.000)))
+	      (setq lsp-idle-delay 0.1)))
   (add-hook 'lsp-ui-mode-hook
 	    (lambda ()
 	      (setq lsp-ui-doc-show-with-cursor t)))
