@@ -146,6 +146,12 @@
              set -ag terminal-overrides ",xterm-256color:RGB"
 '';
     };
+    ".config/deadd/deadd.conf" = {
+      source = ~/dotfiles/config/deadd/deadd.conf;
+    };
+    ".config/deadd/deadd.css" = {
+      source = ~/dotfiles/config/deadd/deadd.css;
+    };
   };
 
   programs.home-manager.enable = true;
