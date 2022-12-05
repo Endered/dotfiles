@@ -27,7 +27,6 @@
     discord
     zathura
     gzip
-    dunst
     libnotify
     screen
     espeak-ng
@@ -40,7 +39,8 @@
     translate-shell
     neofetch
     direnv
-  ];
+    deadd-notification-center
+ ];
 
   # EDITOR
   programs.emacs = {

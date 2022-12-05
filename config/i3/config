@@ -224,3 +224,8 @@ bar {
 # screen brightness keybind
 bindsym XF86MonBrightnessDown exec light -U 10
 bindsym XF86MonBrightnessUp exec light -A 10
+
+# notification system
+
+bindsym $mod+n exec kill -s USR1 $(pidof deadd-notification-center)
+exec --no-startup-id deadd-notification-center
