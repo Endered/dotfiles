@@ -153,6 +153,10 @@
 	      (define-key vterm-mode-map "\C-c\C-d" 'vterm-send-C-d)
 	      (define-key vterm-mode-map "\C-c\C-a" 'vterm-send-C-a))))
 
+(progn ; projectile settings
+  (require-or-install 'projectile)
+  (projectile-mode 1))
+
 (progn ;lsp settings
   (require-or-install 'lsp-mode)
   (require-or-install 'lsp-ui)
