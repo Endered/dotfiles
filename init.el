@@ -88,7 +88,8 @@
      ("b" ; buffer
       ("l" 'next-buffer)
       ("h" 'previous-buffer)
-      ("d" 'kill-buffer))
+      ("d" 'kill-buffer)
+      ("o" 'ibuffer))
      ("o" ; online judge
       ("d" 'online-judge-download)
       ("t" 'online-judge-test)
