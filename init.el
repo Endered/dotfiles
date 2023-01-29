@@ -497,6 +497,15 @@
 
   )
 
+(progn ;java settings
+  (require-or-install 'lsp-java)
+  (add-hook 'java-mode-hook
+	    (lambda ()
+	      (setq c-basic-offset 4)
+	      (setq tab-width 4)
+	      (setq indent-tabs-mode nil)
+	      (lsp 1))))
+
 (progn ; js mode
   (add-hook 'js-mode-hook
 	    (lambda ()
