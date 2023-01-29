@@ -226,6 +226,12 @@
 
 (progn ;c++ settings
   (add-to-list 'auto-mode-alist '("\\.cpp$" . c++-mode))
+  (with-eval-after-load 'lsp-mode
+    (lsp-register-client
+     (make-lsp-client :new-connection (lsp-tramp-connection "clangd")
+		      :major-modes '(c++-mode)
+		      :remote? t
+		      :server-id 'clangd-remote)))
   (add-hook 'c++-mode-hook
 	    (lambda ()
 	      (lsp)
