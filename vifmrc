@@ -1,4 +1,5 @@
 filetype *.png eog
+filetype *.jpg eog
 filetype *.pdf zathura
 filetype *.mp4 vlc
 map ; :
