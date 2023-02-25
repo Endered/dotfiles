@@ -271,6 +271,7 @@
   (require-or-install 'slime)
   (require-or-install 'slime-company)
   (require-or-install 'paredit)
+  (setq slime-company-completion 'fuzzy)
   (add-hook 'lisp-mode-hook
 	    (lambda ()
 	      (load (expand-file-name "~/.roswell/helper.el"))
