@@ -272,6 +272,7 @@
   (require-or-install 'slime-company)
   (require-or-install 'paredit)
   (setq slime-company-completion 'fuzzy)
+
   (add-hook 'lisp-mode-hook
 	    (lambda ()
 	      (load (expand-file-name "~/.roswell/helper.el"))
@@ -535,3 +536,14 @@
   (setq custom-file "~/.emacs.d/custom.el")
   (if (file-exists-p custom-file)
       (load custom-file)))
+
+
+(setq evil-normal-state-modes
+      (append evil-emacs-state-modes
+              evil-insert-state-modes
+              evil-normal-state-modes
+              evil-motion-state-modes))
+
+(setq evil-emacs-state-modes nil)
+(setq evil-insert-state-modes nil)
+(setq evil-motion-state-modes nil)
