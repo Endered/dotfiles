@@ -1,6 +1,10 @@
 {config, pkgs, ...}:
 {
 
+  imports = [
+    ./local.nix
+  ];
+
   nixpkgs.config.allowUnfree = true;
 
   home.username = builtins.getEnv "USER";
