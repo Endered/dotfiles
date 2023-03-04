@@ -40,7 +40,7 @@
     neofetch
     direnv
     deadd-notification-center
- ];
+  ];
 
   # EDITOR
   programs.emacs = {
