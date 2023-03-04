@@ -2,7 +2,7 @@
 {
 
   imports = [
-    ./local.nix
+    ~/.config/nixpkgs/local.nix
   ];
 
   nixpkgs.config.allowUnfree = true;
