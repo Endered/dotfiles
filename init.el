@@ -275,9 +275,9 @@
 
   (add-hook 'sldb-mode-hook
 	    (lambda ()
-	      (define-key evil-normal-state-map (kbd "RET") 'sldb-default-action)
-	      (define-key evil-normal-state-map "q" 'sldb-quit)
-	      (define-key evil-normal-state-map "v" 'sldb-show-source)))
+	      (evil-define-key 'normal sldb-mode-map (kbd "RET") 'sldb-default-action)
+	      (evil-define-key 'normal sldb-mode-map "q" 'sldb-quit)
+	      (evil-define-key 'normal sldb-mode-map "v" 'sldb-show-source)))
 
   (add-hook 'lisp-mode-hook
 	    (lambda ()
