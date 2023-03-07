@@ -292,7 +292,11 @@
 		  ("e"
 		   ("d" 'slime-eval-defun)
 		   ("r" 'slime-eval-region)
-		   ("b" 'slime-eval-buffer))))))
+		   ("b" 'slime-eval-buffer))
+		  ("c"
+		   ("d" 'slime-compile-defun)
+		   ("r" 'slime-compile-region)
+		   ("f" 'slime-compile-file))))))
 	    (add-hook 'slime-mode-hook
 		      (lambda ()
 			(require 'slime-autoloads)
