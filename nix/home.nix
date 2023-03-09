@@ -54,10 +54,6 @@
     ];
   };
 
-  xresources.properties = {
-    "Xft.dpi" = 120;
-  };
-
   # bash
   programs.bash = {
     enable = true;
