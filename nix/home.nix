@@ -44,6 +44,7 @@
     neofetch
     direnv
     deadd-notification-center
+    bottom
   ];
 
   # EDITOR
