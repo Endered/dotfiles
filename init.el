@@ -315,7 +315,7 @@
 				       "(set-dispatch-macro-character
  #\\# #\\! 
 (lambda (stream character n) (declare (ignore character n)) (read-line stream nil nil t) nil))"
-				       "-L" "sbcl" "-Q" "run") :coding-system utf-8-unix)))
+				       "run") :coding-system utf-8-unix)))
 					;(load (expand-file-name "~/.roswell/helper.el"))
 			(slime-setup '(slime-fancy slime-company slime-banner slime-repl))))))
 
