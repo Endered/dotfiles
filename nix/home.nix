@@ -45,6 +45,7 @@
     direnv
     deadd-notification-center
     bottom
+    patchelf
   ];
 
   # EDITOR
