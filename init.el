@@ -325,7 +325,6 @@
   (require-or-install 'cider)
   (add-hook 'clojure-mode-hook
 	    (lambda ()
-	      (slime-mode 1)
 	      (paredit-mode 1)
 	      (define-key-tree
 		evil-normal-state-map
