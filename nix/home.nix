@@ -34,7 +34,7 @@
     libnotify
     screen
     espeak-ng
-    tigervnc
+    turbovnc
     baobab
     tmux
     wezterm
