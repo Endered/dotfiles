@@ -46,6 +46,7 @@
     deadd-notification-center
     bottom
     patchelf
+    zulip
   ];
 
   # EDITOR
