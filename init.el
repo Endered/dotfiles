@@ -117,6 +117,8 @@
      ("t" ; tab
       ("l" 'tab-bar-switch-to-next-tab)
       ("h" 'tab-bar-switch-to-prev-tab)
+      ("L" 'tab-bar-move-tab)
+      ("H" 'tab-bar-move-tab-backward)
       ("d" 'tab-bar-close-tab)
       ("n" 'tab-bar-new-tab))
      ("r" ; tab-line
