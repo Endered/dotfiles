@@ -80,6 +80,17 @@
                       xinput enable $id
                   done
                }
+
+               # Refer from https://wiki.vifm.info/index.php/How_to_set_shell_working_directory_after_leaving_Vifm
+               vicd()
+               {
+                   local dst="$(command vifm --choose-dir - "$@")"
+                       if [ -z "$dst" ]; then
+                               echo 'Directory picking cancelled/failed'
+                                       return 1
+                                           fi
+                                               cd "$dst"
+               }
                export EDITOR=nvim
                eval "$(direnv hook bash)"
     '';
