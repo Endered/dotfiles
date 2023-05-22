@@ -229,3 +229,4 @@ bindsym XF86MonBrightnessUp exec light -A 1
 
 bindsym $mod+n exec kill -s USR1 $(pidof deadd-notification-center)
 exec --no-startup-id deadd-notification-center
+exec --no-startup-id [ -e $HOME/.config/i3/local ] && bash $HOME/.config/i3/local
