@@ -49,6 +49,9 @@
   (require-or-install 'monokai-theme)
   (load-theme 'monokai t))
 
+(progn ;native comp settings
+  (setq native-comp-async-report-warnings-errors nil))
+
 (progn ;backup files settings
   (setq make-backup-files nil)
   (setq auto-save-default nil))
