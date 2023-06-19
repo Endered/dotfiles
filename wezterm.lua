@@ -39,4 +39,12 @@ return {
       -- holding input pending the result of input composition, change the cursor
       -- to this color to give a visual cue about the compose state.
     },
+
+    keys = {
+        {
+            key = " ",
+            mods = "SHIFT",
+            action = wezterm.action.SendKey { key = " ", mods = "" },
+        },
+    },
 }
