@@ -47,6 +47,8 @@
     bottom
     patchelf
     zulip
+    aspell
+    aspellDicts.en
   ];
 
   # EDITOR
