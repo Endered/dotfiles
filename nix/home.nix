@@ -1,4 +1,7 @@
 {config, pkgs, ...}:
+let
+  multi-i3status = (pkgs.callPackage ~/dotfiles/nix/multi-i3stauts.nix pkgs);
+in
 {
 
   imports = [
@@ -49,6 +52,7 @@
     zulip
     aspell
     aspellDicts.en
+    multi-i3status
   ];
 
   # EDITOR
