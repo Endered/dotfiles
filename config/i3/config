@@ -177,7 +177,7 @@ bindsym $mod+r mode "resize"
 # Start i3bar to display a workspace bar (plus the system information i3status
 # finds out, if available)
 bar {
-        status_command i3status | $HOME/bin/multi-i3status both 0 2.0
+        status_command i3status | multi-i3status both 0 2.0
         font pango:monospace 10
         position top
         separator_symbol " │ "
