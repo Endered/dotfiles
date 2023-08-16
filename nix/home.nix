@@ -67,6 +67,7 @@ in
   programs.bash = {
     enable = true;
     sessionVariables = {
+      NIX_SHELL_PRESERVE_PROMPT=1;
     };
     initExtra = ''
                if [ -e ~/dotfiles/bashrc ]; then
