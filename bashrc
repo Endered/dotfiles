@@ -135,3 +135,14 @@ _ttmux() {
 }
 
 complete -F _ttmux ttmux
+
+export PS1=''
+export PS1="$PS1"'\n\[\033[1;32m\]'
+export PS1="$PS1"'$(x=$?;[ -n "$IN_NIX_SHELL" ] && echo "(nix) ";exit $x)'
+export PS1="$PS1"'['
+export PS1="$PS1"'\[\e]0;\u@\h: \w\a\]'
+export PS1="$PS1"'\u@\h'
+export PS1="$PS1"' ($(printf %3d $?))'
+export PS1="$PS1"':\w'
+export PS1="$PS1"']'
+export PS1="$PS1"'\$\[\033[0m\] '
