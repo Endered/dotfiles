@@ -504,6 +504,14 @@
 	      (add-hook 'before-save-hook
 			'lsp-format-buffer))))
 
+
+(progn ;elm settings
+  (require-or-install 'elm-mode)
+  (add-hook 'elm-mode-hook
+	    (lambda ()
+	      (lsp))))
+
+
 (progn ;makefile settings
   (add-hook 'makefile-mode-hook (lambda ()
 				  (setq c-basic-offset 4)
