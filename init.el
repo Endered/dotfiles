@@ -85,6 +85,7 @@
 	  evil-insert-state-cursor 'bar
 	  evil-emacs-state-cursor 'hbar))
   (define-key input-decode-map "2~" [SpacE])
+  (evil-define-key 'normal compilation-mode-map "q" 'quit-window)
   (define-key-tree
     evil-normal-state-map
     ("j" 'evil-next-visual-line)
@@ -352,29 +353,29 @@
 	      (paredit-mode 1)
 	      (rainbow-delimiters-mode 1))))
 
-(progn ;markdown settings
-  (require-or-install 'flycheck)
-  (require-or-install 'add-node-modules-path)
-  (require-or-install 'markdown-mode)
-  (require-or-install 'markdown-preview-mode)
-  (require-or-install 'websocket)
-  (require-or-install 'web-server)
-  (require-or-install 'uuidgen)
-  (flycheck-define-checker textlint
-    "A linter for prose."
-    :command ("npm" "run" "textlint" "--format" "unix" source-inplace)
-    :error-patterns
-    ((warning line-start (file-name) ":" line ":" column ": "
-	      (id (one-or-more (not (any " "))))
-	      (message (one-or-more not-newline)
-		       (zero-or-more "\n" (any " ") (one-or-more not-newline)))
-	      line-end))
-    :modes (text-mode markdown-mode))
-  (add-to-list 'flycheck-checkers 'textlint)
-  (add-hook 'markdown-mode-hook (lambda ()
-				  (setq markdown-command "multimarkdown")
-				  (flycheck-mode)
-				  (add-node-modules-path))))
+ (progn ;markdown settings
+   (require-or-install 'flycheck)
+   (require-or-install 'add-node-modules-path)
+   (require-or-install 'markdown-mode)
+   (require-or-install 'markdown-preview-mode)
+   (require-or-install 'websocket)
+   (require-or-install 'web-server)
+   (require-or-install 'uuidgen)
+   (flycheck-define-checker textlint
+     "A linter for prose."
+     :command ("npx" "textlint" "--format" "unix" source-inplace)
+     :error-patterns
+     ((warning line-start (file-name) ":" line ":" column ": "
+ 	      (id (one-or-more (not (any " "))))
+ 	      (message (one-or-more not-newline)
+ 		       (zero-or-more "\n" (any " ") (one-or-more not-newline)))
+ 	      line-end))
+     :modes (text-mode markdown-mode))
+   (add-to-list 'flycheck-checkers 'textlint)
+   (add-hook 'markdown-mode-hook (lambda ()
+ 				  (setq markdown-command "multimarkdown")
+ 				  (flycheck-mode)
+ 				  (add-node-modules-path))))
 
 (progn ;tab-bar settings
   (tab-bar-mode 1)
