@@ -84,6 +84,7 @@
 	  evil-normal-state-cursor 'box
 	  evil-insert-state-cursor 'bar
 	  evil-emacs-state-cursor 'hbar))
+  (define-key input-decode-map "2~" [SpacE])
   (define-key-tree
     evil-normal-state-map
     ("j" 'evil-next-visual-line)
