@@ -75,6 +75,7 @@
   (global-undo-tree-mode)
   (evil-mode 1)
   (evil-escape-mode 1)
+  (setq evil-escape-delay 1)
   (unless (display-graphic-p)
     (etcc-on)
     (evil-terminal-cursor-changer-activate)
