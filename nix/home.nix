@@ -13,6 +13,8 @@ in
   home.username = builtins.getEnv "USER";
   home.homeDirectory = builtins.getEnv "HOME";
 
+  services.picom.enable = true;
+
 
   home.packages = with pkgs; [
     gcc
@@ -58,6 +60,7 @@ in
   # EDITOR
   programs.emacs = {
     enable = true;
+    package = pkgs.emacs29;
     extraPackages = epkgs: [
       epkgs.vterm
     ];
