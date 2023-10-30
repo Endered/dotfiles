@@ -1,6 +1,6 @@
-filetype *.png eog
-filetype *.jpg eog
-filetype *.jpeg eog
-filetype *.pdf zathura
-filetype *.mp4 vlc
+filetype *.png nohup eog %f > /dev/null 2>&1 &
+filetype *.jpg nohup eog %f > /dev/null 2>&1 &
+filetype *.jpeg nohup eog %f > /dev/null 2>&1 &
+filetype *.pdf nohup zathura %f > /dev/null 2>&1 &
+filetype *.mp4 nohup vlc %f > /dev/null 2>&1 &
 map ; :
