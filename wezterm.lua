@@ -8,6 +8,11 @@ return {
     check_for_updates = false,
     harfbuzz_features = { 'calt=0', 'clig=0', 'liga=0' },
 
+    font = wezterm.font_with_fallback {
+        'JetBrains Mono',
+        'Noto Sans CJK JP',
+    },
+
     color_scheme = 'Monokai (base16)',
     -- https://github.com/oneKelvinSmith/monokai-emacs
     -- reference
