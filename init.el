@@ -248,6 +248,11 @@
 		    indent-tabs-mode nil
 		    lsp-enable-indentation nil))))
 
+(progn ;cmake settings
+  (require-or-install 'cmake-mode)
+  (add-to-list 'auto-mode-alist '("CMakeLists\\.txt$" . cmake-mode))
+  (add-to-list 'auto-mode-alist '("\\.cmake$" . cmake-mode)))
+
 (progn ;C# settings
   (require-or-install 'csharp-mode)
   (add-to-list 'auto-mode-alist '("\\.cs$" . csharp-mode))
