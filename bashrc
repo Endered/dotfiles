@@ -1,5 +1,7 @@
 #!/bin/bash
 
+[[ $TERM == "dumb" ]] && return
+
 export PATH=$PATH:~/bin/
 export PATH=$PATH:~/.dotnet/
 export PATH=~/.local/bin/:$PATH
