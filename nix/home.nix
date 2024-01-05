@@ -5,7 +5,7 @@ in
 {
 
   imports = [
-    ~/.config/nixpkgs/local.nix
+    ~/.config/home-manager/local.nix
   ];
 
   nixpkgs.config.allowUnfree = true;
