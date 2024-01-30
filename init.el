@@ -158,7 +158,11 @@
   (setq-default truncate-lines nil)
   (add-hook 'vterm-mode-hook
 	    (lambda ()
-	      (evil-define-key 'normal vterm-mode-map "p" 'vterm-yank)
+	      (evil-define-key 'normal vterm-mode-map "p"
+		(lambda ()
+		  (interactive)
+		  (vterm-end-of-line)
+		  (vterm-yank)))
 	      (define-key vterm-mode-map "\C-c\C-d" 'vterm-send-C-d)
 	      (define-key vterm-mode-map "\C-c\C-a" 'vterm-send-C-a))))
 
