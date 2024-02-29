@@ -8,7 +8,8 @@
 	("gnu" . "https://elpa.gnu.org/packages/")))
 (package-initialize)
 
-(defmacro define-key-tree (keymap &rest body)
+
+(defmacro apply-define-key-tree (op &rest body)
   (labels ((rec (node)
 		(let ((key (car node))
 		      (rem (cdr node)))
@@ -21,8 +22,17 @@
     `(progn ,@(mapcar (lambda (def)
 			(let ((key (car def))
 			      (fun (cdr def)))
-			  `(define-key ,keymap ,key ',fun)))
+			  `(,@op ,key ',fun)))
 		      (mapcan #'rec body)))))
+
+(defmacro define-key-tree (keymap &rest body)
+  `(apply-define-key-tree (define-key ,keymap) ,@body))
+
+(defmacro evil-define-key-tree (state keymap &rest body)
+  `(apply-define-key-tree (evil-define-key ,state ,keymap) ,@body))
+
+(defmacro evil-local-set-key-tree (state &rest body)
+  `(apply-define-key-tree (evil-local-set-key ,state) ,@body))
 
 (defmacro aif (expr then &optional else)
   `(let ((it ,expr))
@@ -181,19 +191,27 @@
 	    (lambda ()
 	      (lsp-ui-mode 1)
 	      (yas-minor-mode 1)
-	      (define-key-tree
-		evil-normal-state-map
-		(" "
-		 ("l"
-		  ("d" 'lsp-describe-thing-at-point)))
-		("g"
-		 ("d" 'xref-find-definitions)))
+	      (evil-local-set-key-tree
+	       'normal
+	       (" "
+		("l"
+		 ("r" 'lsp-ui-peek-find-references)
+		 ("v" 'lsp-describe-thing-at-point)))
+	       ("g"
+		("d" 'xref-find-definitions)))
 	      (setq lsp-prefer-capf t)
 	      (setq read-process-output-max (* 1024 1024))
 	      (setq lsp-idle-delay 0.1)))
   (add-hook 'lsp-ui-mode-hook
 	    (lambda ()
 	      (setq lsp-ui-doc-show-with-cursor t)))
+  (add-hook 'lsp-ui-peek-mode-hook
+	    (lambda ()
+	      (define-key-tree
+	       lsp-ui-peek-mode-map
+	       ("j" 'lsp-ui-peek--select-next)
+	       ("k" 'lsp-ui-peek--select-prev)
+	       (" " 'lsp-ui-peek--toggle-file))))
   (add-hook 'lsp-treemacs-generic-mode-hook
 	    (lambda ()
 	      (evil-define-key 'normal lsp-treemacs-generic-map (kbd "TAB") 'treemacs-TAB-action)))
