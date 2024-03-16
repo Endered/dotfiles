@@ -610,4 +610,22 @@
 
 (progn ;; ripgrep settings
   (require-or-install 'rg)
-  )
+  (define-key-tree
+   evil-normal-state-map
+   (" "
+    ("s"
+     ("r" 'rg)
+     ("l" 'rg-literal))))
+  (add-hook 'rg-mode-hook
+	    (lambda ()
+	      (message "HELLO")
+	      (evil-define-key-tree
+	       'normal
+	       rg-mode-map
+	       ("j" 'compilation-next-error)
+	       ("k" 'compilation-previous-error)
+	       ("i" 'rg-rerun-toggle-ignore)
+	       ("c" 'rg-rerun-toggle-case)
+	       ("q" 'quit-window)
+	       ("n" 'next-error-no-select)
+	       ("p" 'previous-error-no-select)))))
