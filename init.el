@@ -607,3 +607,7 @@
 (setq evil-emacs-state-modes nil)
 (setq evil-insert-state-modes nil)
 (setq evil-motion-state-modes nil)
+
+(progn ;; ripgrep settings
+  (require-or-install 'rg)
+  )
