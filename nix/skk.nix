@@ -3,8 +3,8 @@ let
   skk-emoticon-from-mozc = import (pkgs.fetchFromGitHub {
     owner = "Endered";
     repo = "skk-emoticon-from-mozc";
-    rev = "b3345dea1295119ac0b97bc8a4029628f2693d93";
-    sha256 = "sha256-l0IZYztvGhevh+tH+kEBjLXyE4wOWptoblwhCS1MdIY=";
+    rev = "b04f5c584ead861dac76c2f4adb539bf133eda82";
+    sha256 = "sha256-b1XBhk9mzAVbxuy9nYsh6Gp5CQ36CE4BLUP1BKT9W6c=";
   }) {};
   home = builtins.getEnv "HOME";
 in
