@@ -6,6 +6,7 @@ in
 
   imports = [
     ~/.config/home-manager/local.nix
+    ~/dotfiles/nix/skk.nix
   ];
 
   nixpkgs.config.allowUnfree = true;
