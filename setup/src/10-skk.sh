@@ -29,6 +29,7 @@ EOF
 
 
 cp $HOME/dotfiles/config/fcitx5/conf//skk.conf $HOME/.config/fcitx5/conf/skk.conf
+cp -r $HOME/dotfiles/config/libskk $HOME/libskk
 
 popd
 rm -rf $tmpdir

@@ -32,5 +32,8 @@ in
     ".config/fcitx5/conf/skk.conf" = {
       source = ~/dotfiles/config/fcitx5/conf/skk.conf;
     };
+    ".config/libskk" = {
+      source = ~/dotfiles/config/libskk;
+    };
   };
 }
