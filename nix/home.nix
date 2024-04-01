@@ -7,6 +7,9 @@ in
   imports = [
     ~/.config/home-manager/local.nix
     ~/dotfiles/nix/skk.nix
+    ~/dotfiles/nix/environments/cpp.nix
+    ~/dotfiles/nix/environments/rust.nix
+    ~/dotfiles/nix/environments/latex.nix
   ];
 
   nixpkgs.config.allowUnfree = true;
@@ -18,11 +21,7 @@ in
 
 
   home.packages = with pkgs; [
-    gcc
-    gnumake
     libtool
-    cmake
-    glib
     slack
     neovim
     python310
