@@ -6,10 +6,10 @@ in
 
   imports = [
     ~/.config/home-manager/local.nix
-    ~/dotfiles/nix/skk.nix
     ~/dotfiles/nix/environments/cpp.nix
     ~/dotfiles/nix/environments/rust.nix
     ~/dotfiles/nix/environments/latex.nix
+    ~/dotfiles/nix/environments/skk.nix
   ];
 
   nixpkgs.config.allowUnfree = true;
