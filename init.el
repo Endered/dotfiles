@@ -629,3 +629,15 @@
 	       ("q" 'quit-window)
 	       ("n" 'next-error-no-select)
 	       ("p" 'previous-error-no-select)))))
+
+(progn;
+  (load "~/.emacs.d/lisp/satysfi.el")
+  (require 'satysfi)
+  (setq satysfi-command "satysfi")
+  (setq satysfi-pdf-viewer-command "zathura")
+  (require 'lsp)
+  (add-to-list 'lsp-language-id-configuration '(satysfi-mode . "satysfi"))
+  (lsp-register-client
+   (make-lsp-client :new-connection (lsp-stdio-connection "satysfi-language-server")
+		    :activation-fn (lsp-activate-on "satysfi")
+		    :server-id 'satysfi-language-server)))

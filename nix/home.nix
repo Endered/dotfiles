@@ -10,6 +10,7 @@ in
     ~/dotfiles/nix/environments/rust.nix
     ~/dotfiles/nix/environments/latex.nix
     ~/dotfiles/nix/environments/skk.nix
+    ~/dotfiles/nix/environments/satysfi.nix
   ];
 
   nixpkgs.config.allowUnfree = true;
