@@ -25,7 +25,7 @@ in
 {
   home.packages = [
     satysfi-language-server
-    satysfi
+    pkgs.satysfi
   ];
 
   home.file = {
