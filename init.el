@@ -328,18 +328,19 @@
 	      (slime-mode 1)
 	      (paredit-mode 1)
 	      (define-key evil-normal-state-map "gd" 'slime-edit-definition)
-	      (define-key-tree
-		evil-normal-state-map
-		(" "
-		 ("l"
-		  ("e"
-		   ("d" 'slime-eval-defun)
-		   ("r" 'slime-eval-region)
-		   ("b" 'slime-eval-buffer))
-		  ("c"
-		   ("d" 'slime-compile-defun)
-		   ("r" 'slime-compile-region)
-		   ("f" 'slime-compile-file))))))
+	      (evil-define-key-tree
+	       'normal
+	       lisp-mode-map
+	       (" "
+		("l"
+		 ("e"
+		  ("d" 'slime-eval-defun)
+		  ("r" 'slime-eval-region)
+		  ("b" 'slime-eval-buffer))
+		 ("c"
+		  ("d" 'slime-compile-defun)
+		  ("r" 'slime-compile-region)
+		  ("f" 'slime-compile-file))))))
 	    (add-hook 'slime-mode-hook
 		      (lambda ()
 			(require 'slime-autoloads)
