@@ -195,6 +195,8 @@
 	       'normal
 	       (" "
 		("l"
+		 ("s" 'lsp)
+		 ("f" 'lsp-format-buffer)
 		 ("r" 'lsp-ui-peek-find-references)
 		 ("v" 'lsp-describe-thing-at-point)))
 	       ("g"
