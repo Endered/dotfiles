@@ -630,13 +630,21 @@
 	       ("n" 'next-error-no-select)
 	       ("p" 'previous-error-no-select)))))
 
-(progn;
+(progn ;; SATySFi
   (load "~/.emacs.d/lisp/satysfi.el")
   (require 'satysfi)
   (setq satysfi-command "satysfi")
   (setq satysfi-pdf-viewer-command "zathura")
   (require 'lsp)
   (add-to-list 'lsp-language-id-configuration '(satysfi-mode . "satysfi"))
+  (add-to-list 'display-buffer-alist '("*Async Shell Command*" display-buffer-no-window (nil)))
+  (evil-define-key-tree
+   'normal
+   satysfi-mode-map
+   (" "
+    ("s"; satysfi
+     ("t" 'satysfi-mode/typeset)
+     ("o" 'satysfi-mode/open-pdf))))
   (lsp-register-client
    (make-lsp-client :new-connection (lsp-stdio-connection "satysfi-language-server")
 		    :activation-fn (lsp-activate-on "satysfi")
