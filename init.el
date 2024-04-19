@@ -187,6 +187,11 @@
   (require-or-install 'flycheck)
   (require-or-install 'yasnippet)
   (setq lsp-ui-sideline-show-hover t) ; show document in hover
+  (define-key-tree
+   evil-normal-state-map
+   (" "
+    ("m" ;mode
+     ("l" 'lsp))))
   (add-hook 'lsp-mode-hook
 	    (lambda ()
 	      (lsp-ui-mode 1)
@@ -195,7 +200,6 @@
 	       'normal
 	       (" "
 		("l"
-		 ("s" 'lsp)
 		 ("f" 'lsp-format-buffer)
 		 ("r" 'lsp-ui-peek-find-references)
 		 ("v" 'lsp-describe-thing-at-point)))
