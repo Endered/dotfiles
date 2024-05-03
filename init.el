@@ -283,7 +283,6 @@
   (add-to-list 'auto-mode-alist '("\\.cmake$" . cmake-mode)))
 
 (progn ;C# settings
-  (require-or-install 'csharp-mode)
   (add-to-list 'auto-mode-alist '("\\.cs$" . csharp-mode))
   (add-hook 'csharp-mode-hook
 	    (lambda ()
