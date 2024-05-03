@@ -51,7 +51,8 @@
 
 (defun require-or-install (package)
   (unless (package-installed-p package)
-    (refresh-and-package-install package)))
+    (refresh-and-package-install package))
+  (require package))
 
 
 
@@ -470,10 +471,7 @@
   (require-or-install 'lsp-haskell)
   (add-to-list 'auto-mode-alist '("\\.hs$" . haskell-mode))
   (add-to-list 'auto-mode-alist '("\\.lhs$" . haskell-mode))
-  (add-to-list 'auto-mode-alist '("\\.cable$" . haskell-mode))
-  (add-hook 'haskell-mode-hook
-	    (lambda ()
-	      (lsp 1))))
+  (add-to-list 'auto-mode-alist '("\\.cable$" . haskell-mode)))
 
 (progn ;matlab settings
   (require-or-install 'ein)
