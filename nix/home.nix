@@ -11,6 +11,7 @@ in
     ~/dotfiles/nix/environments/latex.nix
     ~/dotfiles/nix/environments/skk.nix
     ~/dotfiles/nix/environments/satysfi.nix
+    ~/dotfiles/nix/environments/haskell.nix
   ];
 
   nixpkgs.config.allowUnfree = true;
