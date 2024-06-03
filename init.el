@@ -317,7 +317,7 @@
   (defun slime-qlot-exec (directory)
     (interactive (list (read-directory-name "Project directory: ")))
     (slime-start :program "qlot"
-		 :program-args '("exec" "ros" "-S" "." "run")
+		 :program-args '("exec" "sbcl")
 		 :directory directory
 		 :name 'qlot
 		 :env (list (concat "PATH=" (mapconcat 'identity exec-path ":")))))
@@ -330,7 +330,6 @@
 
   (add-hook 'lisp-mode-hook
 	    (lambda ()
-	      (load (expand-file-name "~/.roswell/helper.el"))
 	      (slime-mode 1)
 	      (paredit-mode 1)
 	      (define-key evil-normal-state-map "gd" 'slime-edit-definition)
@@ -352,7 +351,7 @@
 			(require 'slime-autoloads)
 			(setq slime-default-lisp 'sbcl)
 			(setq slime-lisp-implementations
-			      '((sbcl ("ros"
+			      '((sbcl ("sbcl"
 				       "-e" ; ignore shebang
 				       "(set-dispatch-macro-character
  #\\# #\\! 
