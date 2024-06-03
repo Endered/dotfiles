@@ -19,9 +19,6 @@ in
   home.username = builtins.getEnv "USER";
   home.homeDirectory = builtins.getEnv "HOME";
 
-  services.picom.enable = true;
-
-
   home.packages = with pkgs; [
     libtool
     slack
