@@ -54,6 +54,10 @@
     (refresh-and-package-install package))
   (require package))
 
+(defun only-install (package)
+  (unless (package-installed-p package)
+    (refresh-and-package-install package)))
+
 
 
 (progn ;theme settings
@@ -310,9 +314,12 @@
 
 (progn ;common-lisp settings
   (require-or-install 'slime)
-  (require-or-install 'slime-company)
+  (require-or-install 'company)
+  (only-install 'slime-company)
   (require-or-install 'paredit)
+  (require 'slime-autoloads)
   (setq slime-company-completion 'fuzzy)
+  (slime-setup '(slime-fancy slime-company slime-repl))
 
   (defun slime-qlot-exec (directory)
     (interactive (list (read-directory-name "Project directory: ")))
@@ -328,11 +335,15 @@
 	      (evil-define-key 'normal sldb-mode-map "q" 'sldb-quit)
 	      (evil-define-key 'normal sldb-mode-map "v" 'sldb-show-source)))
 
+  (add-hook 'slime-mode-hook
+	    (lambda ()
+	      (slime-setup '(slime-fancy slime-company))
+	      (evil-define-key 'normal lisp-mode-map "gd" 'slime-edit-definition)))
+
   (add-hook 'lisp-mode-hook
 	    (lambda ()
-	      (slime-mode 1)
 	      (paredit-mode 1)
-	      (define-key evil-normal-state-map "gd" 'slime-edit-definition)
+	      (setq inferior-lisp-program "sbcl")
 	      (evil-define-key-tree
 	       'normal
 	       lisp-mode-map
@@ -345,20 +356,7 @@
 		 ("c"
 		  ("d" 'slime-compile-defun)
 		  ("r" 'slime-compile-region)
-		  ("f" 'slime-compile-file))))))
-	    (add-hook 'slime-mode-hook
-		      (lambda ()
-			(require 'slime-autoloads)
-			(setq slime-default-lisp 'sbcl)
-			(setq slime-lisp-implementations
-			      '((sbcl ("sbcl"
-				       "-e" ; ignore shebang
-				       "(set-dispatch-macro-character
- #\\# #\\! 
-(lambda (stream character n) (declare (ignore character n)) (read-line stream nil nil t) nil))"
-				       "run") :coding-system utf-8-unix)))
-					;(load (expand-file-name "~/.roswell/helper.el"))
-			(slime-setup '(slime-fancy slime-company slime-banner slime-repl))))))
+		  ("f" 'slime-compile-file))))))))
 
 
 (progn ;clojure settings
