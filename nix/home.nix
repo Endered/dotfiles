@@ -60,6 +60,7 @@ in
     multi-i3status
     ripgrep
     fd
+    imagemagick
   ];
 
   # EDITOR
