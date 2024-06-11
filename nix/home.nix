@@ -77,6 +77,10 @@ in
                if [ -e ~/dotfiles/bashrc ]; then
                  source ~/dotfiles/bashrc
                fi
+
+               if [ -e ~/.bashrc_local ]; then
+                 source ~/.bashrc_local
+               fi
                
                # disable middle mouse pointer
                function disable_embedded(){
