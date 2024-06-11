@@ -12,6 +12,7 @@ in
     ~/dotfiles/nix/environments/skk.nix
     ~/dotfiles/nix/environments/satysfi.nix
     ~/dotfiles/nix/environments/haskell.nix
+    ~/dotfiles/nix/environments/scala.nix
   ];
 
   nixpkgs.config.allowUnfree = true;
