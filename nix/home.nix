@@ -13,6 +13,7 @@ in
     ~/dotfiles/nix/environments/satysfi.nix
     ~/dotfiles/nix/environments/haskell.nix
     ~/dotfiles/nix/environments/scala.nix
+    ~/dotfiles/nix/environments/python.nix
   ];
 
   nixpkgs.config.allowUnfree = true;
@@ -24,7 +25,6 @@ in
     libtool
     slack
     neovim
-    python310
     xsel
     xclip
     evince

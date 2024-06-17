@@ -5,6 +5,7 @@ return {
     font_size = 9.0,
     enable_tab_bar = false,
     exit_behavior = "Close",
+    front_end = "OpenGL",
     check_for_updates = false,
     harfbuzz_features = { 'calt=0', 'clig=0', 'liga=0' },
 

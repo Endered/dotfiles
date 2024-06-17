@@ -1,7 +1,19 @@
-{ pkgs, ... }:
+{ config, lib, pkgs, ... }:
+let
+  cfg = config.my-settings.latex;
+in
 {
-  home.packages = with pkgs; [
-    texlive.combined.scheme-full
-    texlab
-  ];
+  options.my-settings.latex = {
+    disable = lib.mkOption {
+      default = false;
+      type = lib.types.bool;
+    };
+  };
+
+  config = lib.mkIf (!cfg.disable) {
+    home.packages = with pkgs; [
+      texlive.combined.scheme-full
+      texlab
+    ];
+  };
 }

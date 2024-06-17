@@ -1,11 +1,11 @@
-{ lib, pkgs, ... }:
+{ config, lib, pkgs, ... }:
 let
   satysfi-language-server-source = pkgs.fetchFromGitHub {
-      owner = "monaqa";
-      repo = "satysfi-language-server";
-      rev = "1ce6bc4d08eb748aeb10f69498e4a16f01978535";
-      sha256 = "sha256-4EmLDsCrJXzQb72JrGGPR7+gAQKcniVGrBnrl9JanBs=";
-    };
+    owner = "monaqa";
+    repo = "satysfi-language-server";
+    rev = "1ce6bc4d08eb748aeb10f69498e4a16f01978535";
+    sha256 = "sha256-4EmLDsCrJXzQb72JrGGPR7+gAQKcniVGrBnrl9JanBs=";
+  };
   satysfi-language-server = pkgs.rustPlatform.buildRustPackage rec {
     name = "satysfi-language-server";
     src = satysfi-language-server-source;
@@ -21,18 +21,29 @@ let
       ./satysfi/cargo.patch
     ];
   };
+  cfg = config.my-settings.satysfi;
 in
 {
-  home.packages = [
-    satysfi-language-server
-    pkgs.satysfi
-  ];
+  options.my-settings.satysfi = {
+    disable = lib.mkOption {
+      default = false;
+      type = lib.types.bool;
+    };
+  };
 
-  home.file = {
-    ".emacs.d/lisp/satysfi.el" = {
-      source = pkgs.fetchurl {
-        url = "https://raw.githubusercontent.com/gfngfn/satysfi.el/master/satysfi.el";
-        hash = "sha256-sIbxA0V06YvakigcoB0GocOtzUqliNbeZlV6REhZwkg=";
+  config =  {
+    home.packages = lib.mkIf (!cfg.disable) [
+      
+      satysfi-language-server
+      pkgs.satysfi
+    ];
+    # for avoid the error on emacs, set an elisp file even if disabled.
+    home.file = {
+      ".emacs.d/lisp/satysfi.el" = {
+        source = pkgs.fetchurl {
+          url = "https://raw.githubusercontent.com/gfngfn/satysfi.el/master/satysfi.el";
+          hash = "sha256-sIbxA0V06YvakigcoB0GocOtzUqliNbeZlV6REhZwkg=";
+        };
       };
     };
   };
