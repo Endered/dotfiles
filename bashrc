@@ -57,7 +57,7 @@ function cd(){
     # cdコマンド引数なしのときにホームディレクトリに移されるの嫌じゃない？
     # 私は嫌です
     command cd "$*"
-    ls
+    command ls --color
 }
 
 function ojd(){
