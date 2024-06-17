@@ -15,6 +15,7 @@ in
     ~/dotfiles/nix/environments/scala.nix
     ~/dotfiles/nix/environments/python.nix
     ~/dotfiles/nix/environments/wezterm.nix
+    ~/dotfiles/nix/environments/xresources.nix
   ];
 
   nixpkgs.config.allowUnfree = true;
