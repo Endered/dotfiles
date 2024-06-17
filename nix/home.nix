@@ -14,6 +14,7 @@ in
     ~/dotfiles/nix/environments/haskell.nix
     ~/dotfiles/nix/environments/scala.nix
     ~/dotfiles/nix/environments/python.nix
+    ~/dotfiles/nix/environments/wezterm.nix
   ];
 
   nixpkgs.config.allowUnfree = true;
@@ -42,7 +43,6 @@ in
     turbovnc
     baobab
     tmux
-    wezterm
     vifm
     vlc
     translate-shell
@@ -141,9 +141,6 @@ in
       text = ''
              (load "~/dotfiles/init.el")
 '';
-    };
-    ".wezterm.lua" = {
-      source = ~/dotfiles/wezterm.lua;
     };
     ".vifm/vifmrc" = {
       source = ~/dotfiles/vifmrc;
