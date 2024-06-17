@@ -10,7 +10,7 @@ in
     };
 
     dpi = lib.mkOption {
-      default = 96;
+      default = 120;
       type = lib.types.number;
     };
   };
