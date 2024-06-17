@@ -53,6 +53,7 @@ function temacs(){
 }
 
 
+alias ls='ls --color'
 function cd(){
     # cdコマンド引数なしのときにホームディレクトリに移されるの嫌じゃない？
     # 私は嫌です
