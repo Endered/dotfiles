@@ -180,5 +180,9 @@ in
     };
   };
 
+  home.sessionPath = [
+    (builtins.getEnv "HOME" + "/bin")
+  ];
+
   programs.home-manager.enable = true;
 }
