@@ -139,6 +139,12 @@ _ttmux() {
 
 complete -F _ttmux ttmux
 
+function refresh() {
+    if [ "$TMUX" != "" ]; then
+        export $(tmux show-environment | grep '^DISPLAY')
+    fi
+}
+
 export PS1=''
 export PS1="$PS1"'\n\[\033[1;32m\]'
 export PS1="$PS1"'$(x=$?;[ -n "$IN_NIX_SHELL" ] && echo "(nix) ";exit $x)'
