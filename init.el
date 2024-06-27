@@ -650,3 +650,13 @@
    (make-lsp-client :new-connection (lsp-stdio-connection "satysfi-language-server")
 		    :activation-fn (lsp-activate-on "satysfi")
 		    :server-id 'satysfi-language-server)))
+
+
+
+(progn ; tmux
+  (defun refresh-environment-variable ()
+    (interactive)
+    (when (getenv "TMUX")
+      (let ((display (string-trim (shell-command-to-string "tmux show-environment | grep '^DISPLAY' | sed -e 's/^.*=//'"))))
+	(unless (string-equal display "")
+	  (setenv "DISPLAY" display))))))
