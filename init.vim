@@ -1,5 +1,7 @@
 let mapleader = "\<Space>"
 
+set termguicolors
+
 syntax enable
 filetype indent plugin on
 
