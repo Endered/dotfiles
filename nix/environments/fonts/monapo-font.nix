@@ -6,7 +6,7 @@ let
   };
 in
 pkgs.stdenv.mkDerivation {
-  pname = "monapo-font";
+  name = "monapo-font";
   phases = [ "buildPhase" "installPhase" ];
 
   nativeBuildInputs = with pkgs; [
