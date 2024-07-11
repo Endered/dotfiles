@@ -16,6 +16,7 @@ in
     ~/dotfiles/nix/environments/python.nix
     ~/dotfiles/nix/environments/wezterm.nix
     ~/dotfiles/nix/environments/xresources.nix
+    ~/dotfiles/nix/environments/fonts.nix
   ];
 
   nixpkgs.config.allowUnfree = true;
