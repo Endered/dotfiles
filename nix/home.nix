@@ -17,6 +17,7 @@ in
     ~/dotfiles/nix/environments/wezterm.nix
     ~/dotfiles/nix/environments/xresources.nix
     ~/dotfiles/nix/environments/fonts.nix
+    ~/dotfiles/nix/environments/senbura.nix
   ];
 
   nixpkgs.config.allowUnfree = true;
