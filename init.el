@@ -147,7 +147,10 @@
       ("h" 'tab-line-switch-to-prev-tab))
      ("f" ; file
       ("t" 'neotree))
-     (" " 'execute-extended-command))
+     (" " 'execute-extended-command)
+     ("c" ; compile
+      ("m" 'compile);make
+      ))
     (";" 'evil-ex)))
 
 
