@@ -59,6 +59,7 @@ in
     aspellDicts.en
     multi-i3status
     ripgrep
+    fd
   ];
 
   # EDITOR
