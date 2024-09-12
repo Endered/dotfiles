@@ -145,6 +145,8 @@ function refresh() {
     fi
 }
 
+alias rf=fd
+
 export PS1=''
 export PS1="$PS1"'\n\[\033[1;32m\]'
 export PS1="$PS1"'$(x=$?;[ -n "$IN_NIX_SHELL" ] && echo "(nix) ";exit $x)'
