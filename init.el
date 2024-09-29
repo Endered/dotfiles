@@ -191,14 +191,6 @@
   (projectile-mode 1))
 
 (progn ;lsp settings
-  (require 'eglot)
-  (define-key-tree
-   evil-normal-state-map
-   (" "
-    ("m" ;mode
-     ("l" 'eglot)
-     ("g" 'magit-status))))
-
   (evil-define-key-tree
    'normal
    eglot-mode-map
@@ -206,7 +198,12 @@
     ("l"
      ("f" 'eglot-format-buffer)
      ("r" 'eglot-rename)
-     ("v" 'eldoc-doc-buffer)))))
+     ("v" 'eldoc-doc-buffer))))
+  (define-key-tree
+   evil-normal-state-map
+   (" "
+    ("m" ;mode
+     ("l" 'eglot)))))
 
 (progn ;company settings
   (require-or-install 'company)
@@ -230,7 +227,6 @@
 	      (define-key evil-insert-state-map "\C-p" 'company-select-previous)
 	      (define-key evil-insert-state-map "\C-n" 'company-select-next)
 	      (define-key evil-insert-state-map "\C-p" 'company-select-previous)
-	      (setq rust-format-on-save t)
 	      (define-key-tree
 		evil-normal-state-map
 		(" "
@@ -436,7 +432,12 @@
 (progn ;git settings
   (require-or-install 'magit)
   (setenv "GIT_EDITOR" "emacs")
-  (add-hook 'shell-mode-hook 'with-editor-export-git-editor))
+  (add-hook 'shell-mode-hook 'with-editor-export-git-editor)
+  (define-key-tree
+   evil-normal-state-map
+   (" "
+    ("m" ;mode
+     ("g" 'magit-status)))))
 
 (progn ;sql settings
   (add-hook 'sql-mode-hook
