@@ -150,7 +150,9 @@
      (" " 'execute-extended-command)
      ("c" ; compile
       ("m" 'compile);make
-      ))
+      )
+     ("g" ; go (move)
+      ("r" 'xref-find-references)))
     (";" 'evil-ex)))
 
 
@@ -189,50 +191,22 @@
   (projectile-mode 1))
 
 (progn ;lsp settings
-  (require-or-install 'lsp-mode)
-  (require-or-install 'lsp-ui)
-  (require-or-install 'lsp-metals)
-  (require-or-install 'flycheck)
-  (require-or-install 'yasnippet)
-  (setq lsp-ui-sideline-show-hover t) ; show document in hover
+  (require 'eglot)
   (define-key-tree
    evil-normal-state-map
    (" "
     ("m" ;mode
-     ("l" 'lsp))))
-  (add-hook 'lsp-mode-hook
-	    (lambda ()
-	      (lsp-ui-mode 1)
-	      (yas-minor-mode 1)
-	      (evil-local-set-key-tree
-	       'normal
-	       (" "
-		("l"
-		 ("f" 'lsp-format-buffer)
-		 ("r" 'lsp-ui-peek-find-references)
-		 ("v" 'lsp-describe-thing-at-point)))
-	       ("g"
-		("d" 'xref-find-definitions)))
-	      (setq lsp-prefer-capf t)
-	      (setq read-process-output-max (* 1024 1024))
-	      (setq lsp-idle-delay 0.1)))
-  (add-hook 'lsp-ui-mode-hook
-	    (lambda ()
-	      (setq lsp-ui-doc-show-with-cursor t)))
-  (add-hook 'lsp-ui-peek-mode-hook
-	    (lambda ()
-	      (define-key-tree
-	       lsp-ui-peek-mode-map
-	       ("j" 'lsp-ui-peek--select-next)
-	       ("k" 'lsp-ui-peek--select-prev)
-	       (" " 'lsp-ui-peek--toggle-file))))
-  (add-hook 'lsp-treemacs-generic-mode-hook
-	    (lambda ()
-	      (evil-define-key 'normal lsp-treemacs-generic-map (kbd "TAB") 'treemacs-TAB-action)))
-  (add-hook 'lsp-after-apply-edits-hook
-	    (lambda (operation)
-	      (when (eq operation 'rename)
-		(save-buffer)))))
+     ("l" 'eglot)
+     ("g" 'magit-status))))
+
+  (evil-define-key-tree
+   'normal
+   eglot-mode-map
+   (" "
+    ("l"
+     ("f" 'eglot-format-buffer)
+     ("r" 'eglot-rename)
+     ("v" 'eldoc-doc-buffer)))))
 
 (progn ;company settings
   (require-or-install 'company)
@@ -251,8 +225,6 @@
   (add-to-list 'auto-mode-alist '("\\.rs$'" . rust-mode))
   (add-hook 'rust-mode-hook
 	    (lambda ()
-	      (setq lsp-rust-server 'rust-analyzer)
-	      (lsp 1)
 	      (cargo-minor-mode 1)
 	      (define-key evil-insert-state-map "\C-n" 'company-select-next)
 	      (define-key evil-insert-state-map "\C-p" 'company-select-previous)
@@ -270,35 +242,16 @@
 
 (progn ;c++ settings
   (add-to-list 'auto-mode-alist '("\\.cpp$" . c++-mode))
-  (with-eval-after-load 'lsp-mode
-    (lsp-register-client
-     (make-lsp-client :new-connection (lsp-tramp-connection "clangd")
-		      :major-modes '(c++-mode)
-		      :remote? t
-		      :server-id 'clangd-remote)))
   (add-hook 'c++-mode-hook
 	    (lambda ()
-	      (lsp)
 	      (setq tab-width 4
 		    c-basic-offset 4
-		    indent-tabs-mode nil
-		    lsp-enable-indentation nil))))
+		    indent-tabs-mode nil))))
 
 (progn ;cmake settings
   (require-or-install 'cmake-mode)
   (add-to-list 'auto-mode-alist '("CMakeLists\\.txt$" . cmake-mode))
   (add-to-list 'auto-mode-alist '("\\.cmake$" . cmake-mode)))
-
-(progn ;C# settings
-  (add-to-list 'auto-mode-alist '("\\.cs$" . csharp-mode))
-  (add-hook 'csharp-mode-hook
-	    (lambda ()
-	      (lsp)
-	      (add-hook 'before-save-hook
-			'lsp-format-buffer)
-	      (setq tab-width 4
-		    c-basic-offset 4
-		    indent-tabs-mode nil))))
 
 (progn ;paredit settings
   (require-or-install 'paredit)
@@ -467,7 +420,6 @@
 
 (progn ;haskell settings
   (require-or-install 'haskell-mode)
-  (require-or-install 'lsp-haskell)
   (add-to-list 'auto-mode-alist '("\\.hs$" . haskell-mode))
   (add-to-list 'auto-mode-alist '("\\.lhs$" . haskell-mode))
   (add-to-list 'auto-mode-alist '("\\.cable$" . haskell-mode)))
@@ -484,8 +436,7 @@
 (progn ;git settings
   (require-or-install 'magit)
   (setenv "GIT_EDITOR" "emacs")
-  (add-hook 'shell-mode-hook 'with-editor-export-git-editor)
-  (define-key evil-normal-state-map " g" 'magit-status))
+  (add-hook 'shell-mode-hook 'with-editor-export-git-editor))
 
 (progn ;sql settings
   (add-hook 'sql-mode-hook
@@ -510,12 +461,9 @@
   (add-to-list 'exec-path (expand-file-name "/usr/local/go/bin/"))
   (add-to-list 'exec-path (expand-file-name "/home/endered/go/bin/"))
   (add-hook 'go-mode-hook (lambda ()
-			    (add-hook 'before-save-hook 'lsp-format-buffer)
 			    (setq indent-tabs-mode nil)
 			    (setq c-basic-offset 4)
 			    (setq tab-width 4)
-			    (setq lsp-enable-snippet nil)
-			    (lsp 1)
 			    (setq company-transformers '(company-sort-by-backend-importance)) ;; ソート順
 			    (setq completion-ignore-case t)
 			    (setq company-dabbrev-downcase nil)
@@ -526,22 +474,16 @@
   (require-or-install 'typescript-mode)
   (add-hook 'typescript-mode-hook
 	    (lambda ()
-	      (lsp)
-	      (lsp-deferred)
 	      (setq tab-width 2
 		    c-basic-offset 2
 		    js-indent-level 2
 		    typescript-indent-level 2
 		    indent-tabs-mode nil)
-	      (add-hook 'before-save-hook
-			'lsp-format-buffer))))
+	      (add-hook 'before-save-hook))))
 
 
 (progn ;elm settings
-  (require-or-install 'elm-mode)
-  (add-hook 'elm-mode-hook
-	    (lambda ()
-	      (lsp))))
+  (require-or-install 'elm-mode))
 
 
 (progn ;makefile settings
@@ -551,31 +493,18 @@
 
 
 (progn ;scala settings
-  (require-or-install 'scala-mode)
-  (require-or-install 'lsp-metals)
-  (add-hook 'scala-mode-hook
-	  (lambda ()
-	    ;; (add-hook 'before-save-hook 'lsp-format-buffer)
-	    (lsp 1)
-	    (lsp-lens-mode 1)
-	    (setq lsp-prefer-flymake nil)
-	    (setq lsp-completion-provider :capf)))
-
-  )
+  (require-or-install 'scala-mode))
 
 (progn ;java settings
-  (require-or-install 'lsp-java)
   (add-hook 'java-mode-hook
 	    (lambda ()
 	      (setq c-basic-offset 4)
 	      (setq tab-width 4)
-	      (setq indent-tabs-mode nil)
-	      (lsp 1))))
+	      (setq indent-tabs-mode nil))))
 
 (progn ; js mode
   (add-hook 'js-mode-hook
 	    (lambda ()
-	      (lsp 1)
 	      (setq tab-width 2
 		    c-basic-offset 2
 		    js-indent-level 2
@@ -639,7 +568,7 @@
   (require 'satysfi)
   (setq satysfi-command "satysfi")
   (setq satysfi-pdf-viewer-command "zathura --fork")
-  (require 'lsp)
+  (require-or-install 'lsp-mode)
   (add-to-list 'lsp-language-id-configuration '(satysfi-mode . "satysfi"))
   (add-to-list 'display-buffer-alist '("*Async Shell Command*" display-buffer-no-window (nil)))
   (evil-define-key-tree
