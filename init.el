@@ -191,6 +191,10 @@
   (projectile-mode 1))
 
 (progn ;lsp settings
+  (require 'flymake)
+  (set-face-attribute 'flymake-error nil :underline `(:color "red"))
+  (set-face-attribute 'flymake-warning nil :underline `(:color "yellow"))
+  'flymake-warning
   (evil-define-key-tree
    'normal
    eglot-mode-map
