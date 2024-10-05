@@ -18,6 +18,8 @@ in
     ~/dotfiles/nix/environments/xresources.nix
     ~/dotfiles/nix/environments/fonts.nix
     ~/dotfiles/nix/environments/senbura.nix
+    ~/dotfiles/nix/environments/lua.nix
+    ~/dotfiles/nix/environments/distant.nix
   ];
 
   nixpkgs.config.allowUnfree = true;
@@ -133,14 +135,20 @@ in
     ".vimrc" = {
       source = ~/dotfiles/vimrc;
     };
-    ".config/nvim/init.vim" = {
-      source = ~/dotfiles/init.vim;
+    ".config/nvim/init.lua" = {
+      source = ~/dotfiles/config/nvim/init.lua;
     };
-    ".config/nvim/dein.toml" = {
-      source = ~/dotfiles/dein.toml;
+    ".config/nvim/lua/config/lazy.lua" = {
+      source = ~/dotfiles/config/nvim/lua/config/lazy.lua;
     };
-    ".config/nvim/dein_lazy.toml" = {
-      source = ~/dotfiles/dein_lazy.toml;
+    ".config/nvim/lua/plugins/color-scheme.lua" = {
+      source = ~/dotfiles/config/nvim/lua/plugins/color-scheme.lua;
+    };
+    ".config/nvim/lua/plugins/lsp.lua" = {
+      source = ~/dotfiles/config/nvim/lua/plugins/lsp.lua;
+    };
+    ".config/nvim/lua/plugins/file-tree.lua" = {
+      source = ~/dotfiles/config/nvim/lua/plugins/file-tree.lua;
     };
     ".emacs.d/init.el" = {
       text = ''
