@@ -5,3 +5,4 @@ filetype *.pdf nohup zathura %f > /dev/null 2>&1 &
 filetype *.mp4 nohup vlc %f > /dev/null 2>&1 &
 filetype *.mp3 nohup vlc %f > /dev/null 2>&1 &
 map ; :
+set vicmd=nvim
