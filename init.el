@@ -609,9 +609,8 @@
   (add-hook
    'tex-mode-hook
    (lambda ()
-     (evil-define-key-tree
+     (evil-local-set-key-tree
       'normal
-      tex-mode-map
       (" "
        ("l"
 	("c" 'compile)
