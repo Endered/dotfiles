@@ -597,3 +597,22 @@
       (let ((display (string-trim (shell-command-to-string "tmux show-environment | grep '^DISPLAY' | sed -e 's/^.*=//'"))))
 	(unless (string-equal display "")
 	  (setenv "DISPLAY" display))))))
+
+(progn ; compile
+  (add-hook
+   'compilation-start-hook
+   (lambda (proc)
+     (switch-to-buffer-other-frame "*compilation*"))))
+
+(progn ; LaTeX
+  (require 'tex-mode)
+  (add-hook
+   'tex-mode-hook
+   (lambda ()
+     (evil-define-key-tree
+      'normal
+      tex-mode-map
+      (" "
+       ("l"
+	("c" 'compile)
+	("r" 'recompile)))))))
