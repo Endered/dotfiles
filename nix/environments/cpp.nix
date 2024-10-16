@@ -17,6 +17,7 @@ in
       cmake
       glib
       clang-tools
+      cmake-language-server
     ];
   };
 }
