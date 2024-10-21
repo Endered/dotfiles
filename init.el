@@ -224,6 +224,9 @@
   (require-or-install 'cargo)
   (add-to-list 'exec-path (expand-file-name "~/.cargo/bin")) ;path to rust analyzer
   (add-to-list 'auto-mode-alist '("\\.rs$'" . rust-mode))
+  (defun my/find-rust-project-root (dir)
+    (when-let ((root (locate-dominating-file dir "Cargo.toml")))
+      (list 'vc 'Git root)))
   (add-hook 'rust-mode-hook
 	    (lambda ()
 	      (cargo-minor-mode 1)
@@ -231,14 +234,15 @@
 	      (define-key evil-insert-state-map "\C-p" 'company-select-previous)
 	      (define-key evil-insert-state-map "\C-n" 'company-select-next)
 	      (define-key evil-insert-state-map "\C-p" 'company-select-previous)
+	      (setq-local project-find-functions (list #'my/find-rust-project-root))
 	      (define-key-tree
-		evil-normal-state-map
-		(" "
-		 ("c" ;cargo
-		  ("r" 'cargo-process-run)
-		  ("t" 'cargo-process-test)
-		  ("c" 'cargo-process-check)
-		  ("a" 'cargo-process-add)))))))
+	       evil-normal-state-map
+	       (" "
+		("c"			;cargo
+		 ("r" 'cargo-process-run)
+		 ("t" 'cargo-process-test)
+		 ("c" 'cargo-process-check)
+		 ("a" 'cargo-process-add)))))))
 
 (progn ;c++ settings
   (add-to-list 'auto-mode-alist '("\\.cpp$" . c++-mode))
