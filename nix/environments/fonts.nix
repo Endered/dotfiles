@@ -2,6 +2,7 @@
 let
   cfg = config.my-settings.fonts;
   monapo = import ./fonts/monapo-font.nix {};
+  cica = import ./fonts/cica-font.nix {};
 in
 {
   options.my-settings.fonts = {
@@ -14,6 +15,7 @@ in
   config = lib.mkIf (!cfg.disable) {
     home.packages = with pkgs; [
       monapo
+      cica
     ];
   };
 }
