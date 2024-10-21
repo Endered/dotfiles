@@ -17,5 +17,11 @@ in
       monapo
       cica
     ];
+
+    home.file = {
+      ".config/fontconfig/fonts.conf" = {
+        source = ~/dotfiles/config/fontconfig/fonts.conf;
+      };
+    };
   };
 }
