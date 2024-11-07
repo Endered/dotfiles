@@ -152,13 +152,13 @@
       ("m" 'compile);make
       )
      ("g" ; go (move)
-      ("r" 'xref-find-references)))
+      ("r" 'xref-find-references))
+     ("s" ; settings
+      ("c" 'toggle-enable-clipboard)))
     (";" 'evil-ex)))
 
 
 (progn ;etc settings
-  (require-or-install 'xclip)
-  (xclip-mode 1)
   (column-number-mode 1)
   (global-display-line-numbers-mode 1) ;show line number on left
   (setq gc-cons-threshold 12800000)
@@ -171,6 +171,17 @@
   (add-hook 'prog-mode-hook (lambda () (hs-minor-mode 1)))
   (setq ring-bell-function 'ignore) ; no bell!
   (put 'erase-buffer 'disabled nil))
+
+(progn ;clipboard settings
+  (require-or-install 'xclip)
+  (xclip-mode 1)
+  (defun toggle-enable-clipboard ()
+    (interactive)
+    (let ((current select-enable-clipboard))
+      (setq select-enable-clipboard (not current))
+      (if current
+	  (message "Clipboard was disabled")
+	(message "Clipboard was enabled")))))
 
 (progn ;terminal settings
   (require-or-install 'vterm)
