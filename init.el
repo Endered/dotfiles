@@ -175,6 +175,7 @@
 (progn ;clipboard settings
   (require-or-install 'xclip)
   (xclip-mode 1)
+  (setq select-enable-clipboard nil)
   (defun toggle-enable-clipboard ()
     (interactive)
     (let ((current select-enable-clipboard))
