@@ -15,5 +15,11 @@ in
       texlive.combined.scheme-full
       texlab
     ];
+
+    home.file = {
+      ".config/latexmk/latexmkrc" = {
+        source = ~/dotfiles/config/latexmk/latexmkrc;
+      };
+    };
   };
 }
