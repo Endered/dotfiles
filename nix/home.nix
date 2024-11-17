@@ -65,6 +65,7 @@ in
     fd
     imagemagick
     alacritty
+    graphviz
   ];
 
   # EDITOR
