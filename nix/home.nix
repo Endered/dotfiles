@@ -188,11 +188,11 @@ in
              set -ag terminal-overrides ",xterm-256color:RGB"
 '';
     };
-    ".config/deadd/deadd.conf" = {
-      source = ~/dotfiles/config/deadd/deadd.conf;
-    };
     ".config/deadd/deadd.css" = {
       source = ~/dotfiles/config/deadd/deadd.css;
+    };
+    ".config/deadd/deadd.yml" = {
+      source = ~/dotfiles/config/deadd/deadd.yml;
     };
   };
 
