@@ -631,3 +631,6 @@
        ("l"
 	("c" 'compile)
 	("r" 'recompile)))))))
+
+(progn ; graphviz
+  (require-or-install 'graphviz-dot-mode))
