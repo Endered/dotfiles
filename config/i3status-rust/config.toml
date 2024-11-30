@@ -7,6 +7,8 @@ format = " $ip (^icon_net_down $speed_down.eng(prefix:K) ^icon_net_up $speed_up.
 
 [[block]]
 block = "battery"
+format = " $icon $percentage.eng(w:5) "
+interval = 1
 missing_format = ""
 
 [[block]]
