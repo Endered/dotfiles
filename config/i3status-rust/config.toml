@@ -1,0 +1,30 @@
+[theme]
+theme = "plain"
+
+[[block]]
+block = "net"
+format = " $ip (^icon_net_down $speed_down.eng(prefix:K) ^icon_net_up $speed_up.eng(prefix:K)) "
+
+[[block]]
+block = "battery"
+missing_format = ""
+
+[[block]]
+block = "disk_space"
+
+[[block]]
+block = "cpu"
+interval = 1
+
+[[block]]
+block = "sound"
+
+[[block]]
+block = "memory"
+interval = 1
+format = " $mem_used.eng(prefix:Mi,w:4)/$mem_total.eng(prefix:Mi,w:4)($mem_used_percents.eng(w:2)) "
+
+[[block]]
+block = "time"
+format = " $timestamp.datetime(f:'%Y/%m/%d %H:%M:%S') "
+interval = 1

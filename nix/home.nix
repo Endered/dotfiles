@@ -1,7 +1,4 @@
 {config, pkgs, ...}:
-let
-  multi-i3status = (pkgs.callPackage ~/dotfiles/nix/multi-i3stauts.nix pkgs);
-in
 {
 
   imports = [
@@ -21,6 +18,7 @@ in
     ~/dotfiles/nix/environments/senbura.nix
     ~/dotfiles/nix/environments/lua.nix
     ~/dotfiles/nix/environments/distant.nix
+    ~/dotfiles/nix/environments/i3.nix
   ];
 
   nixpkgs.config.allowUnfree = true;
@@ -60,7 +58,6 @@ in
     zulip
     aspell
     aspellDicts.en
-    multi-i3status
     ripgrep
     fd
     imagemagick
