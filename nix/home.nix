@@ -63,6 +63,7 @@
     imagemagick
     alacritty
     graphviz
+    bc
   ];
 
   # EDITOR
