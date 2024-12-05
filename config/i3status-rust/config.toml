@@ -22,6 +22,13 @@ interval = 1
 block = "sound"
 
 [[block]]
+block = "custom"
+command = "bluetoothctl info | grep -oP '(?<=Battery Percentage:).*' | grep -oP '(?<=\\()\\d+' | sed -e 's/$/%/' | tr '\n' , | sed  -e 's/,$//'"
+interval = 60
+hide_when_empty = true
+format = " BL: $text "
+
+[[block]]
 block = "memory"
 interval = 1
 format = " $mem_used.eng(prefix:Mi,w:4)/$mem_total.eng(prefix:Mi,w:4)($mem_used_percents.eng(w:2)) "
