@@ -145,8 +145,6 @@
      ("r" ; tab-line
       ("l" 'tab-line-switch-to-next-tab)
       ("h" 'tab-line-switch-to-prev-tab))
-     ("f" ; file
-      ("t" 'neotree))
      (" " 'execute-extended-command)
      ("c" ; compile
       ("m" 'compile);make
@@ -634,3 +632,28 @@
 
 (progn ; graphviz
   (require-or-install 'graphviz-dot-mode))
+
+
+(progn ; treemacs
+  (require-or-install 'treemacs)
+  (define-key-tree
+   evil-normal-state-map
+   (" "
+    ("f"
+     ("t" 'treemacs)
+     ("T" 'treemacs-add-and-display-current-project-exclusively))))
+  (add-hook 'treemacs-mode-hook
+	    (lambda ()
+	      (evil-define-key* 'normal treemacs-mode-map
+		(kbd "TAB") 'treemacs-TAB-action
+		(kbd "RET") 'treemacs-RET-action
+		(kbd "M-RET") 'treemacs-visit-node-close-treemacs
+		"=" 'treemacs-extra-wide-toggle
+		"q" 'treemacs-quit
+		"c" 'treemacs-create-file
+		"C" 'treemacs-create-dir
+		"d" 'treemacs-delete-file
+		"r" 'treemacs-rename-file
+		"p" 'treemacs-add-project-to-workspace
+		"H" 'treemacs-root-up
+		"L" 'treemacs-root-down))))
