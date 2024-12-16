@@ -661,3 +661,7 @@
 (progn ; tramp
   (add-to-list 'tramp-remote-path 'tramp-own-remote-path))
 
+(progn ; special mode
+  (add-hook 'special-mode-hook
+	    (lambda ()
+	      (evil-define-key 'normal special-mode-map "q" 'quit-window))))
