@@ -657,3 +657,7 @@
 		"p" 'treemacs-add-project-to-workspace
 		"H" 'treemacs-root-up
 		"L" 'treemacs-root-down))))
+
+(progn ; tramp
+  (add-to-list 'tramp-remote-path 'tramp-own-remote-path))
+
