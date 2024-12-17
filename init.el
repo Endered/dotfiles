@@ -664,3 +664,22 @@
   (add-hook 'special-mode-hook
 	    (lambda ()
 	      (evil-define-key 'normal special-mode-map "q" 'quit-window))))
+
+
+(progn ; pdf settings
+  (require-or-install 'pdf-tools)
+  (pdf-loader-install)
+  (add-hook 'pdf-view-mode-hook
+	    (lambda ()
+	      (display-line-numbers-mode -1)
+	      (evil-define-key* 'normal pdf-view-mode-map
+		"j" 'pdf-view-next-line-or-next-page
+		"J" 'pdf-view-next-page
+		"k" 'pdf-view-previous-line-or-previous-page
+		"K" 'pdf-view-previous-page
+		"=" 'pdf-view-enlarge
+		"+" 'pdf-view-enlarge
+		"-" 'pdf-view-shrink
+		"<" 'beginning-of-buffer
+		"s" 'pdf-view-fit-width-to-window
+		"a" 'pdf-view-fit-height-to-window))))

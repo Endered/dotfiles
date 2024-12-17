@@ -72,6 +72,7 @@
     package = pkgs.emacs29;
     extraPackages = epkgs: [
       epkgs.vterm
+      epkgs.pdf-tools
     ];
   };
 
