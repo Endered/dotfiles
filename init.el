@@ -50,9 +50,12 @@
   (package-install package))
 
 (defun require-or-install (package)
-  (unless (package-installed-p package)
-    (refresh-and-package-install package))
+  (install-if-not-exists package)
   (require package))
+
+(defun install-if-not-exists (package)
+  (unless (package-installed-p package)
+    (refresh-and-package-install package)))
 
 (defun only-install (package)
   (unless (package-installed-p package)
@@ -683,3 +686,8 @@
 		"<" 'beginning-of-buffer
 		"s" 'pdf-view-fit-width-to-window
 		"a" 'pdf-view-fit-height-to-window))))
+
+
+(progn ; direnv
+  (install-if-not-exists 'envrc)
+  (envrc-global-mode))
