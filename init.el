@@ -589,7 +589,6 @@
   (load "~/.emacs.d/lisp/satysfi.el")
   (setq satysfi-command "satysfi")
   (setq satysfi-pdf-viewer-command "zathura --fork")
-  (add-to-list 'lsp-language-id-configuration '(satysfi-mode . "satysfi"))
   (add-to-list 'display-buffer-alist '("*Async Shell Command*" display-buffer-no-window (nil)))
   (with-eval-after-load 'eglot
     (add-to-list 'eglot-server-programs
