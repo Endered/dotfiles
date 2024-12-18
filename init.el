@@ -161,6 +161,7 @@
 
 (progn ;etc settings
   (column-number-mode 1)
+  (global-hl-line-mode t)
   (global-display-line-numbers-mode 1) ;show line number on left
   (setq gc-cons-threshold 12800000)
   (setq inhibit-startup-message t)
