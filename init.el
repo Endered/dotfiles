@@ -688,3 +688,17 @@
 (progn ; direnv
   (install-if-not-exists 'envrc)
   (envrc-global-mode))
+
+(progn					; dired settings
+  (with-eval-after-load 'dired
+    (define-key dired-mode-map " " nil)
+    (evil-define-key
+      'normal dired-mode-map
+      "h" 'dired-up-directory
+      "l" 'dired-find-file
+      "g" nil
+      "gg" 'evil-goto-first-line
+      "G" 'evil-goto-line
+      ";" 'evil-ex
+      "n" 'evil-search-next
+      "N" 'evil-search-previous)))
