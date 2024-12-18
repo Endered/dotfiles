@@ -657,7 +657,7 @@
 		"L" 'treemacs-root-down))))
 
 (progn ; tramp
-  (with-eval-after-load 'tramp-mode
+  (with-eval-after-load 'tramp
     (add-to-list 'tramp-remote-path 'tramp-own-remote-path)))
 
 (progn ; special mode
