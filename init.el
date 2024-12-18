@@ -592,7 +592,7 @@
   (add-to-list 'display-buffer-alist '("*Async Shell Command*" display-buffer-no-window (nil)))
   (with-eval-after-load 'eglot
     (add-to-list 'eglot-server-programs
-		 '(satisfy-mode . ("satysfi-language-server"))))
+		 '(satysfi-mode . ("satysfi-language-server"))))
   (evil-define-key-tree
    'normal
    satysfi-mode-map
