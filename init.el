@@ -64,7 +64,7 @@
 
 
 (progn ;theme settings
-  (require-or-install 'monokai-theme)
+  (install-if-not-exists 'monokai-theme)
   (load-theme 'monokai t))
 
 (progn ;native comp settings
@@ -75,7 +75,7 @@
   (setq auto-save-default nil))
 
 (progn ;parenthes settings
-  (require-or-install 'rainbow-delimiters)
+  (install-if-not-exists 'rainbow-delimiters)
   (add-hook 'prog-mode-hook (lambda () (rainbow-delimiters-mode 1)))
   (electric-pair-mode 1))
 
@@ -84,10 +84,10 @@
   (setq scroll-step 1))
 
 (progn ;evil settings
-  (require-or-install 'evil)
-  (require-or-install 'evil-escape)
-  (require-or-install 'evil-terminal-cursor-changer)
-  (require-or-install 'undo-tree)
+  (install-if-not-exists 'evil)
+  (install-if-not-exists 'evil-escape)
+  (install-if-not-exists 'evil-terminal-cursor-changer)
+  (install-if-not-exists 'undo-tree)
   (custom-set-variables '(evil-undo-system 'undo-tree)
 			'(undo-tree-auto-save-history nil))
   (global-undo-tree-mode)
@@ -174,7 +174,7 @@
   (put 'erase-buffer 'disabled nil))
 
 (progn ;clipboard settings
-  (require-or-install 'xclip)
+  (install-if-not-exists 'xclip)
   (xclip-mode 1)
   (setq select-enable-clipboard nil)
   (defun toggle-enable-clipboard ()
@@ -186,8 +186,8 @@
 	(message "Clipboard was enabled")))))
 
 (progn ;terminal settings
-  (require-or-install 'vterm)
-  (require-or-install 'multi-vterm)
+  (install-if-not-exists 'vterm)
+  (install-if-not-exists 'multi-vterm)
   (setq-default truncate-lines nil)
   (add-hook 'vterm-mode-hook
 	    (lambda ()
@@ -200,7 +200,7 @@
 	      (define-key vterm-mode-map "\C-c\C-a" 'vterm-send-C-a))))
 
 (progn ; projectile settings
-  (require-or-install 'projectile)
+  (install-if-not-exists 'projectile)
   (projectile-mode 1))
 
 (progn ;lsp settings
@@ -222,7 +222,7 @@
      ("l" 'eglot)))))
 
 (progn ;company settings
-  (require-or-install 'company)
+  (install-if-not-exists 'company)
   (add-hook 'after-init-hook 'global-company-mode)
   (setq company-idle-delay 0)
   (setq company-minimum-prefix-length 1)
@@ -232,8 +232,8 @@
 	      (define-key evil-insert-state-map "\C-p" 'company-select-previous))))
 
 (progn ;rust settings
-  (require-or-install 'rust-mode)
-  (require-or-install 'cargo)
+  (install-if-not-exists 'rust-mode)
+  (install-if-not-exists 'cargo)
   (add-to-list 'exec-path (expand-file-name "~/.cargo/bin")) ;path to rust analyzer
   (add-to-list 'auto-mode-alist '("\\.rs$'" . rust-mode))
   (defun my/find-rust-project-root (dir)
@@ -265,12 +265,12 @@
 		    indent-tabs-mode nil))))
 
 (progn ;cmake settings
-  (require-or-install 'cmake-mode)
+  (install-if-not-exists 'cmake-mode)
   (add-to-list 'auto-mode-alist '("CMakeLists\\.txt$" . cmake-mode))
   (add-to-list 'auto-mode-alist '("\\.cmake$" . cmake-mode)))
 
 (progn ;paredit settings
-  (require-or-install 'paredit)
+  (install-if-not-exists 'paredit)
   (add-hook 'paredit-mode-hook
 	    (lambda ()
 	      (define-key-tree
@@ -285,13 +285,12 @@
 		  ("j" 'paredit-wrap-sexp)))))))
 
 (progn ;common-lisp settings
-  (require-or-install 'slime)
-  (require-or-install 'company)
-  (only-install 'slime-company)
-  (require-or-install 'paredit)
-  (require 'slime-autoloads)
-  (setq slime-company-completion 'fuzzy)
-  (slime-setup '(slime-fancy slime-company slime-repl))
+  (install-if-not-exists 'slime)
+  (install-if-not-exists 'company)
+  (install-if-not-exists 'slime-company)
+  (install-if-not-exists 'paredit)
+
+  (define-key evil-normal-state-map " ms" 'slime-mode)
 
   (defun slime-qlot-exec (directory)
     (interactive (list (read-directory-name "Project directory: ")))
@@ -309,7 +308,9 @@
 
   (add-hook 'slime-mode-hook
 	    (lambda ()
-	      (slime-setup '(slime-fancy slime-company))
+	      (require 'slime-autoloads)
+	      (setq slime-company-completion 'fuzzy)
+	      (slime-setup '(slime-fancy slime-company slime-repl))
 	      (evil-define-key 'normal lisp-mode-map "gd" 'slime-edit-definition)))
 
   (add-hook 'lisp-mode-hook
@@ -332,8 +333,8 @@
 
 
 (progn ;clojure settings
-  (require-or-install 'clojure-mode)
-  (require-or-install 'cider)
+  (install-if-not-exists 'clojure-mode)
+  (install-if-not-exists 'cider)
   (add-hook 'clojure-mode-hook
 	    (lambda ()
 	      (paredit-mode 1)
@@ -357,13 +358,13 @@
 	      (rainbow-delimiters-mode 1))))
 
  (progn ;markdown settings
-   (require-or-install 'flycheck)
-   (require-or-install 'add-node-modules-path)
-   (require-or-install 'markdown-mode)
-   (require-or-install 'markdown-preview-mode)
-   (require-or-install 'websocket)
-   (require-or-install 'web-server)
-   (require-or-install 'uuidgen)
+   (install-if-not-exists 'flycheck)
+   (install-if-not-exists 'add-node-modules-path)
+   (install-if-not-exists 'markdown-mode)
+   (install-if-not-exists 'markdown-preview-mode)
+   (install-if-not-exists 'websocket)
+   (install-if-not-exists 'web-server)
+   (install-if-not-exists 'uuidgen)
    (flycheck-define-checker textlint
      "A linter for prose."
      :command ("npx" "textlint" "--format" "unix" source-inplace)
@@ -435,13 +436,13 @@
   )
 
 (progn ;haskell settings
-  (require-or-install 'haskell-mode)
+  (install-if-not-exists 'haskell-mode)
   (add-to-list 'auto-mode-alist '("\\.hs$" . haskell-mode))
   (add-to-list 'auto-mode-alist '("\\.lhs$" . haskell-mode))
   (add-to-list 'auto-mode-alist '("\\.cable$" . haskell-mode)))
 
 (progn ;matlab settings
-  (require-or-install 'ein)
+  (install-if-not-exists 'ein)
   (autoload 'matlab-mode "matlab" "Matlab Editing Mode" t)
   (add-to-list
    'auto-mode-alist
@@ -450,7 +451,7 @@
   (setq matlab-shell-command "matlab"))
 
 (progn ;git settings
-  (require-or-install 'magit)
+  (install-if-not-exists 'magit)
   (setenv "GIT_EDITOR" "emacs")
   (add-hook 'shell-mode-hook 'with-editor-export-git-editor)
   (define-key-tree
@@ -466,7 +467,7 @@
 		    indent-tabs-mode nil))))
 
 (progn ;neotree settings
-  (require-or-install 'neotree)
+  (install-if-not-exists 'neotree)
   (add-hook 'neotree-mode-hook
 	    (lambda ()
 	      (define-key evil-normal-state-local-map (kbd "RET") 'neotree-enter)
@@ -477,8 +478,8 @@
 	      (define-key evil-normal-state-local-map (kbd "H") 'neotree-hidden-file-toggle))))
 
 (progn ;golang settings ;https://qiita.com/kod314/items/2232d480411c5c2ab002
-  (require-or-install 'go-mode)
-  (require-or-install 'company-go)
+  (install-if-not-exists 'go-mode)
+  (install-if-not-exists 'company-go)
   (add-to-list 'exec-path (expand-file-name "/usr/local/go/bin/"))
   (add-to-list 'exec-path (expand-file-name "/home/endered/go/bin/"))
   (add-hook 'go-mode-hook (lambda ()
@@ -492,7 +493,7 @@
 			    (define-key company-active-map (kbd "C-p") 'company-select-previous))))
 
 (progn ;typescript
-  (require-or-install 'typescript-mode)
+  (install-if-not-exists 'typescript-mode)
   (add-hook 'typescript-mode-hook
 	    (lambda ()
 	      (setq tab-width 2
@@ -504,7 +505,7 @@
 
 
 (progn ;elm settings
-  (require-or-install 'elm-mode))
+  (install-if-not-exists 'elm-mode))
 
 
 (progn ;makefile settings
@@ -514,7 +515,7 @@
 
 
 (progn ;scala settings
-  (require-or-install 'scala-mode))
+  (install-if-not-exists 'scala-mode))
 
 (progn ;java settings
   (add-hook 'java-mode-hook
@@ -533,17 +534,17 @@
   )
 
 (progn ;jupyter node book settings
-  (require-or-install 'ein)
+  (install-if-not-exists 'ein)
   (setq ein:worksheet-enable-undo t)
   (setq ein:output-area-inlined-images t)
   )
 
 (progn
-  (require-or-install 'nix-mode)
+  (install-if-not-exists 'nix-mode)
   )
 
 (progn ;; mode-line settings
-  (require-or-install 'doom-modeline)
+  (install-if-not-exists 'doom-modeline)
   (doom-modeline-mode 1))
 
 (progn ;; customize
@@ -563,7 +564,7 @@
 (setq evil-motion-state-modes nil)
 
 (progn ;; ripgrep settings
-  (require-or-install 'rg)
+  (install-if-not-exists 'rg)
   (define-key-tree
    evil-normal-state-map
    (" "
@@ -586,24 +587,20 @@
 
 (progn ;; SATySFi
   (load "~/.emacs.d/lisp/satysfi.el")
-  (require 'satysfi)
   (setq satysfi-command "satysfi")
   (setq satysfi-pdf-viewer-command "zathura --fork")
-  (require-or-install 'lsp-mode)
   (add-to-list 'lsp-language-id-configuration '(satysfi-mode . "satysfi"))
   (add-to-list 'display-buffer-alist '("*Async Shell Command*" display-buffer-no-window (nil)))
+  (with-eval-after-load 'eglot
+    (add-to-list 'eglot-server-programs
+		 '(satisfy-mode . ("satysfi-language-server"))))
   (evil-define-key-tree
    'normal
    satysfi-mode-map
    (" "
     ("s"; satysfi
      ("t" 'satysfi-mode/typeset)
-     ("o" 'satysfi-mode/open-pdf))))
-  (lsp-register-client
-   (make-lsp-client :new-connection (lsp-stdio-connection "satysfi-language-server")
-		    :activation-fn (lsp-activate-on "satysfi")
-		    :server-id 'satysfi-language-server)))
-
+     ("o" 'satysfi-mode/open-pdf)))))
 
 
 (progn ; tmux
@@ -633,11 +630,11 @@
 	("r" 'recompile)))))))
 
 (progn ; graphviz
-  (require-or-install 'graphviz-dot-mode))
+  (install-if-not-exists 'graphviz-dot-mode))
 
 
 (progn ; treemacs
-  (require-or-install 'treemacs)
+  (install-if-not-exists 'treemacs)
   (define-key-tree
    evil-normal-state-map
    (" "
@@ -670,7 +667,7 @@
 
 
 (progn ; pdf settings
-  (require-or-install 'pdf-tools)
+  (install-if-not-exists 'pdf-tools)
   (pdf-loader-install)
   (add-hook 'pdf-view-mode-hook
 	    (lambda ()
