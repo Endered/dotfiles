@@ -104,59 +104,63 @@
 	  evil-emacs-state-cursor 'hbar))
   (define-key input-decode-map "2~" [SpacE])
   (evil-define-key 'normal compilation-mode-map "q" 'quit-window)
+  (defun my/revert-buffer ()
+    (interactive)
+    (revert-buffer t t))
   (define-key-tree
-    evil-normal-state-map
-    ("j" 'evil-next-visual-line)
-    ("k" 'evil-previous-visual-line)
-    (" "
-     ("b" ; buffer
-      ("l" 'next-buffer)
-      ("h" 'previous-buffer)
-      ("d" 'kill-buffer)
-      ("o" 'ibuffer))
-     ("o" ; online judge
-      ("d" 'online-judge-download)
-      ("t" 'online-judge-test)
-      ("s" 'online-judge-submit))
-     ("'" 'multi-vterm)
-     (";" 'eval-expression)
-     ("w" ; window
-      ("h" 'evil-window-left)
-      ("j" 'evil-window-down)
-      ("k" 'evil-window-up)
-      ("l" 'evil-window-right)
-      ("d" 'delete-window)
-      ("D" 'delete-other-windows)
-      ("s" 'split-window-horizontally)
-      ("v" 'split-window-vertically)
-      ("<" 'evil-window-decrease-width)
-      (">" 'evil-window-increase-width)
-      ("-" 'evil-window-decrease-height)
-      ("+" 'evil-window-increase-height)
-      ("H" 'evil-window-move-far-left)
-      ("L" 'evil-window-move-far-right)
-      ("K" 'evil-window-move-very-top)
-      ("J" 'evil-window-move-very-bottom)
-      ("f" 'toggle-frame-maximized))
-     ("t" ; tab
-      ("l" 'tab-bar-switch-to-next-tab)
-      ("h" 'tab-bar-switch-to-prev-tab)
-      ("L" 'tab-bar-move-tab)
-      ("H" 'tab-bar-move-tab-backward)
-      ("d" 'tab-bar-close-tab)
-      ("n" 'tab-bar-new-tab))
-     ("r" ; tab-line
-      ("l" 'tab-line-switch-to-next-tab)
-      ("h" 'tab-line-switch-to-prev-tab))
-     (" " 'execute-extended-command)
-     ("c" ; compile
-      ("m" 'compile);make
-      )
-     ("g" ; go (move)
-      ("r" 'xref-find-references))
-     ("s" ; settings
-      ("c" 'toggle-enable-clipboard)))
-    (";" 'evil-ex)))
+   evil-normal-state-map
+   ("j" 'evil-next-visual-line)
+   ("k" 'evil-previous-visual-line)
+   (" "
+    ("b"				; buffer
+     ("l" 'next-buffer)
+     ("h" 'previous-buffer)
+     ("r" 'my/revert-buffer)
+     ("d" 'kill-buffer)
+     ("o" 'ibuffer))
+    ("o"				; online judge
+     ("d" 'online-judge-download)
+     ("t" 'online-judge-test)
+     ("s" 'online-judge-submit))
+    ("'" 'multi-vterm)
+    (";" 'eval-expression)
+    ("w"				; window
+     ("h" 'evil-window-left)
+     ("j" 'evil-window-down)
+     ("k" 'evil-window-up)
+     ("l" 'evil-window-right)
+     ("d" 'delete-window)
+     ("D" 'delete-other-windows)
+     ("s" 'split-window-horizontally)
+     ("v" 'split-window-vertically)
+     ("<" 'evil-window-decrease-width)
+     (">" 'evil-window-increase-width)
+     ("-" 'evil-window-decrease-height)
+     ("+" 'evil-window-increase-height)
+     ("H" 'evil-window-move-far-left)
+     ("L" 'evil-window-move-far-right)
+     ("K" 'evil-window-move-very-top)
+     ("J" 'evil-window-move-very-bottom)
+     ("f" 'toggle-frame-maximized))
+    ("t"				; tab
+     ("l" 'tab-bar-switch-to-next-tab)
+     ("h" 'tab-bar-switch-to-prev-tab)
+     ("L" 'tab-bar-move-tab)
+     ("H" 'tab-bar-move-tab-backward)
+     ("d" 'tab-bar-close-tab)
+     ("n" 'tab-bar-new-tab))
+    ("r"				; tab-line
+     ("l" 'tab-line-switch-to-next-tab)
+     ("h" 'tab-line-switch-to-prev-tab))
+    (" " 'execute-extended-command)
+    ("c"				; compile
+     ("m" 'compile)			;make
+     )
+    ("g"				; go (move)
+     ("r" 'xref-find-references))
+    ("s"				; settings
+     ("c" 'toggle-enable-clipboard)))
+   (";" 'evil-ex)))
 
 
 (progn ;etc settings
