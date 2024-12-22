@@ -207,14 +207,23 @@
   (require 'flymake)
   (set-face-attribute 'flymake-error nil :underline `(:color "red"))
   (set-face-attribute 'flymake-warning nil :underline `(:color "yellow"))
-  (evil-define-key-tree
-   'normal
-   eglot-mode-map
-   (" "
-    ("l"
-     ("f" 'eglot-format-buffer)
-     ("r" 'eglot-rename)
-     ("v" 'eldoc-doc-buffer))))
+  (with-eval-after-load 'eglot
+    (defun my/eglot-format-buffer ()
+      (interactive)
+      (save-buffer)
+      (eglot-format-buffer)
+      (save-buffer))
+    (evil-define-key-tree
+     'normal
+     eglot-mode-map
+     (" "
+      ("l"
+       ("f" 'my/eglot-format-buffer)
+       ("r" 'eglot-rename)
+       ("v" 'eldoc-doc-buffer)
+       ("o" 'eglot-code-action-organize-imports)
+       ("a" 'eglot-code-actions)
+       ("p" 'flymake-show-project-diagnostics)))))
   (define-key-tree
    evil-normal-state-map
    (" "
