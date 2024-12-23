@@ -715,3 +715,6 @@
       ";" 'evil-ex
       "n" 'evil-search-next
       "N" 'evil-search-previous)))
+
+(progn ; font settings
+  (setq default-frame-alist (append '((font . "Cica")) default-frame-alist)))
