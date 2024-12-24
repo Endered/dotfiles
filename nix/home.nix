@@ -34,8 +34,8 @@
     xclip
     evince
     sshfs
-    gnome.gnome-screenshot
-    gnome3.dconf-editor
+    gnome-screenshot
+    dconf-editor
     openssl
     pavucontrol
     discord

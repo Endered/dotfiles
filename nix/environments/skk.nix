@@ -20,7 +20,7 @@ in
       };
     };
     ".local/share/work/skk/SKK-JISYO.L" = {
-      source = pkgs.skk-dicts + "/share/SKK-JISYO.L";
+      source = pkgs.libskk + "/share/skk/SKK-JISYO.L";
     };
     ".local/share/fcitx5/skk/dictionary_list" = {
       text = ''

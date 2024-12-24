@@ -9,7 +9,7 @@ let
   distant = pkgs.rustPlatform.buildRustPackage rec {
     name = "distant";
     src = distant-source;
-    cargoSha256 = "sha256-mPcrfBFgvbPi6O7i9FCtN3iaaEOHIcDFHCOpV1NxKMY=";
+    cargoHash = "sha256-mPcrfBFgvbPi6O7i9FCtN3iaaEOHIcDFHCOpV1NxKMY=";
     nativeBuildInputs = [ pkgs.perl ];
     doCheck = false;
   };
