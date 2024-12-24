@@ -64,6 +64,7 @@
     alacritty
     graphviz
     bc
+    pandoc
   ];
 
   # EDITOR
