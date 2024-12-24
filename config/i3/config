@@ -189,11 +189,8 @@ bar {
 
 # added by me
 
-# use english keyboard
-exec "setxkbmap -layout us,de"
-
 # input japanese
-exec --no-startup-id fcitx
+exec --no-startup-id fcitx5
 
 # link password
 exec --no-startup-id /usr/bin/gnome-keyring-daemon --start --components=secrets
