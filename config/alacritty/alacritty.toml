@@ -1,3 +1,4 @@
+[general]
 import = [ "~/.config/alacritty/monokai.toml" ]
 
 [font]
