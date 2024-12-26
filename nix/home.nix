@@ -65,6 +65,7 @@
     graphviz
     bc
     pandoc
+    dua
   ];
 
   # EDITOR
