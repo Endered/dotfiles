@@ -667,7 +667,8 @@
 		"r" 'treemacs-rename-file
 		"p" 'treemacs-add-project-to-workspace
 		"H" 'treemacs-root-up
-		"L" 'treemacs-root-down))))
+		"L" 'treemacs-root-down
+		"R" 'treemacs-refresh))))
 
 (progn ; tramp
   (with-eval-after-load 'tramp
