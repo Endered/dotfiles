@@ -528,6 +528,7 @@
 
 
 (progn ;scala settings
+  (add-to-list 'auto-mode-alist '("\\.sc$" . scala-mode))
   (install-if-not-exists 'scala-mode))
 
 (progn ;java settings
