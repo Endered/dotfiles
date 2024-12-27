@@ -19,6 +19,7 @@
     ~/dotfiles/nix/environments/lua.nix
     ~/dotfiles/nix/environments/distant.nix
     ~/dotfiles/nix/environments/i3.nix
+    ~/dotfiles/nix/environments/js.nix
   ];
 
   nixpkgs.config.allowUnfree = true;

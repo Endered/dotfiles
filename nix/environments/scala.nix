@@ -12,7 +12,14 @@ in
 
   config = lib.mkIf (!cfg.disable) {
     home.packages = with pkgs; [
-      sbt metals
+      sbt
+      metals
+      # It use a hacky way for inject clang to scala-cli without global install
+      (writeScriptBin "scala-cli" ''
+      #!/usr/bin/env bash
+      export PATH=${clang}/bin:$PATH
+      exec ${scala-cli}/bin/scala-cli "$@"
+      '')
     ];
   };
 }
