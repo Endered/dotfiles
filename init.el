@@ -8,6 +8,8 @@
 	("gnu" . "https://elpa.gnu.org/packages/")))
 (package-initialize)
 
+(add-to-list 'load-path "~/.emacs.d/lisp")
+
 
 (defmacro apply-define-key-tree (op &rest body)
   (labels ((rec (node)
@@ -212,6 +214,7 @@
   (set-face-attribute 'flymake-error nil :underline `(:color "red"))
   (set-face-attribute 'flymake-warning nil :underline `(:color "yellow"))
   (with-eval-after-load 'eglot
+    (require 'eglot-booster)
     (defun my/eglot-format-buffer ()
       (interactive)
       (save-buffer)
@@ -227,11 +230,12 @@
        ("v" 'eldoc-doc-buffer)
        ("o" 'eglot-code-action-organize-imports)
        ("a" 'eglot-code-actions)
-       ("p" 'flymake-show-project-diagnostics)))))
+       ("p" 'flymake-show-project-diagnostics))))
+    (eglot-booster-mode))
   (define-key-tree
    evil-normal-state-map
    (" "
-    ("m" ;mode
+    ("m"				;mode
      ("l" 'eglot)))))
 
 (progn ;company settings

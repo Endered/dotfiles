@@ -20,6 +20,7 @@
     ~/dotfiles/nix/environments/distant.nix
     ~/dotfiles/nix/environments/i3.nix
     ~/dotfiles/nix/environments/js.nix
+    ~/dotfiles/nix/environments/emacs.nix
   ];
 
   nixpkgs.config.allowUnfree = true;
@@ -68,16 +69,6 @@
     pandoc
     dua
   ];
-
-  # EDITOR
-  programs.emacs = {
-    enable = true;
-    package = pkgs.emacs29;
-    extraPackages = epkgs: [
-      epkgs.vterm
-      epkgs.pdf-tools
-    ];
-  };
 
   # bash
   programs.bash = {
