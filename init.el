@@ -411,7 +411,6 @@
    (add-to-list 'flycheck-checkers 'textlint)
    (add-hook 'markdown-mode-hook (lambda ()
  				  (setq markdown-command "multimarkdown")
- 				  (flycheck-mode)
  				  (add-node-modules-path))))
 
 (progn ;tab-bar settings
