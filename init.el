@@ -214,7 +214,7 @@
   (set-face-attribute 'flymake-error nil :underline `(:color "red"))
   (set-face-attribute 'flymake-warning nil :underline `(:color "yellow"))
   (with-eval-after-load 'eglot
-    (require 'eglot-booster)
+    (require 'eglot-booster nil t)
     (defun my/eglot-format-buffer ()
       (interactive)
       (save-buffer)
@@ -607,7 +607,7 @@
 	       ("p" 'previous-error-no-select)))))
 
 (progn ;; SATySFi
-  (load "~/.emacs.d/lisp/satysfi.el")
+  (require 'satysfi nil t)
   (setq satysfi-command "satysfi")
   (setq satysfi-pdf-viewer-command "zathura --fork")
   (add-to-list 'display-buffer-alist '("*Async Shell Command*" display-buffer-no-window (nil)))
