@@ -533,7 +533,10 @@
 
 (progn ;scala settings
   (add-to-list 'auto-mode-alist '("\\.sc$" . scala-mode))
-  (install-if-not-exists 'scala-mode))
+  (install-if-not-exists 'scala-mode)
+  (with-eval-after-load 'eglot
+    (setf (alist-get 'scala-mode eglot-server-programs) '("metals" "-Dmetals.client=emacs")))
+  )
 
 (progn ;java settings
   (add-hook 'java-mode-hook
