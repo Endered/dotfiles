@@ -220,15 +220,30 @@
       (save-buffer)
       (eglot-format-buffer)
       (save-buffer))
+    (defun my/eglot-code-action-organize-imports ()
+      (interactive)
+      (save-buffer)
+      (eglot-code-action-organize-imports (point))
+      (save-buffer))
+    (defun my/eglot-rename (newname)
+      (interactive
+       (list (read-from-minibuffer
+	      (format "Rename `%s' to: " (or (thing-at-point 'symbol t)
+					     "unknown symbol"))
+	      nil nil nil nil
+	      (symbol-name (symbol-at-point)))))
+      (save-buffer)
+      (eglot-rename newname)
+      (save-buffer))
     (evil-define-key-tree
      'normal
      eglot-mode-map
      (" "
       ("l"
        ("f" 'my/eglot-format-buffer)
-       ("r" 'eglot-rename)
+       ("r" 'my/eglot-rename)
        ("v" 'eldoc-doc-buffer)
-       ("o" 'eglot-code-action-organize-imports)
+       ("o" 'my/eglot-code-action-organize-imports)
        ("a" 'eglot-code-actions)
        ("p" 'flymake-show-project-diagnostics))))
     (eglot-booster-mode))
