@@ -215,6 +215,7 @@
   (set-face-attribute 'flymake-warning nil :underline `(:color "yellow"))
   (with-eval-after-load 'eglot
     (require 'eglot-booster nil t)
+    (add-to-list 'save-some-buffers-default-predicate 'save-some-buffers-root)
     (defun my/eglot-format-buffer ()
       (interactive)
       (save-buffer)
@@ -232,9 +233,9 @@
 					     "unknown symbol"))
 	      nil nil nil nil
 	      (symbol-name (symbol-at-point)))))
-      (save-buffer)
+      (save-some-buffers t) ;; save all file even if not need to save for rename
       (eglot-rename newname)
-      (save-buffer))
+      (save-some-buffers t))
     (evil-define-key-tree
      'normal
      eglot-mode-map
