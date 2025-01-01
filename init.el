@@ -109,6 +109,8 @@
   (defun my/revert-buffer ()
     (interactive)
     (revert-buffer t t))
+  (define-key evil-normal-state-map (kbd "\C-f") (lambda () (interactive) (evil-next-line 10)))
+  (define-key evil-normal-state-map (kbd "\C-b") (lambda () (interactive) (evil-previous-line 10)))
   (define-key-tree
    evil-normal-state-map
    ("j" 'evil-next-visual-line)
