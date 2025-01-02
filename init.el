@@ -170,6 +170,7 @@
 (progn ;etc settings
   (column-number-mode 1)
   (global-display-line-numbers-mode 1) ;show line number on left
+  (scroll-bar-mode -1) ;disable scroll bar
   (setq gc-cons-threshold 12800000)
   (setq inhibit-startup-message t)
   (menu-bar-mode 0)
