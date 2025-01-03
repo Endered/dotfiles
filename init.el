@@ -706,7 +706,7 @@
    (" "
     ("f"
      ("t" 'neotree)
-     ("T" 'my/neotree-follow-function))))
+     ("T" 'my/open-neotree-on-project-root))))
   (with-eval-after-load 'neotree
     (evil-define-key* 'normal neotree-mode-map
       "A" 'neotree-stretch-toggle
