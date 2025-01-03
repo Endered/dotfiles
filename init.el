@@ -704,7 +704,7 @@
     (setq tramp-use-ssh-controlmaster-options t)
     (unless (file-exists-p "~/.emacs.d/.tramp/")
       (make-directory "~/.emacs.d/.tramp/"))
-    (setq tramp-ssh-controlmaster-options "-o ControlMaster=auto -o ControlPath=~/.emacs.d/.tramp/tramp-%%r@%%h:%%p -o ControlPersist=yes")))
+    (setq tramp-ssh-controlmaster-options "-o ControlMaster=auto -o ControlPath=~/.emacs.d/.tramp/tramp-%%r@%%n:%%p-%%j -o ControlPersist=10")))
 
 (progn ; special mode
   (add-hook 'special-mode-hook
