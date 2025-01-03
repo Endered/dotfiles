@@ -698,7 +698,13 @@
 
 (progn ; tramp
   (with-eval-after-load 'tramp
-    (add-to-list 'tramp-remote-path 'tramp-own-remote-path)))
+    (add-to-list 'tramp-remote-path 'tramp-own-remote-path)
+    (setq remote-file-name-inhibit-cache nil))
+  (with-eval-after-load 'tramp-sh
+    (setq tramp-use-ssh-controlmaster-options t)
+    (unless (file-exists-p "~/.emacs.d/.tramp/")
+      (make-directory "~/.emacs.d/.tramp/"))
+    (setq tramp-ssh-controlmaster-options "-o ControlMaster=auto -o ControlPath=~/.emacs.d/.tramp/tramp-%%r@%%h:%%p -o ControlPersist=yes")))
 
 (progn ; special mode
   (add-hook 'special-mode-hook
