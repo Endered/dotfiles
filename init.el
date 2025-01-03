@@ -501,17 +501,6 @@
 	      (setq tab-width 4
 		    indent-tabs-mode nil))))
 
-(progn ;neotree settings
-  (install-if-not-exists 'neotree)
-  (add-hook 'neotree-mode-hook
-	    (lambda ()
-	      (define-key evil-normal-state-local-map (kbd "RET") 'neotree-enter)
-	      (define-key evil-normal-state-local-map (kbd "v") 'neotree-quick-look)
-	      (define-key evil-normal-state-local-map (kbd "R") 'neotree-refresh)
-	      (define-key evil-normal-state-local-map (kbd "q") 'neotree-hide)
-	      (define-key evil-normal-state-local-map (kbd "A") 'neotree-stretch-toggle)
-	      (define-key evil-normal-state-local-map (kbd "H") 'neotree-hidden-file-toggle))))
-
 (progn ;golang settings ;https://qiita.com/kod314/items/2232d480411c5c2ab002
   (install-if-not-exists 'go-mode)
   (install-if-not-exists 'company-go)
@@ -673,12 +662,6 @@
 
 (progn ; treemacs
   (install-if-not-exists 'treemacs)
-  (define-key-tree
-   evil-normal-state-map
-   (" "
-    ("f"
-     ("t" 'treemacs)
-     ("T" 'treemacs-add-and-display-current-project-exclusively))))
   (add-hook 'treemacs-mode-hook
 	    (lambda ()
 	      (evil-define-key* 'normal treemacs-mode-map
@@ -696,10 +679,53 @@
 		"L" 'treemacs-root-down
 		"R" 'treemacs-refresh))))
 
+(progn ; neotree
+  (install-if-not-exists 'neotree)
+  (defun my/open-neotree-on-project-root ()
+    (interactive)
+    (let ((dir (projectile-project-root)))
+      (when dir
+	(neotree-dir dir))))
+  (defvar my/follow-current-buffer-timer nil)
+  (defun my/neotree-follow-current-buffer ()
+    (interactive)
+    (setq my/follow-current-buffer-timer nil)
+    (let ((dir (buffer-file-name))
+	  (win (get-buffer-window)))
+      (when dir
+	(with-window-non-dedicated nil
+	  (neotree-find dir)
+	  (select-window win)))))
+  (defun my/neotree-follow-current-buffer-function ()
+    (interactive)
+    (unless my/follow-current-buffer-timer
+      (setq my/follow-current-buffer-timer
+	    (run-with-timer 0.2 nil 'my/neotree-follow-current-buffer))))
+  (define-key-tree
+   evil-normal-state-map
+   (" "
+    ("f"
+     ("t" 'neotree)
+     ("T" 'my/neotree-follow-function))))
+  (with-eval-after-load 'neotree
+    (evil-define-key* 'normal neotree-mode-map
+      "A" 'neotree-stretch-toggle
+      (kbd "TAB") 'neotree-enter
+      (kbd "RET") 'neotree-enter
+      "d" 'neotree-delete-node
+      "c" 'neotree-create-node
+      "r" 'neotree-rename-node
+      "C" 'neotree-change-root
+      "H" 'neotree-hidden-file-toggle
+      "R" 'neotree-refresh)
+    (add-hook
+     'neotree-mode-hook
+     (lambda ()
+       (add-hook 'buffer-list-update-hook 'my/neotree-follow-current-buffer-function)))))
+
 (progn ; tramp
   (with-eval-after-load 'tramp
-    (add-to-list 'tramp-remote-path 'tramp-own-remote-path)
-    (setq remote-file-name-inhibit-cache nil))
+    (add-to-list 'tramp-remote-path 'tramp-own-remote-path))
   (with-eval-after-load 'tramp-sh
     (setq tramp-use-ssh-controlmaster-options t)
     (unless (file-exists-p "~/.emacs.d/.tramp/")
