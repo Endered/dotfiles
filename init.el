@@ -708,6 +708,10 @@
 		 (not (equal buf my/follow-current-buffer-last-buffer))
 		 (not my/follow-current-buffer-timer))
 	(setq my/follow-current-buffer-timer (run-at-time 0.2 nil 'my/neotree-follow-current-buffer)))))
+  (defun my/neotree-refresh ()
+    (interactive)
+    (let ((remote-file-name-inhibit-cache t))
+      (neotree-refresh)))
   (define-key-tree
    evil-normal-state-map
    (" "
@@ -724,7 +728,7 @@
       "r" 'neotree-rename-node
       "C" 'neotree-change-root
       "H" 'neotree-hidden-file-toggle
-      "R" 'neotree-refresh)
+      "R" 'my/neotree-refresh)
     (add-hook
      'neotree-mode-hook
      (lambda ()
@@ -732,7 +736,8 @@
 
 (progn ; tramp
   (with-eval-after-load 'tramp
-    (add-to-list 'tramp-remote-path 'tramp-own-remote-path))
+    (add-to-list 'tramp-remote-path 'tramp-own-remote-path)
+    (setq remote-file-name-inhibit-cache nil))
   (with-eval-after-load 'tramp-sh
     (setq tramp-use-ssh-controlmaster-options t)
     (unless (file-exists-p "~/.emacs.d/.tramp/")
