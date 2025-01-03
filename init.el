@@ -687,20 +687,27 @@
       (when dir
 	(neotree-dir dir))))
   (defvar my/follow-current-buffer-timer nil)
+  (defvar my/follow-current-buffer-last-buffer nil)
+  (defvar my/follow-current-buffer-updating nil)
   (defun my/neotree-follow-current-buffer ()
     (interactive)
     (setq my/follow-current-buffer-timer nil)
-    (let ((dir (buffer-file-name))
-	  (win (get-buffer-window)))
-      (when dir
-	(with-window-non-dedicated nil
-	  (neotree-find dir)
-	  (select-window win)))))
+    (unless my/follow-current-buffer-updating
+      (setq my/follow-current-buffer-updating t)
+      (let ((dir (buffer-file-name))
+	    (win (get-buffer-window)))
+	(unless (equal my/follow-current-buffer-last-buffer dir)
+	  (setq my/follow-current-buffer-last-buffer dir)
+	  (when dir
+	    (neotree-find dir)
+	    (select-window win))))
+      (setq my/follow-current-buffer-updating nil)))
   (defun my/neotree-follow-current-buffer-function ()
-    (interactive)
-    (unless my/follow-current-buffer-timer
-      (setq my/follow-current-buffer-timer
-	    (run-with-timer 0.2 nil 'my/neotree-follow-current-buffer))))
+    (let ((buf (buffer-file-name)))
+      (when (and buf
+		 (not (equal buf my/follow-current-buffer-last-buffer))
+		 (not my/follow-current-buffer-timer))
+	(setq my/follow-current-buffer-timer (run-at-time 0.2 nil 'my/neotree-follow-current-buffer)))))
   (define-key-tree
    evil-normal-state-map
    (" "
