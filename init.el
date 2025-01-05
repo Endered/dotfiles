@@ -686,28 +686,6 @@
     (let ((dir (projectile-project-root)))
       (when dir
 	(neotree-dir dir))))
-  (defvar my/follow-current-buffer-timer nil)
-  (defvar my/follow-current-buffer-last-buffer nil)
-  (defvar my/follow-current-buffer-updating nil)
-  (defun my/neotree-follow-current-buffer ()
-    (interactive)
-    (setq my/follow-current-buffer-timer nil)
-    (unless my/follow-current-buffer-updating
-      (setq my/follow-current-buffer-updating t)
-      (let ((dir (buffer-file-name))
-	    (win (get-buffer-window)))
-	(unless (equal my/follow-current-buffer-last-buffer dir)
-	  (setq my/follow-current-buffer-last-buffer dir)
-	  (when dir
-	    (neotree-find dir)
-	    (select-window win))))
-      (setq my/follow-current-buffer-updating nil)))
-  (defun my/neotree-follow-current-buffer-function ()
-    (let ((buf (buffer-file-name)))
-      (when (and buf
-		 (not (equal buf my/follow-current-buffer-last-buffer))
-		 (not my/follow-current-buffer-timer))
-	(setq my/follow-current-buffer-timer (run-at-time 0.2 nil 'my/neotree-follow-current-buffer)))))
   (defun my/neotree-refresh ()
     (interactive)
     (let ((remote-file-name-inhibit-cache t))
@@ -717,7 +695,8 @@
    (" "
     ("f"
      ("t" 'neotree)
-     ("T" 'my/open-neotree-on-project-root))))
+     ("T" 'my/open-neotree-on-project-root)
+     ("f" 'neotree-find))))
   (with-eval-after-load 'neotree
     (evil-define-key* 'normal neotree-mode-map
       "A" 'neotree-stretch-toggle
@@ -728,11 +707,7 @@
       "r" 'neotree-rename-node
       "C" 'neotree-change-root
       "H" 'neotree-hidden-file-toggle
-      "R" 'my/neotree-refresh)
-    (add-hook
-     'neotree-mode-hook
-     (lambda ()
-       (add-hook 'buffer-list-update-hook 'my/neotree-follow-current-buffer-function)))))
+      "R" 'my/neotree-refresh)))
 
 (progn ; tramp
   (with-eval-after-load 'tramp
