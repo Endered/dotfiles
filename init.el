@@ -763,4 +763,9 @@
       "N" 'evil-search-previous)))
 
 (progn ; font settings
-  (setq default-frame-alist (append '((font . "Cica")) default-frame-alist)))
+  (create-fontset-from-ascii-font
+   "Cica-10:weight=regular:slant=normal"
+   nil
+   "Cica")
+  (set-fontset-font "fontset-Cica" 'unicode "Cica-10:weight=regular:slant=normal" nil 'append)
+  (add-to-list 'default-frame-alist '(font . "fontset-Cica")))
