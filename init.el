@@ -763,9 +763,10 @@
       "N" 'evil-search-previous)))
 
 (progn ; font settings
-  (create-fontset-from-ascii-font
-   "Cica-10:weight=regular:slant=normal"
-   nil
-   "Cica")
-  (set-fontset-font "fontset-Cica" 'unicode "Cica-10:weight=regular:slant=normal" nil 'append)
-  (add-to-list 'default-frame-alist '(font . "fontset-Cica")))
+  (when (display-graphic-p)
+    (create-fontset-from-ascii-font
+     "Cica-10:weight=regular:slant=normal"
+     nil
+     "Cica")
+    (set-fontset-font "fontset-Cica" 'unicode "Cica-10:weight=regular:slant=normal" nil 'append)
+    (add-to-list 'default-frame-alist '(font . "fontset-Cica"))))
