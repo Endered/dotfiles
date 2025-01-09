@@ -68,6 +68,7 @@
     bc
     pandoc
     dua
+    fzf
   ];
 
   # bash

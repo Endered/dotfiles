@@ -765,8 +765,26 @@
 (progn ; font settings
   (when (display-graphic-p)
     (create-fontset-from-ascii-font
-     "Cica-10:weight=regular:slant=normal"
+     "Cica:weight=regular:slant=normal"
      nil
      "Cica")
-    (set-fontset-font "fontset-Cica" 'unicode "Cica-10:weight=regular:slant=normal" nil 'append)
+    (set-fontset-font "fontset-Cica" 'unicode "Cica:weight=regular:slant=normal" nil 'append)
+    ;; it is necessary for avoid bug described at https://github.com/bling/fzf.el/issues/116
+    (setq face-font-rescale-alist '(("Cica" . 1.0)))
     (add-to-list 'default-frame-alist '(font . "fontset-Cica"))))
+
+
+(progn ; fzf settings
+  (install-if-not-exists 'fzf)
+  (with-eval-after-load 'fzf
+    (setq fzf/args "-x --color bw --print-query --margin=1,0 --no-hscroll"
+	  fzf/executable "fzf"
+	  fzf/git-grep-args "-i --line-number %s"
+	  ;; command used for `fzf-grep-*` functions
+	  ;; example usage for ripgrep:
+	  ;; fzf/grep-command "rg --no-heading -nH"
+	  fzf/grep-command "rg --no-heading -nH"
+	  ;; If nil, the fzf buffer will appear at the top of the window
+	  fzf/position-bottom t
+	  fzf/window-height 15))
+  (define-key evil-normal-state-map " fp" 'fzf-projectile))

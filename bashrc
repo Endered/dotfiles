@@ -157,3 +157,7 @@ export PS1="$PS1"' ($(printf %3d $?))'
 export PS1="$PS1"':\w'
 export PS1="$PS1"']'
 export PS1="$PS1"'\$\[\033[0m\] '
+
+
+# FZF settings
+export FZF_DEFAULT_COMMAND='fd --type f'
