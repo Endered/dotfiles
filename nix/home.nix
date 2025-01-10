@@ -69,6 +69,9 @@
     pandoc
     dua
     fzf
+    tinymist
+    typst
+    typstyle
   ];
 
   # bash

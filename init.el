@@ -64,8 +64,31 @@
     (refresh-and-package-install package)))
 
 
+(progn ; my package manager
+  (defvar my/managed-git-packages nil)
+  (defvar my/git-root "~/.emacs.d/gits/")
+  (unless (file-exists-p my/git-root)
+    (mkdir my/git-root))
 
-(progn ;theme settings
+  (defun my/ensure-git-package-exist (name url)
+    (let ((target (format "%s/%s/" my/git-root name)))
+      (unless (file-exists-p target)
+	(let ((default-directory my/git-root))
+	  (shell-command (format "git clone %s %s" url name))
+	  (package-install-file target)))))
+
+  (defun my/register-git-package (name url)
+    (my/ensure-git-package-exist name url)
+    (setf (alist-get name my/managed-git-packages) url))
+
+  (defun my/update-git-packages ()
+    (interactive)
+    (dolist (name (mapcar #'car my/managed-git-packages))
+      (let ((default-directory (format "%s/%s" my/git-root name)))
+	(shell-command "git pull --rebase")
+	(package-install-file (format "%s/%s" my/git-root name))))))
+
+(progn ;; theme settings
   (install-if-not-exists 'monokai-theme)
   (load-theme 'monokai t))
 
@@ -788,3 +811,18 @@
 	  fzf/position-bottom t
 	  fzf/window-height 15))
   (define-key evil-normal-state-map " fp" 'fzf-projectile))
+
+
+
+
+
+(progn ; typst-ts-settings
+  (my/register-git-package 'typst-ts-mode "https://git.sr.ht/~meow_king/typst-ts-mode")
+  (my/register-git-package 'typst-preview "https://github.com/havarddj/typst-preview.el")
+  (with-eval-after-load 'eglot
+    (with-eval-after-load 'typst-ts-mode
+      (add-to-list 'eglot-server-programs '(typst-ts-mode . ("tinymist")))
+      (defun my/format-buffer-by-typstyle ()
+	(shell-command (format "typstyle -i %s" (buffer-file-name)))
+	(my/revert-buffer))
+      (add-hook 'after-save-hook 'my/format-buffer-by-typstyle))))
