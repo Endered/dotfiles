@@ -8,9 +8,6 @@
 	("gnu" . "https://elpa.gnu.org/packages/")))
 (package-initialize)
 
-(add-to-list 'load-path "~/.emacs.d/lisp")
-
-
 (defmacro apply-define-key-tree (op &rest body)
   (labels ((rec (node)
 		(let ((key (car node))
@@ -239,6 +236,7 @@
   (require 'flymake)
   (set-face-attribute 'flymake-error nil :underline `(:color "red"))
   (set-face-attribute 'flymake-warning nil :underline `(:color "yellow"))
+  (my/register-git-package 'eglot-booster "https://github.com/jdtsmith/eglot-booster")
   (with-eval-after-load 'eglot
     (require 'eglot-booster nil t)
     (add-to-list 'save-some-buffers-default-predicate 'save-some-buffers-root)
@@ -637,7 +635,7 @@
 	       ("p" 'previous-error-no-select)))))
 
 (progn ;; SATySFi
-  (require 'satysfi nil t)
+  (my/register-git-package 'satysfi "https://github.com/gfngfn/satysfi.el")
   (setq satysfi-command "satysfi")
   (setq satysfi-pdf-viewer-command "zathura --fork")
   (add-to-list 'display-buffer-alist '("*Async Shell Command*" display-buffer-no-window (nil)))

@@ -33,18 +33,8 @@ in
 
   config =  {
     home.packages = lib.mkIf (!cfg.disable) [
-      
       satysfi-language-server
       pkgs.satysfi
     ];
-    # for avoid the error on emacs, set an elisp file even if disabled.
-    home.file = {
-      ".emacs.d/lisp/satysfi.el" = {
-        source = pkgs.fetchurl {
-          url = "https://raw.githubusercontent.com/gfngfn/satysfi.el/master/satysfi.el";
-          hash = "sha256-sIbxA0V06YvakigcoB0GocOtzUqliNbeZlV6REhZwkg=";
-        };
-      };
-    };
   };
 }
