@@ -823,6 +823,7 @@
     (with-eval-after-load 'typst-ts-mode
       (add-to-list 'eglot-server-programs '(typst-ts-mode . ("tinymist")))
       (defun my/format-buffer-by-typstyle ()
-	(shell-command (format "typstyle -i %s" (buffer-file-name)))
-	(my/revert-buffer))
+	(let ((default-directory (file-name-directory (buffer-file-name))))
+	  (shell-command (format "typstyle -i %s" (file-name-nondirectory (buffer-file-name))))
+	  (revert-buffer t t t)))
       (add-hook 'after-save-hook 'my/format-buffer-by-typstyle))))
