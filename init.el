@@ -6,6 +6,8 @@
 	;; ("melpa-stable" . "https://stable.melpa.org/packages/")
 	("org" . "https://orgmode.org/elpa/")
 	("gnu" . "https://elpa.gnu.org/packages/")))
+(setq package-install-upgrade-built-in t)
+
 (package-initialize)
 
 (defmacro apply-define-key-tree (op &rest body)
