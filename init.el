@@ -614,28 +614,6 @@
 (setq evil-insert-state-modes nil)
 (setq evil-motion-state-modes nil)
 
-(progn ;; ripgrep settings
-  (install-if-not-exists 'rg)
-  (define-key-tree
-   evil-normal-state-map
-   (" "
-    ("s"
-     ("r" 'rg)
-     ("l" 'rg-literal))))
-  (add-hook 'rg-mode-hook
-	    (lambda ()
-	      (message "HELLO")
-	      (evil-define-key-tree
-	       'normal
-	       rg-mode-map
-	       ("j" 'compilation-next-error)
-	       ("k" 'compilation-previous-error)
-	       ("i" 'rg-rerun-toggle-ignore)
-	       ("c" 'rg-rerun-toggle-case)
-	       ("q" 'quit-window)
-	       ("n" 'next-error-no-select)
-	       ("p" 'previous-error-no-select)))))
-
 (progn ;; SATySFi
   (my/register-git-package 'satysfi "https://github.com/gfngfn/satysfi.el")
   (setq satysfi-command "satysfi")
@@ -796,26 +774,6 @@
     (setq face-font-rescale-alist '(("Cica" . 1.0)))
     (add-to-list 'default-frame-alist '(font . "fontset-Cica"))))
 
-
-(progn ; fzf settings
-  (install-if-not-exists 'fzf)
-  (with-eval-after-load 'fzf
-    (setq fzf/args "-x --color bw --print-query --margin=1,0 --no-hscroll"
-	  fzf/executable "fzf"
-	  fzf/git-grep-args "-i --line-number %s"
-	  ;; command used for `fzf-grep-*` functions
-	  ;; example usage for ripgrep:
-	  ;; fzf/grep-command "rg --no-heading -nH"
-	  fzf/grep-command "rg --no-heading -nH"
-	  ;; If nil, the fzf buffer will appear at the top of the window
-	  fzf/position-bottom t
-	  fzf/window-height 15))
-  (define-key evil-normal-state-map " fp" 'fzf-projectile))
-
-
-
-
-
 (progn ; typst-ts-settings
   (my/register-git-package 'typst-ts-mode "https://git.sr.ht/~meow_king/typst-ts-mode")
   (my/register-git-package 'typst-preview "https://github.com/havarddj/typst-preview.el")
@@ -827,3 +785,13 @@
 	  (shell-command (format "typstyle -i %s" (file-name-nondirectory (buffer-file-name))))
 	  (revert-buffer t t t)))
       (add-hook 'after-save-hook 'my/format-buffer-by-typstyle))))
+
+(progn ; vertico settings
+  (install-if-not-exists 'vertico)
+  (install-if-not-exists 'consult)
+  (install-if-not-exists 'orderless)
+  (setq completion-styles '(orderless basic))
+  (setq completion-category-overrides '((file (styles basic partial-completion))))
+  (vertico-mode)
+  (define-key evil-normal-state-map " fp" 'consult-fd)
+  (define-key evil-normal-state-map " sr" 'consult-ripgrep))
