@@ -420,7 +420,6 @@
 
  (progn ;markdown settings
    (install-if-not-exists 'flycheck)
-   (install-if-not-exists 'add-node-modules-path)
    (install-if-not-exists 'markdown-mode)
    (install-if-not-exists 'markdown-preview-mode)
    (install-if-not-exists 'websocket)
@@ -438,10 +437,7 @@
  			(zero-or-more "\n" (any " ") (one-or-more not-newline)))
  	       line-end))
      :modes (text-mode markdown-mode))
-   (add-to-list 'flycheck-checkers 'textlint)
-   (add-hook 'markdown-mode-hook (lambda ()
- 				  (setq markdown-command "multimarkdown")
- 				  (add-node-modules-path))))
+   (add-to-list 'flycheck-checkers 'textlint))
 
 (progn ;tab-bar settings
   (tab-bar-mode 1)
@@ -718,6 +714,7 @@
 
 (progn ; tramp
   (with-eval-after-load 'tramp
+    (add-to-list 'tramp-remote-path "~/.nix-profile/bin")
     (add-to-list 'tramp-remote-path 'tramp-own-remote-path)
     (setq remote-file-name-inhibit-cache nil))
   (with-eval-after-load 'tramp-sh
@@ -798,14 +795,14 @@
   (install-if-not-exists 'orderless)
   (setq completion-styles '(orderless basic))
   (setq completion-category-overrides '((file (styles basic partial-completion))))
-  (vertico-mode)
+  ;; (vertico-mode)
   (define-key evil-normal-state-map " fp" 'consult-fd)
   (define-key evil-normal-state-map " sr" 'consult-ripgrep))
 
 
 
 
-(progn					; lsp-bridge
+(progn ;; lsp-bridge
   (install-if-not-exists 'markdown-mode)
   (install-if-not-exists 'yasnippet)
   (add-to-list 'load-path "~/.emacs.d/lisp/lsp-bridge/")
@@ -843,8 +840,13 @@
     (kbd "RET") 'lsp-bridge-ref-open-file-and-stay
     "q" 'lsp-bridge-ref-quit)
 
+  (defun my/enable-lsp-bridge-mode ()
+    (interactive)
+    (global-lsp-bridge-mode)
+    (lsp-bridge-mode))
+
   (define-key-tree
    evil-normal-state-map
    (" "
     ("m"				;mode
-     ("b" 'lsp-bridge-mode)))))
+     ("b" 'my/enable-lsp-bridge-mode)))))
