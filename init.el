@@ -289,13 +289,12 @@
 
 (progn ;company settings
   (install-if-not-exists 'company)
-  (add-hook 'after-init-hook 'global-company-mode)
   (setq company-idle-delay 0)
   (setq company-minimum-prefix-length 1)
-  (add-hook 'company-mode-hook
-	    (lambda ()
-	      (define-key evil-insert-state-map "\C-n" 'company-select-next)
-	      (define-key evil-insert-state-map "\C-p" 'company-select-previous))))
+  (with-eval-after-load 'company
+    (define-key company-active-map (kbd "C-n") 'company-select-next)
+    (define-key company-active-map (kbd "C-p") 'company-select-previous))
+  (define-key evil-normal-state-map " mc" 'global-company-mode))
 
 (progn ;rust settings
   (install-if-not-exists 'rust-mode)
@@ -308,10 +307,6 @@
   (add-hook 'rust-mode-hook
 	    (lambda ()
 	      (cargo-minor-mode 1)
-	      (define-key evil-insert-state-map "\C-n" 'company-select-next)
-	      (define-key evil-insert-state-map "\C-p" 'company-select-previous)
-	      (define-key evil-insert-state-map "\C-n" 'company-select-next)
-	      (define-key evil-insert-state-map "\C-p" 'company-select-previous)
 	      (setq-local project-find-functions (list #'my/find-rust-project-root))
 	      (define-key-tree
 	       evil-normal-state-map
@@ -431,15 +426,17 @@
    (install-if-not-exists 'websocket)
    (install-if-not-exists 'web-server)
    (install-if-not-exists 'uuidgen)
+   (with-eval-after-load 'markdown-mode
+     (evil-define-key 'normal gfm-view-mode-map "q" 'delete-window))
    (flycheck-define-checker textlint
      "A linter for prose."
      :command ("npx" "textlint" "--format" "unix" source-inplace)
      :error-patterns
      ((warning line-start (file-name) ":" line ":" column ": "
- 	      (id (one-or-more (not (any " "))))
- 	      (message (one-or-more not-newline)
- 		       (zero-or-more "\n" (any " ") (one-or-more not-newline)))
- 	      line-end))
+ 	       (id (one-or-more (not (any " "))))
+ 	       (message (one-or-more not-newline)
+ 			(zero-or-more "\n" (any " ") (one-or-more not-newline)))
+ 	       line-end))
      :modes (text-mode markdown-mode))
    (add-to-list 'flycheck-checkers 'textlint)
    (add-hook 'markdown-mode-hook (lambda ()
@@ -806,8 +803,48 @@
   (define-key evil-normal-state-map " sr" 'consult-ripgrep))
 
 
-(progn ; lsp-bridge
+
+
+(progn					; lsp-bridge
   (install-if-not-exists 'markdown-mode)
   (install-if-not-exists 'yasnippet)
   (add-to-list 'load-path "~/.emacs.d/lisp/lsp-bridge/")
-  (require 'lsp-bridge))
+  (require 'lsp-bridge)
+  (yas-global-mode 1)
+  (setq lsp-bridge-enable-log nil)
+  (setq lsp-bridge-enable-hover-diagnostic t)
+  (setq lsp-bridge-enable-diagnostics t)
+  (setq lsp-bridge-enable-inlay-hint t)
+
+  (setq lsp-bridge-remote-start-automatically t)
+  (setq lsp-bridge-enable-with-tramp t)
+  (setq lsp-bridge-remote-python-command "python3")
+  (setq lsp-bridge-remote-python-file "~/.emacs.d/lisp/lsp-bridge/lsp_bridge.py")
+  (setq lsp-bridge-remote-log "~/.emacs.d/lsp-bridge/remote.log")
+
+  (evil-define-key 'normal lsp-bridge-mode-map
+    " lr" 'lsp-bridge-rename
+    " lf" 'lsp-bridge-code-format
+    " la" 'lsp-bridge-code-action
+    " lv" 'lsp-bridge-show-documentation
+    " lp" 'lsp-bridge-diagnostic-list
+    )
+
+  (evil-define-key 'insert acm-mode-map
+    (kbd "C-n") 'acm-select-next
+    (kbd "C-p") 'acm-select-prev
+    (kbd "C-d") 'acm-doc-toggle
+    (kbd "C-j") 'acm-doc-scroll-down
+    (kbd "C-k") 'acm-doc-scroll-up)
+
+  (evil-define-key 'normal lsp-bridge-ref-mode-map
+    "j" 'lsp-bridge-ref-jump-next-keyword
+    "k" 'lsp-bridge-ref-jump-prev-keyword
+    (kbd "RET") 'lsp-bridge-ref-open-file-and-stay
+    "q" 'lsp-bridge-ref-quit)
+
+  (define-key-tree
+   evil-normal-state-map
+   (" "
+    ("m"				;mode
+     ("b" 'lsp-bridge-mode)))))
