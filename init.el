@@ -806,47 +806,49 @@
   (install-if-not-exists 'markdown-mode)
   (install-if-not-exists 'yasnippet)
   (add-to-list 'load-path "~/.emacs.d/lisp/lsp-bridge/")
-  (require 'lsp-bridge)
-  (yas-global-mode 1)
-  (setq lsp-bridge-enable-log nil)
-  (setq lsp-bridge-enable-hover-diagnostic t)
-  (setq lsp-bridge-enable-diagnostics t)
-  (setq lsp-bridge-enable-inlay-hint t)
-
-  (setq lsp-bridge-remote-start-automatically t)
-  (setq lsp-bridge-enable-with-tramp t)
-  (setq lsp-bridge-remote-python-command "python3")
-  (setq lsp-bridge-remote-python-file "~/.emacs.d/lisp/lsp-bridge/lsp_bridge.py")
-  (setq lsp-bridge-remote-log "~/.emacs.d/lsp-bridge/remote.log")
-
-  (evil-define-key 'normal lsp-bridge-mode-map
-    " lr" 'lsp-bridge-rename
-    " lf" 'lsp-bridge-code-format
-    " la" 'lsp-bridge-code-action
-    " lv" 'lsp-bridge-show-documentation
-    " lp" 'lsp-bridge-diagnostic-list
-    )
-
-  (evil-define-key 'insert acm-mode-map
-    (kbd "C-n") 'acm-select-next
-    (kbd "C-p") 'acm-select-prev
-    (kbd "C-d") 'acm-doc-toggle
-    (kbd "C-j") 'acm-doc-scroll-down
-    (kbd "C-k") 'acm-doc-scroll-up)
-
-  (evil-define-key 'normal lsp-bridge-ref-mode-map
-    "j" 'lsp-bridge-ref-jump-next-keyword
-    "k" 'lsp-bridge-ref-jump-prev-keyword
-    (kbd "RET") 'lsp-bridge-ref-open-file-and-stay
-    "q" 'lsp-bridge-ref-quit)
 
   (defun my/enable-lsp-bridge-mode ()
     (interactive)
     (global-lsp-bridge-mode)
-    (lsp-bridge-mode))
+    (lsp-bridge-mode)
+
+    (require 'lsp-bridge)
+    (yas-global-mode 1)
+    (setq lsp-bridge-enable-log nil)
+    (setq lsp-bridge-enable-hover-diagnostic t)
+    (setq lsp-bridge-enable-diagnostics t)
+    (setq lsp-bridge-enable-inlay-hint t)
+
+    (setq lsp-bridge-remote-start-automatically t)
+    (setq lsp-bridge-enable-with-tramp t)
+    (setq lsp-bridge-remote-python-command "python3")
+    (setq lsp-bridge-remote-python-file "~/.emacs.d/lisp/lsp-bridge/lsp_bridge.py")
+    (setq lsp-bridge-remote-log "~/.emacs.d/lsp-bridge/remote.log")
+
+    (evil-define-key 'normal lsp-bridge-mode-map
+      " lr" 'lsp-bridge-rename
+      " lf" 'lsp-bridge-code-format
+      " la" 'lsp-bridge-code-action
+      " lv" 'lsp-bridge-show-documentation
+      " lp" 'lsp-bridge-diagnostic-list
+      )
+
+    (evil-define-key 'insert acm-mode-map
+      (kbd "C-n") 'acm-select-next
+      (kbd "C-p") 'acm-select-prev
+      (kbd "C-d") 'acm-doc-toggle
+      (kbd "C-j") 'acm-doc-scroll-down
+      (kbd "C-k") 'acm-doc-scroll-up)
+
+    (evil-define-key 'normal lsp-bridge-ref-mode-map
+      "j" 'lsp-bridge-ref-jump-next-keyword
+      "k" 'lsp-bridge-ref-jump-prev-keyword
+      (kbd "RET") 'lsp-bridge-ref-open-file-and-stay
+      "q" 'lsp-bridge-ref-quit))
+
 
   (define-key-tree
    evil-normal-state-map
    (" "
-    ("m"				;mode
+    ("m" ;; mode
      ("b" 'my/enable-lsp-bridge-mode)))))
