@@ -795,7 +795,7 @@
   (install-if-not-exists 'orderless)
   (setq completion-styles '(orderless basic))
   (setq completion-category-overrides '((file (styles basic partial-completion))))
-  ;; (vertico-mode)
+  (vertico-mode)
   (define-key evil-normal-state-map " fp" 'consult-fd)
   (define-key evil-normal-state-map " sr" 'consult-ripgrep))
 
