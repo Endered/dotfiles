@@ -809,10 +809,9 @@
 
   (defun my/enable-lsp-bridge-mode ()
     (interactive)
+    (require 'lsp-bridge)
     (global-lsp-bridge-mode)
     (lsp-bridge-mode)
-
-    (require 'lsp-bridge)
     (yas-global-mode 1)
     (setq lsp-bridge-enable-log nil)
     (setq lsp-bridge-enable-hover-diagnostic t)
