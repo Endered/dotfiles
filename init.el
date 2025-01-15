@@ -65,27 +65,34 @@
 
 (progn ; my package manager
   (defvar my/managed-git-packages nil)
-  (defvar my/git-root "~/.emacs.d/gits/")
+  (defvar my/git-root "~/.emacs.d/gits")
   (unless (file-exists-p my/git-root)
     (mkdir my/git-root))
 
-  (defun my/ensure-git-package-exist (name url)
-    (let ((target (format "%s/%s/" my/git-root name)))
-      (unless (file-exists-p target)
-	(let ((default-directory my/git-root))
-	  (shell-command (format "git clone %s %s" url name))
-	  (package-install-file target)))))
+  (defun git-package-path (name)
+    (format "%s/%s/" my/git-root name))
 
-  (defun my/register-git-package (name url)
-    (my/ensure-git-package-exist name url)
-    (setf (alist-get name my/managed-git-packages) url))
+  (defun my/ensure-git-package-exist (name path url)
+    (unless (file-exists-p path)
+      (let ((default-directory my/git-root))
+	(shell-command (format "git clone %s %s" url name)))
+      t))
+
+  (defun my/register-git-package (name url &optional install)
+    (let* ((install-path (git-package-path name))
+	   (installed (my/ensure-git-package-exist name install-path url)))
+      (setf (alist-get name my/managed-git-packages) (list url install))
+      (when (and installed install)
+	(package-install-file install-path))
+      install-path))
 
   (defun my/update-git-packages ()
     (interactive)
-    (dolist (name (mapcar #'car my/managed-git-packages))
-      (let ((default-directory (format "%s/%s" my/git-root name)))
-	(shell-command "git pull --rebase")
-	(package-install-file (format "%s/%s" my/git-root name))))))
+    (pcase-dolist (`(,name ,url ,install) my/managed-git-packages)
+      (when install
+	(let ((default-directory (git-package-path name)))
+	  (shell-command "git pull --rebase")
+	  (package-install-file default-directory))))))
 
 (progn ;; theme settings
   (install-if-not-exists 'monokai-theme)
@@ -238,7 +245,7 @@
   (require 'flymake)
   (set-face-attribute 'flymake-error nil :underline `(:color "red"))
   (set-face-attribute 'flymake-warning nil :underline `(:color "yellow"))
-  (my/register-git-package 'eglot-booster "https://github.com/jdtsmith/eglot-booster")
+  (my/register-git-package 'eglot-booster "https://github.com/jdtsmith/eglot-booster" t)
   (with-eval-after-load 'eglot
     (require 'eglot-booster nil t)
     (add-to-list 'save-some-buffers-default-predicate 'save-some-buffers-root)
@@ -614,8 +621,10 @@
 (setq evil-insert-state-modes nil)
 (setq evil-motion-state-modes nil)
 
-(progn ;; SATySFi
-  (my/register-git-package 'satysfi "https://github.com/gfngfn/satysfi.el")
+(progn ;; SATySFi settings
+  (let ((p (my/register-git-package 'satysfi "https://github.com/gfngfn/satysfi.el")))
+    (add-to-list 'load-path p)
+    (require 'satysfi))
   (setq satysfi-command "satysfi")
   (setq satysfi-pdf-viewer-command "zathura --fork")
   (add-to-list 'display-buffer-alist '("*Async Shell Command*" display-buffer-no-window (nil)))
@@ -775,8 +784,8 @@
     (add-to-list 'default-frame-alist '(font . "fontset-Cica"))))
 
 (progn ; typst-ts-settings
-  (my/register-git-package 'typst-ts-mode "https://git.sr.ht/~meow_king/typst-ts-mode")
-  (my/register-git-package 'typst-preview "https://github.com/havarddj/typst-preview.el")
+  (my/register-git-package 'typst-ts-mode "https://git.sr.ht/~meow_king/typst-ts-mode" t)
+  (my/register-git-package 'typst-preview "https://github.com/havarddj/typst-preview.el" t)
   (with-eval-after-load 'eglot
     (with-eval-after-load 'typst-ts-mode
       (add-to-list 'eglot-server-programs '(typst-ts-mode . ("tinymist")))
@@ -795,3 +804,10 @@
   (vertico-mode)
   (define-key evil-normal-state-map " fp" 'consult-fd)
   (define-key evil-normal-state-map " sr" 'consult-ripgrep))
+
+
+(progn ; lsp-bridge
+  (install-if-not-exists 'markdown-mode)
+  (install-if-not-exists 'yasnippet)
+  (add-to-list 'load-path "~/.emacs.d/lisp/lsp-bridge/")
+  (require 'lsp-bridge))
