@@ -782,7 +782,7 @@
   (my/register-git-package 'typst-ts-mode "https://git.sr.ht/~meow_king/typst-ts-mode" t)
   (my/register-git-package 'typst-preview "https://github.com/havarddj/typst-preview.el" t)
   (with-eval-after-load 'eglot
-    (setq-default eglot-workspace-configuration '(:exportPdf "onType" :formatterMode "typstyle"))
+    (setq-default eglot-workspace-configuration '(:formatterMode "typstyle"))
     (with-eval-after-load 'typst-ts-mode
       (add-to-list 'eglot-server-programs '(typst-ts-mode . ("tinymist"))))))
 
