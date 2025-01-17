@@ -1,4 +1,7 @@
 {config, pkgs, ...}:
+let
+  unstable-pkgs = import <nixpkgs-unstable> {};
+in
 {
 
   imports = [
@@ -69,9 +72,9 @@
     pandoc
     dua
     fzf
-    tinymist
-    typst
-    typstyle
+    unstable-pkgs.tinymist
+    unstable-pkgs.typst
+    unstable-pkgs.typstyle
   ];
 
   # bash

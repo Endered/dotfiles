@@ -716,7 +716,8 @@
   (with-eval-after-load 'tramp
     (add-to-list 'tramp-remote-path "~/.nix-profile/bin")
     (add-to-list 'tramp-remote-path 'tramp-own-remote-path)
-    (setq remote-file-name-inhibit-cache nil))
+    (setq remote-file-name-inhibit-cache nil)
+    (setq enable-remote-dir-locals t))
   (with-eval-after-load 'tramp-sh
     (setq tramp-use-ssh-controlmaster-options t)
     (unless (file-exists-p "~/.emacs.d/.tramp/")
@@ -781,13 +782,9 @@
   (my/register-git-package 'typst-ts-mode "https://git.sr.ht/~meow_king/typst-ts-mode" t)
   (my/register-git-package 'typst-preview "https://github.com/havarddj/typst-preview.el" t)
   (with-eval-after-load 'eglot
+    (setq-default eglot-workspace-configuration '(:exportPdf "onType" :formatterMode "typstyle"))
     (with-eval-after-load 'typst-ts-mode
-      (add-to-list 'eglot-server-programs '(typst-ts-mode . ("tinymist")))
-      (defun my/format-buffer-by-typstyle ()
-	(let ((default-directory (file-name-directory (buffer-file-name))))
-	  (shell-command (format "typstyle -i %s" (file-name-nondirectory (buffer-file-name))))
-	  (revert-buffer t t t)))
-      (add-hook 'after-save-hook 'my/format-buffer-by-typstyle))))
+      (add-to-list 'eglot-server-programs '(typst-ts-mode . ("tinymist"))))))
 
 (progn ; vertico settings
   (install-if-not-exists 'vertico)
