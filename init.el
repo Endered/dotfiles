@@ -848,3 +848,22 @@
    (" "
     ("m" ;; mode
      ("b" 'my/enable-lsp-bridge-mode)))))
+
+
+(progn ;; ssh settings
+  (defun my/get-remote-host ()
+    (when-let (name (buffer-file-name))
+      (when (file-remote-p name 'host)
+	(tramp-file-name-host (tramp-dissect-file-name name)))))
+  (defun my/port-forwarding (connect-to direction port-from location-to port-to)
+    (interactive
+     (let* ((connect-to (if-let (default (my/get-remote-host))
+			    (read-string (format "Where to connect? (defualt is %s): " default) nil nil default)
+			  (read-string "Where to connect?: " nil nil default)))
+	    (direction (read-string "Port forwarding direction (default is -L): " nil nil "-L"))
+	    (port-from (read-string "Please input port-from: " nil nil nil))
+	    (location-to (read-string "Please input location-to (default is localhost): " nil nil "localhost"))
+	    (port-to (read-string (format "Please input port-to (default is %s): " port-from) nil nil port-from)))
+       (list connect-to direction port-from location-to port-to)))
+    (start-process "port-forwarding" nil "ssh" direction (format "%s:%s:%s" port-from location-to port-to) connect-to))
+  (define-key evil-normal-state-map " up" 'my/port-forwarding))
