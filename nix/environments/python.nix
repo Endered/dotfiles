@@ -12,8 +12,17 @@ in
 
   config = lib.mkIf (!cfg.disable) {
     home.packages = with pkgs; [
-      python3
-      pipx
+      (python310.withPackages (p: with p; [
+        epc
+        orjson
+        packaging
+        sexpdata
+        six
+        setuptools
+        paramiko
+        rapidfuzz
+        watchdog
+      ]))
     ];
   };
 }

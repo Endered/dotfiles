@@ -810,8 +810,6 @@
     (global-lsp-bridge-mode)
     (lsp-bridge-mode)
     (yas-global-mode 1)
-
-    (setq lsp-bridge-python-command "pipx")
     (setq lsp-bridge-enable-log nil)
     (setq lsp-bridge-enable-hover-diagnostic t)
     (setq lsp-bridge-enable-diagnostics t)
