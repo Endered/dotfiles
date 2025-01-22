@@ -565,8 +565,12 @@
   (add-to-list 'auto-mode-alist '("\\.sc$" . scala-mode))
   (install-if-not-exists 'scala-mode)
   (with-eval-after-load 'eglot
-    (setf (alist-get 'scala-mode eglot-server-programs) '("metals" "-Dmetals.client=emacs")))
-  )
+    (with-eval-after-load 'scala-mode
+      (setq-default eglot-workspace-configuration '(:metals (:inlayHints (
+									  :inferredTypes (:enable t)
+									  :implicitArguments (:enable t)
+									  :typeParameters (:enable t)))))
+      (setf (alist-get 'scala-mode eglot-server-programs) '("metals" "-Dmetals.client=emacs")))))
 
 (progn ;java settings
   (add-hook 'java-mode-hook
@@ -782,8 +786,8 @@
   (my/register-git-package 'typst-ts-mode "https://git.sr.ht/~meow_king/typst-ts-mode" t)
   (my/register-git-package 'typst-preview "https://github.com/havarddj/typst-preview.el" t)
   (with-eval-after-load 'eglot
-    (setq-default eglot-workspace-configuration '(:formatterMode "typstyle"))
     (with-eval-after-load 'typst-ts-mode
+      (setq-default eglot-workspace-configuration '(:formatterMode "typstyle"))
       (add-to-list 'eglot-server-programs '(typst-ts-mode . ("tinymist"))))))
 
 (progn ; vertico settings
