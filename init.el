@@ -721,6 +721,7 @@
     (add-to-list 'tramp-remote-path "~/.nix-profile/bin")
     (add-to-list 'tramp-remote-path 'tramp-own-remote-path)
     (setq remote-file-name-inhibit-cache nil)
+    (setq remote-file-name-inhibit-locks t)
     (setq enable-remote-dir-locals t))
   (with-eval-after-load 'tramp-sh
     (setq tramp-use-ssh-controlmaster-options t)
