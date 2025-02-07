@@ -18,6 +18,7 @@ in
       glib
       clang-tools
       cmake-language-server
+      ninja
     ];
   };
 }
