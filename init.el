@@ -872,3 +872,9 @@
        (list connect-to direction port-from location-to port-to)))
     (start-process "port-forwarding" nil "ssh" direction (format "%s:%s:%s" port-from location-to port-to) connect-to))
   (define-key evil-normal-state-map " up" 'my/port-forwarding))
+
+
+(progn ;;bookmark settings
+  (define-key evil-normal-state-map " mB" 'bookmark-bmenu-list)
+  (with-eval-after-load 'bookmark
+    (evil-define-key 'normal bookmark-bmenu-mode-map (kbd "RET") 'bookmark-bmenu-this-window)))
