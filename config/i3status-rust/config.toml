@@ -7,11 +7,11 @@ format = " $ip (^icon_net_down $speed_down.eng(prefix:K) ^icon_net_up $speed_up.
 
 [[block]]
 block = "battery"
-format = " $icon $percentage.eng(w:5) "
-full_format =  " $icon $percentage.eng(w:5) "
-charging_format =  " $icon $percentage.eng(w:5) "
-empty_format =  " $icon $percentage.eng(w:5) "
-not_charging_format =  " $icon $percentage.eng(w:5) "
+format = " $icon $percentage.eng(w:5) {($time)|} "
+full_format =  " $icon $percentage.eng(w:5) {($time)|} "
+charging_format =  " $icon $percentage.eng(w:5) {($time)|} "
+empty_format =  " $icon $percentage.eng(w:5) {($time)|} "
+not_charging_format =  " $icon $percentage.eng(w:5) {($time)|} "
 missing_format = ""
 interval = 1
 
