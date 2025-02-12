@@ -27,6 +27,7 @@ in
       extraPackages = epkgs: [
         epkgs.vterm
         epkgs.pdf-tools
+        epkgs.treesit-grammars.with-all-grammars
       ];
     };
 

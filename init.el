@@ -878,3 +878,18 @@
   (define-key evil-normal-state-map " mB" 'bookmark-bmenu-list)
   (with-eval-after-load 'bookmark
     (evil-define-key 'normal bookmark-bmenu-mode-map (kbd "RET") 'bookmark-bmenu-this-window)))
+
+(progn ;; tree sitter settings
+  (install-if-not-exists 'tree-sitter-langs)
+  (global-tree-sitter-mode))
+
+(progn ;; fold settings
+  (let ((p (my/register-git-package 'ts-fold "https://github.com/emacs-tree-sitter/ts-fold" t)))
+    (add-to-list 'load-path p)
+    (require 'ts-fold)
+    (global-ts-fold-mode))
+  (define-key evil-normal-state-map "zc" 'ts-fold-close)
+  (define-key evil-normal-state-map "zo" 'ts-fold-open)
+  (define-key evil-normal-state-map "zO" 'ts-fold-open-recursively)
+  (define-key evil-normal-state-map "zm" 'ts-fold-close-all)
+  (define-key evil-normal-state-map "zr" 'ts-fold-open-all))
