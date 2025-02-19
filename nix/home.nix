@@ -129,12 +129,6 @@ in
   };
 
   home.file = {
-    ".config/i3/config" = {
-      source = ~/dotfiles/config/i3/config;
-    };
-    ".config/i3status/config" = {
-      source = ~/dotfiles/config/i3status/config;
-    };
     ".vimrc" = {
       source = ~/dotfiles/vimrc;
     };
