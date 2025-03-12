@@ -60,7 +60,7 @@ in
     deadd-notification-center
     bottom
     patchelf
-    zulip
+    zulip-term
     aspell
     aspellDicts.en
     ripgrep
