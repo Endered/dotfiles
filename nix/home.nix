@@ -75,6 +75,7 @@ in
     unstable-pkgs.tinymist
     unstable-pkgs.typst
     unstable-pkgs.typstyle
+    (builtins.getFlake (builtins.toString ../tools/cpu-healz)).packages.x86_64-linux.default
   ];
 
   # bash

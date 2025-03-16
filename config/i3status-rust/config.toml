@@ -23,6 +23,12 @@ block = "cpu"
 interval = 1
 
 [[block]]
+block = "custom"
+command = "my-cpu-measure-tool"
+persistent = true
+hide_when_empty = true
+
+[[block]]
 block = "sound"
 
 [[block]]
