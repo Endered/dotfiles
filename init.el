@@ -607,7 +607,8 @@
 
 (progn ;; mode-line settings
   (install-if-not-exists 'doom-modeline)
-  (doom-modeline-mode 1))
+  (doom-modeline-mode 1)
+  (setq doom-modeline-buffer-file-name-style 'file-name))
 
 (progn ;; customize
   (setq custom-file "~/.emacs.d/custom.el")
