@@ -562,8 +562,15 @@
 
 
 (progn ;scala settings
-  (add-to-list 'auto-mode-alist '("\\.sc$" . scala-mode))
   (install-if-not-exists 'scala-mode)
+  (add-to-list 'auto-mode-alist '("\\.sc$" . scala-mode))
+
+  (defun my/find-scala-project-root (dir)
+    (when-let ((root (locate-dominating-file dir "build.sbt")))
+      (list 'vc 'Git root)))
+  (add-hook 'scala-mode-hook
+	    (lambda ()
+	      (setq-local project-find-functions (list #'my/find-scala-project-root))))
   (with-eval-after-load 'eglot
     (with-eval-after-load 'scala-mode
       (setq-default eglot-workspace-configuration '(:metals (:inlayHints (
