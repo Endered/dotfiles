@@ -1,6 +1,7 @@
 { config, lib, pkgs, ... }:
 let
   cfg = config.my-settings.scala;
+  unstable-pkgs = import <nixpkgs-unstable> {};
 in
 {
   options.my-settings.scala = {
@@ -12,8 +13,8 @@ in
 
   config = lib.mkIf (!cfg.disable) {
     home.packages = with pkgs; [
-      sbt
-      metals
+      unstable-pkgs.sbt
+      unstable-pkgs.metals
       # It use a hacky way for inject clang to scala-cli without global install
       (writeScriptBin "scala-cli" ''
       #!/usr/bin/env bash
