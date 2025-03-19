@@ -607,8 +607,12 @@
 
 (progn ;; mode-line settings
   (install-if-not-exists 'doom-modeline)
-  (doom-modeline-mode 1)
-  (setq doom-modeline-buffer-file-name-style 'file-name))
+  (add-to-list
+   'mode-line-misc-info
+   `(eglot--managed-mode (" [" eglot--mode-line-format "] ")))
+  (setq doom-modeline-lsp nil)
+  (setq doom-modeline-buffer-file-name-style 'file-name)
+  (doom-modeline-mode 1))
 
 (progn ;; customize
   (setq custom-file "~/.emacs.d/custom.el")
