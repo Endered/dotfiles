@@ -241,7 +241,7 @@
   (install-if-not-exists 'projectile)
   (projectile-mode 1))
 
-(progn ;lsp settings
+(progn ;; eglot
   (require 'flymake)
   (set-face-attribute 'flymake-error nil :underline `(:color "red"))
   (set-face-attribute 'flymake-warning nil :underline `(:color "yellow"))
@@ -284,10 +284,23 @@
   (define-key-tree
    evil-normal-state-map
    (" "
-    ("m"				;mode
+    ("m" ;; mode
      ("l" 'eglot)))))
 
-(progn ;company settings
+(progn ;; lsp-mode settings
+  (install-if-not-exists 'lsp-mode)
+  (install-if-not-exists 'lsp-ui)
+  (with-eval-after-load 'lsp-mode
+    (setq lsp-inlay-hint-enable t)
+    (setq lsp-prefer-flymake nil)
+    (setq lsp-keep-workspace-alive nil))
+  (define-key-tree
+   evil-normal-state-map
+   (" "
+    ("m" ;; mode
+     ("L" 'lsp)))))
+
+(progn					;company settings
   (install-if-not-exists 'company)
   (setq company-idle-delay 0)
   (setq company-minimum-prefix-length 1)
@@ -563,6 +576,7 @@
 
 (progn ;scala settings
   (install-if-not-exists 'scala-mode)
+  (install-if-not-exists 'lsp-metals)
   (add-to-list 'auto-mode-alist '("\\.sc$" . scala-mode))
 
   (defun my/find-scala-project-root (dir)
@@ -571,6 +585,10 @@
   (add-hook 'scala-mode-hook
 	    (lambda ()
 	      (setq-local project-find-functions (list #'my/find-scala-project-root))))
+  (with-eval-after-load 'lsp-metals
+    (setf lsp-metals-inlay-hints-enable-type-parameters t)
+    (setf lsp-metals-inlay-hints-enable-inferred-types t)
+    (setf lsp-metals-server-args '("-Dmetals.client=emacs")))
   (with-eval-after-load 'eglot
     (with-eval-after-load 'scala-mode
       (setq-default eglot-workspace-configuration '(:metals (:inlayHints (
