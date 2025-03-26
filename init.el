@@ -579,6 +579,47 @@
   (install-if-not-exists 'lsp-metals)
   (add-to-list 'auto-mode-alist '("\\.sc$" . scala-mode))
 
+  (defun my/lsp-metals-use-remote ()
+    "Re-register lsp-metals client for remote developing.
+  Since, lsp-metals package strongly depend to lsp client id `metals`. To use lsp-metals on tramp needs recycling client id."
+    (interactive)
+    (require 'lsp-metals)
+    (lsp-register-client
+     (make-lsp-client :new-connection (lsp-stdio-connection 'lsp-metals--server-command)
+		      :major-modes '(scala-mode scala-ts-mode)
+		      :priority 1
+		      :multi-root lsp-metals-multi-root
+		      :initialization-options '((decorationProvider . t)
+						(inlineDecorationProvider . t)
+						(didFocusProvider . t)
+						(executeClientCommandProvider . t)
+						(doctorProvider . "html")
+						(statusBarProvider . "on")
+						(debuggingProvider . t)
+						(treeViewProvider . t)
+						(quickPickProvider . t)
+						(inputBoxProvider . t)
+						(commandInHtmlFormat . "vscode"))
+		      :notification-handlers (ht ("metals/executeClientCommand" #'lsp-metals--execute-client-command)
+						 ("metals/publishDecorations" #'lsp-metals--publish-decorations)
+						 ("metals/treeViewDidChange" #'lsp-metals-treeview--did-change)
+						 ("metals-model-refresh" #'lsp-metals--model-refresh)
+						 ("metals/status" #'lsp-metals--status-string))
+		      :request-handlers (ht ("metals/quickPick" #'lsp-metals--quick-pick)
+					    ("metals/inputBox" #'lsp-metals--input-box))
+		      :action-handlers (ht ("metals-debug-session-start" (-partial #'lsp-metals--debug-start :json-false))
+					   ("metals-run-session-start" (-partial #'lsp-metals--debug-start t)))
+		      :server-id 'metals
+		      :remote? t
+		      :initialized-fn (lambda (workspace)
+					(with-lsp-workspace workspace
+					  (lsp--set-configuration
+					   (lsp-configuration-section "metals"))))
+		      :after-open-fn (lambda ()
+				       (add-hook 'lsp-on-idle-hook #'lsp-metals--did-focus nil t))
+		      :completion-in-comments? t
+		      :download-server-fn #'lsp-metals--download-server)))
+
   (defun my/find-scala-project-root (dir)
     (when-let ((root (locate-dominating-file dir "build.sbt")))
       (list 'vc 'Git root)))
