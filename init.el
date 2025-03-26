@@ -293,7 +293,19 @@
   (with-eval-after-load 'lsp-mode
     (setq lsp-inlay-hint-enable t)
     (setq lsp-prefer-flymake nil)
-    (setq lsp-keep-workspace-alive nil))
+    (setq lsp-keep-workspace-alive nil)
+    (add-hook 'lsp-after-apply-edits-hook
+	      (lambda (operation)
+		(when (or (eq operation 'rename) (eq operation 'format))
+		  (save-buffer))))
+    (evil-define-key* 'normal lsp-mode-map
+      " lf" 'lsp-format-buffer
+      " lr" 'lsp-rename
+      " lv" 'eldoc-doc-buffer
+      " lo" 'lsp-organize-imports
+      " la" 'lsp-execute-code-action
+      " gr" 'lsp-find-references
+      " gi" 'lsp-find-implementation))
   (define-key-tree
    evil-normal-state-map
    (" "
@@ -629,7 +641,8 @@
   (with-eval-after-load 'lsp-metals
     (setf lsp-metals-inlay-hints-enable-type-parameters t)
     (setf lsp-metals-inlay-hints-enable-inferred-types t)
-    (setf lsp-metals-server-args '("-Dmetals.client=emacs")))
+    (setf lsp-metals-server-args '("-Dmetals.client=emacs"))
+    (evil-define-key* 'normal lsp-mode-map " gs" 'lsp-metals-goto-super-method))
   (with-eval-after-load 'eglot
     (with-eval-after-load 'scala-mode
       (setq-default eglot-workspace-configuration '(:metals (:inlayHints (
