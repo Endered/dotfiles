@@ -290,7 +290,9 @@
 (progn ;; lsp-mode settings
   (install-if-not-exists 'lsp-mode)
   (install-if-not-exists 'lsp-ui)
+  (install-if-not-exists 'yasnippet)
   (with-eval-after-load 'lsp-mode
+    (yas-global-mode 1)
     (setq lsp-inlay-hint-enable t)
     (setq lsp-prefer-flymake nil)
     (setq lsp-keep-workspace-alive nil)
