@@ -300,8 +300,12 @@
 	      (lambda (operation)
 		(when (or (eq operation 'rename) (eq operation 'format))
 		  (save-buffer))))
+    (defun my/lsp-format-buffer ()
+      (interactive)
+      (lsp-format-buffer)
+      (save-buffer))
     (evil-define-key* 'normal lsp-mode-map
-      " lf" 'lsp-format-buffer
+      " lf" 'my/lsp-format-buffer
       " lr" 'lsp-rename
       " lv" 'eldoc-doc-buffer
       " lo" 'lsp-organize-imports
