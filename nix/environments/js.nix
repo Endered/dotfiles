@@ -13,6 +13,8 @@ in
   config = lib.mkIf (!cfg.disable) {
     home.packages = with pkgs; [
       nodejs
+      typescript
+      typescript-language-server
     ];
   };
 }

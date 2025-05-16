@@ -673,7 +673,22 @@
 		    indent-tabs-mode nil)))
   )
 
-(progn ;jupyter node book settings
+(progn ;; typescript
+  (install-if-not-exists 'web-mode)
+  (add-to-list 'auto-mode-alist '("\\.ts$" . web-mode))
+  (add-to-list 'auto-mode-alist '("\\.tsx$" . web-mode))
+  (with-eval-after-load 'web-mode
+    (setq web-mode-code-indent-offset 2)
+    (with-eval-after-load 'lsp-mode
+      (setf (alist-get 'web-mode lsp--formatting-indent-alist) 'web-mode-code-indent-offset)))
+  (add-hook
+   'web-mode-hook
+   (lambda ()
+     (indent-tabs-mode -1)
+     ))
+  )
+
+(progn					;jupyter node book settings
   (install-if-not-exists 'ein)
   (setq ein:worksheet-enable-undo t)
   (setq ein:output-area-inlined-images t)
