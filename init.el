@@ -304,6 +304,9 @@
       (interactive)
       (lsp-format-buffer)
       (save-buffer))
+    ;; below hook is workaround for enable lsp-mode-map
+    ;; without workaround, we must dive into evil insert state
+    (add-hook 'lsp-mode-hook (lambda () (evil-insert-state) (evil-normal-state)))
     (evil-define-key* 'normal lsp-mode-map
       " lf" 'my/lsp-format-buffer
       " lr" 'lsp-rename
