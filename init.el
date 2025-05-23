@@ -293,6 +293,7 @@
   (install-if-not-exists 'yasnippet)
   (with-eval-after-load 'lsp-mode
     (yas-global-mode 1)
+    (setq lsp-eldoc-render-all t)
     (setq lsp-inlay-hint-enable t)
     (setq lsp-prefer-flymake nil)
     (setq lsp-keep-workspace-alive nil)
@@ -315,6 +316,9 @@
       " la" 'lsp-execute-code-action
       " gr" 'lsp-find-references
       " gi" 'lsp-find-implementation))
+  (with-eval-after-load 'lsp-ui
+    (setq lsp-ui-doc-show-with-cursor nil)
+    (setq lsp-ui-doc-show-with-mouse nil))
   (define-key-tree
    evil-normal-state-map
    (" "
