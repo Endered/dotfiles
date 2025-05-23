@@ -9,6 +9,7 @@ object Main {
     Try {
       (new File(baseDirPath))
         .list()
+        .filter(_.startsWith("policy"))
         .map(s =>
           scala.io.Source.fromFile(baseDirPath + s + "/scaling_cur_freq")
         )
