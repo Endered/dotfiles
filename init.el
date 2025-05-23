@@ -684,6 +684,7 @@
   (install-if-not-exists 'web-mode)
   (add-to-list 'auto-mode-alist '("\\.ts$" . web-mode))
   (add-to-list 'auto-mode-alist '("\\.tsx$" . web-mode))
+  (add-to-list 'auto-mode-alist '("\\.json$" . web-mode))
   (with-eval-after-load 'web-mode
     (setq web-mode-code-indent-offset 2)
     (with-eval-after-load 'lsp-mode
