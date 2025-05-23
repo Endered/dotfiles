@@ -291,6 +291,13 @@
   (install-if-not-exists 'lsp-mode)
   (install-if-not-exists 'lsp-ui)
   (install-if-not-exists 'yasnippet)
+  (defun my/start-lsp-with-log ()
+    "Command for workaround at TypeScript Language Server's bug with Tramp"
+    (interactive)
+    (setq lsp-log-io t)
+    (lsp)
+    (setq lsp-log-io nil)) 
+  
   (with-eval-after-load 'lsp-mode
     (yas-global-mode 1)
     (setq lsp-eldoc-render-all t)
