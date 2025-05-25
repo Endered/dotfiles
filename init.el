@@ -840,8 +840,7 @@
   (with-eval-after-load 'tramp
     (add-to-list 'tramp-remote-path 'tramp-own-remote-path)
     (setq remote-file-name-inhibit-cache nil)
-    (setq remote-file-name-inhibit-locks nil)
-    (setq enable-remote-dir-locals t))
+    (setq remote-file-name-inhibit-locks nil))
   (with-eval-after-load 'tramp-sh
     (setq tramp-use-ssh-controlmaster-options t)
     (unless (file-exists-p "~/.emacs.d/.tramp/")
