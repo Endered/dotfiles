@@ -1,6 +1,9 @@
 #!/bin/bash
 
-[[ $TERM == "dumb" ]] && return
+if [ $TERM == "dumb" ]; then
+	export PS1='> '
+	return
+fi
 
 export PATH=$PATH:~/bin/
 export PATH=$PATH:~/.dotnet/
