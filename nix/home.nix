@@ -76,6 +76,7 @@ in
     unstable-pkgs.typst
     unstable-pkgs.typstyle
     (builtins.getFlake (builtins.toString ../tools/cpu-healz)).packages.x86_64-linux.default
+    gforth
   ];
 
   # bash
@@ -151,6 +152,15 @@ in
     ".emacs.d/init.el" = {
       text = ''
              (load "~/dotfiles/init.el")
+
+             ;; forth settings
+             (add-to-list 'load-path "${pkgs.gforth}/share/emacs/site-lisp")
+             (autoload 'forth-mode "gforth.el")
+             (setq auto-mode-alist (cons '("\\.fs\\'" . forth-mode) 
+             			    auto-mode-alist))
+             (autoload 'forth-block-mode "gforth.el")
+             (setq auto-mode-alist (cons '("\\.fb\\'" . forth-block-mode) 
+             			    auto-mode-alist))
 '';
     };
     ".vifm/vifmrc" = {

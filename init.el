@@ -1011,3 +1011,10 @@
   (define-key evil-normal-state-map "zO" 'ts-fold-open-recursively)
   (define-key evil-normal-state-map "zm" 'ts-fold-close-all)
   (define-key evil-normal-state-map "zr" 'ts-fold-open-all))
+
+(progn ;; org settings
+  (with-eval-after-load 'org
+    (org-babel-do-load-languages
+     'org-babel-load-languages
+     (append org-babel-load-languages
+	     '((forth . t))))))
