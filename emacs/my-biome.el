@@ -19,6 +19,6 @@
   :lighter " Biome"
   :keymap my-biome-minor-mode-map)
 
-(add-hook 'web-mode-hook 'my-biome-minor-modge)
+(add-hook 'web-mode-hook 'my-biome-minor-mode)
 
 (provide 'my-biome)
