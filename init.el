@@ -66,7 +66,10 @@
 
 (progn ;; apheleia
   (install-if-not-exists 'apheleia)
-  (add-hook 'apheleia-post-format-hook (lambda () (interactive) (save-buffer))))
+  
+  (with-eval-after-load 'apheleia
+    (add-hook 'apheleia-post-format-hook (lambda () (interactive) (save-buffer)))
+    (setq apheleia-remote-algorithm 'remote)))
 
 (progn ;; my package manager
   (defvar my/managed-git-packages nil)
