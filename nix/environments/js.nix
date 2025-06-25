@@ -15,6 +15,7 @@ in
       nodejs
       typescript
       typescript-language-server
+      biome
     ];
   };
 }
