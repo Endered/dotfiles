@@ -10,6 +10,8 @@
 
 (package-initialize)
 
+(add-to-list 'load-path "~/dotfiles/emacs/")
+
 (defmacro apply-define-key-tree (op &rest body)
   (labels ((rec (node)
 		(let ((key (car node))
@@ -62,8 +64,11 @@
   (unless (package-installed-p package)
     (refresh-and-package-install package)))
 
+(progn ;; apheleia
+  (install-if-not-exists 'apheleia)
+  (add-hook 'apheleia-post-format-hook (lambda () (interactive) (save-buffer))))
 
-(progn ; my package manager
+(progn ;; my package manager
   (defvar my/managed-git-packages nil)
   (defvar my/git-root "~/.emacs.d/gits")
   (unless (file-exists-p my/git-root)
@@ -693,6 +698,7 @@
   (add-to-list 'auto-mode-alist '("\\.tsx$" . web-mode))
   (add-to-list 'auto-mode-alist '("\\.json$" . web-mode))
   (with-eval-after-load 'web-mode
+    (require 'my-biome)
     (setq web-mode-code-indent-offset 2)
     (with-eval-after-load 'lsp-mode
       (setf (alist-get 'web-mode lsp--formatting-indent-alist) 'web-mode-code-indent-offset)))
