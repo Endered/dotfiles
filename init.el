@@ -330,7 +330,8 @@
       " lo" 'lsp-organize-imports
       " la" 'lsp-execute-code-action
       " gr" 'lsp-find-references
-      " gi" 'lsp-find-implementation))
+      " gi" 'lsp-find-implementation
+      "gd" 'lsp-find-definition))
   (with-eval-after-load 'lsp-ui
     (setq lsp-ui-doc-show-with-cursor nil)
     (setq lsp-ui-doc-show-with-mouse nil))
