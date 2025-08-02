@@ -77,6 +77,7 @@ in
     unstable-pkgs.typstyle
     (builtins.getFlake (builtins.toString ../tools/cpu-healz)).packages.x86_64-linux.default
     gforth
+    just
   ];
 
   # bash
