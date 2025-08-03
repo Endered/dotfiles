@@ -209,6 +209,7 @@
   (global-display-line-numbers-mode 1) ;show line number on left
   (scroll-bar-mode -1) ;disable scroll bar
   (setq gc-cons-threshold 12800000)
+  (setq read-process-output-max (* 1024 1024))
   (setq inhibit-startup-message t)
   (menu-bar-mode 0)
   (tool-bar-mode 0)
@@ -312,6 +313,7 @@
     (setq lsp-inlay-hint-enable t)
     (setq lsp-prefer-flymake nil)
     (setq lsp-keep-workspace-alive nil)
+    (setq lsp-enable-file-watchers nil)
     (add-hook 'lsp-after-apply-edits-hook
 	      (lambda (operation)
 		(when (or (eq operation 'rename) (eq operation 'format))
