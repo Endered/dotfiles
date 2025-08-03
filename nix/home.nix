@@ -57,7 +57,7 @@ in
     translate-shell
     neofetch
     direnv
-    deadd-notification-center
+    wired
     bottom
     patchelf
     zulip-term
@@ -199,6 +199,9 @@ in
     };
     ".config/deadd/deadd.yml" = {
       source = ~/dotfiles/config/deadd/deadd.yml;
+    };
+    ".config/wired/wired.ron" = {
+      source = ~/dotfiles/config/wired/wired.ron;
     };
   };
 
