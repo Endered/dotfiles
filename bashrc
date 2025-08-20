@@ -164,3 +164,5 @@ export PS1="$PS1"'\$\[\033[0m\] '
 
 # FZF settings
 export FZF_DEFAULT_COMMAND='fd --type f'
+
+set -o vi
