@@ -166,3 +166,5 @@ export PS1="$PS1"'\$\[\033[0m\] '
 export FZF_DEFAULT_COMMAND='fd --type f'
 
 set -o vi
+bind -m vi-command 'Control-l: clear-screen'
+bind -m vi-insert 'Control-l: clear-screen'
