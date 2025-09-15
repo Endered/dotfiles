@@ -244,7 +244,8 @@
 		  (vterm-end-of-line)
 		  (vterm-yank)))
 	      (define-key vterm-mode-map "\C-c\C-d" 'vterm-send-C-d)
-	      (define-key vterm-mode-map "\C-c\C-a" 'vterm-send-C-a))))
+	      (define-key vterm-mode-map "\C-c\C-a" 'vterm-send-C-a)
+	      (display-line-numbers-mode -1))))
 
 (progn ; projectile settings
   (install-if-not-exists 'projectile)
