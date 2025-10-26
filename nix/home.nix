@@ -22,6 +22,7 @@ in
     ~/dotfiles/nix/environments/lua.nix
     ~/dotfiles/nix/environments/distant.nix
     ~/dotfiles/nix/environments/i3.nix
+    ~/dotfiles/nix/environments/sway.nix
     ~/dotfiles/nix/environments/wayland.nix
     ~/dotfiles/nix/environments/js.nix
     ~/dotfiles/nix/environments/emacs.nix
