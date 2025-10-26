@@ -140,6 +140,15 @@ in
     enable = true;
     theme.name = "Adwaita-dark";
     theme.package = pkgs.gnome-themes-extra;
+    gtk2.extraConfig = ''
+       gtk-application-prefer-dark-theme = true
+    '';
+    gtk3.extraConfig = {
+      gtk-application-prefer-dark-theme = true;
+    };
+    gtk4.extraConfig = {
+      gtk-application-prefer-dark-theme = true;
+    };
   };
 
   home.file = {
