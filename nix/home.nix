@@ -81,6 +81,9 @@ in
     xsel
     xclip
     wl-clipboard
+
+    # display utils
+    wdisplays
   ];
 
   # bash
