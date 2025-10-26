@@ -35,8 +35,6 @@ in
     libtool
     slack
     neovim
-    xsel
-    xclip
     evince
     sshfs
     gnome-screenshot
@@ -78,6 +76,11 @@ in
     (builtins.getFlake (builtins.toString ../tools/cpu-healz)).packages.x86_64-linux.default
     gforth
     just
+
+    # clipboard
+    xsel
+    xclip
+    wl-clipboard
   ];
 
   # bash
