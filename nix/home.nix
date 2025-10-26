@@ -134,6 +134,13 @@ in
     userEmail = "yy56ga10ve@gmail.com";
   };
 
+  # color theme
+  gtk = {
+    enable = true;
+    theme.name = "Adwaita-dark";
+    theme.package = pkgs.gnome-themes-extra;
+  };
+
   home.file = {
     ".vimrc" = {
       source = ~/dotfiles/vimrc;
@@ -175,12 +182,6 @@ in
            {
                "SKIP_HOST_UPDATE": true
            }
-'';
-    };
-    ".config/gtk-3.0/settings.ini" = {
-      text = ''
-           [Settings]
-           gtk-application-prefer-dark-theme = true
 '';
     };
     ".background-image" = {
