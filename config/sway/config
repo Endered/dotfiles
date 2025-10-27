@@ -241,3 +241,5 @@ client.placeholder      #282A36 #282A36 #F8F8F2 #282A36   #282A36
 client.background       #F8F8F2
 
 include local/*
+
+include /etc/sway/config.d/*
