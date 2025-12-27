@@ -15,7 +15,6 @@ in
       home.packages = with pkgs; [
         wl-clipboard
         wdisplays
-        rofi-wayland
       ];
     };
 }

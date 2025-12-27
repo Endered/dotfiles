@@ -131,8 +131,10 @@ in
   # git
   programs.git = {
     enable = true;
-    userName = "Endered";
-    userEmail = "yy56ga10ve@gmail.com";
+    settings.user = {
+      name = "Endered";
+      email = "yy56ga10ve@gmail.com";
+    };
   };
 
   # color theme
