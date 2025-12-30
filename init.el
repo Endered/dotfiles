@@ -309,6 +309,7 @@
     (setq lsp-log-io nil)) 
   
   (with-eval-after-load 'lsp-mode
+    (require 'lsp-inlayhint-supporter)
     (yas-global-mode 1)
     (setq lsp-eldoc-render-all t)
     (setq lsp-inlay-hint-enable t)
