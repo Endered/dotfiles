@@ -22,7 +22,7 @@
 	     (setf hint-key (1+ hint-key)))))
        (let ((selected-hint
 	      (completing-read
-	       "HEY"
+	       "Please select an InlayHint!"
 	       (lambda (str pred action)
 		 (let ((result (complete-with-action action hints str pred)))
 		   (if (eq action 'metadata)
@@ -71,7 +71,6 @@
 		    (setq hint-key (1+ hint-key))))
 		(when command?
 		  (-let* (((&Command :title :command :arguments?) command?))
-		    (message "NYAAAAAAAAAAA %s" command)
 		    (puthash (char-to-string hint-key)
 			     `((label . ,(format " %s (%s)" title value))
 			       (action . ,(lsp-inlayhint-supporter--make-execute-command-thunk command arguments?)))
@@ -81,7 +80,7 @@
 	      (error "There is no Action!"))
 	     (t (let ((selected-hint
 		       (completing-read
-			"HEY"
+			"Please select action to execute!"
 			(lambda (str pred action)
 			  (let ((result (complete-with-action action hints str pred)))
 			    (if (eq action 'metadata)
