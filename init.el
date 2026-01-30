@@ -621,6 +621,7 @@
 
 (progn ;scala settings
   (install-if-not-exists 'scala-mode)
+  (install-if-not-exists 'scala-ts-mode)
   (install-if-not-exists 'lsp-metals)
   (add-to-list 'auto-mode-alist '("\\.sc$" . scala-mode))
 
@@ -670,6 +671,7 @@
       (list 'vc 'Git root)))
   (add-hook 'scala-mode-hook
 	    (lambda ()
+	      (scala-ts-mode)
 	      (setq-local project-find-functions (list #'my/find-scala-project-root))))
   (with-eval-after-load 'lsp-metals
     (setf lsp-metals-inlay-hints-enable-type-parameters t)
@@ -1014,6 +1016,9 @@
 (progn ;; tree sitter settings
   (install-if-not-exists 'tree-sitter-langs)
   (global-tree-sitter-mode))
+
+(progn ;; treesit settings
+  (setq treesit-font-lock-level 4))
 
 (progn ;; fold settings
   (let ((p (my/register-git-package 'ts-fold "https://github.com/emacs-tree-sitter/ts-fold" t)))
