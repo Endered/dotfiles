@@ -14,7 +14,8 @@ in
   config = lib.mkIf (!cfg.disable) {
     home.packages = with pkgs; [
       unstable-pkgs.sbt
-      unstable-pkgs.metals
+      (pkgs.writeShellScriptBin "metals"
+        ''exec ${pkgs.emacs-lsp-booster}/bin/emacs-lsp-booster --disable-bytecode -- ${unstable-pkgs.metals}/bin/metals "$@"'')
       # It use a hacky way for inject clang to scala-cli without global install
       (writeScriptBin "scala-cli" ''
       #!/usr/bin/env bash
