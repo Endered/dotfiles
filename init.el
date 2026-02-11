@@ -833,6 +833,9 @@
     (interactive)
     (let ((remote-file-name-inhibit-cache t))
       (neotree-refresh)))
+  (defun my/neotree-open-under-cursor ()
+    (interactive)
+    (async-shell-command (format "file-open \"%s\"" (neo-buffer--get-filename-current-line))))
   (define-key-tree
    evil-normal-state-map
    (" "
@@ -845,6 +848,7 @@
       "A" 'neotree-stretch-toggle
       (kbd "TAB") 'neotree-enter
       (kbd "RET") 'neotree-enter
+      "o" 'my/neotree-open-under-cursor
       "d" 'neotree-delete-node
       "c" 'neotree-create-node
       "r" 'neotree-rename-node

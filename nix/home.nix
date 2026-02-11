@@ -26,6 +26,7 @@ in
     ~/dotfiles/nix/environments/wayland.nix
     ~/dotfiles/nix/environments/js.nix
     ~/dotfiles/nix/environments/emacs.nix
+    ~/dotfiles/nix/environments/file-open.nix
   ];
 
   nixpkgs.config.allowUnfree = true;
