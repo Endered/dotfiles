@@ -1041,3 +1041,7 @@
      'org-babel-load-languages
      (append org-babel-load-languages
 	     '((forth . t))))))
+
+
+(progn ; python settings
+  (add-hook 'python-mode-hook 'python-ts-mode))
