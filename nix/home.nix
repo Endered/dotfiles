@@ -220,6 +220,11 @@ in
     ".config/wired/wired.ron" = {
       source = ~/dotfiles/config/wired/wired.ron;
     };
+    ".config/zathura/zathurarc"  ={
+      text = ''
+        set selection-clipboard clipboard
+      '';
+    };
   };
 
   home.sessionPath = [
