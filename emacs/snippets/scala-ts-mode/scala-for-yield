@@ -1,0 +1,6 @@
+# key: for
+# name: scala for yield
+# --
+for {
+  _ = ()$0
+} yield ()

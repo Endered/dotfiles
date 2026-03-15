@@ -345,11 +345,19 @@
     ("m" ;; mode
      ("L" 'lsp)))))
 
-(progn					;company settings
+(progn ;; yasnippet settings
+  (install-if-not-exists 'yasnippet)
+  (yas-global-mode 1)
+
+  (add-to-list 'yas-snippet-dirs "~/dotfiles/emacs/snippets"))
+
+(progn ;; company settings
   (install-if-not-exists 'company)
   (setq company-idle-delay 0)
   (setq company-minimum-prefix-length 1)
   (with-eval-after-load 'company
+    (require 'company-yasnippet)
+    (add-to-list 'company-backends '(company-capf :with company-yasnippet))
     (define-key company-active-map (kbd "C-n") 'company-select-next)
     (define-key company-active-map (kbd "C-p") 'company-select-previous))
   (define-key evil-normal-state-map " mc" 'global-company-mode))
