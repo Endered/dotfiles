@@ -24,7 +24,7 @@
         which
       ];
 
-      src = ./.;
+      src = pkgs.nix-gitignore.gitignoreSource [] ./.;
 
       depsSha256 = "sha256-WmHxOBuyuCZKIjJaidlWLsGOOd/mC48gKm0xJfEC3Uc=";
 
