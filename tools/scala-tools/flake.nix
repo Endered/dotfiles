@@ -34,6 +34,7 @@
 
       installPhase = ''
         install -D -m 0755 cpu-healz/target/scala-3.8.3/cpu-healz-release-full $out/bin/my-cpu-measure-tool
+        install -D -m 0755 sound-changer/target/scala-3.8.3/sound-changer-release-full $out/bin/sound-changer
       '';
 
       dontFixup = true;
