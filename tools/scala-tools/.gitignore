@@ -6,3 +6,5 @@
 .bsp/
 .metals/
 /result
+
+/**/target/

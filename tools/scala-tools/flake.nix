@@ -26,14 +26,14 @@
 
       src = ./.;
 
-      depsSha256 = "sha256-vx7NSKWiGgPMsOniJRZ9yjgj9JtpiZk5QZzU/qvAUmU=";
+      depsSha256 = "sha256-dcEMi03FH1OTNXnlqSgTI/NJyJwczftPH23G3aRYCk8=";
 
       buildPhase = ''
-        sbt nativeLinkReleaseFull
+      sbt nativeLinkReleaseFull
       '';
 
       installPhase = ''
-        install -D -m 0755 target/scala-3.6.3/cpu-healz-release-full $out/bin/my-cpu-measure-tool
+        install -D -m 0755 cpu-healz/target/scala-3.8.3/cpu-healz-release-full $out/bin/my-cpu-measure-tool
       '';
 
       dontFixup = true;
