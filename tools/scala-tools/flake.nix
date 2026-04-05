@@ -26,7 +26,7 @@
 
       src = ./.;
 
-      depsSha256 = "sha256-dcEMi03FH1OTNXnlqSgTI/NJyJwczftPH23G3aRYCk8=";
+      depsSha256 = "sha256-WmHxOBuyuCZKIjJaidlWLsGOOd/mC48gKm0xJfEC3Uc=";
 
       buildPhase = ''
       sbt nativeLinkReleaseFull
