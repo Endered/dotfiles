@@ -6,14 +6,17 @@ lazy val commonSettings = Seq(
     _.withLTO(LTO.thin)
       .withMode(Mode.releaseFast)
       .withGC(GC.boehm)
-  }
+      .withIncrementalCompilation(true)
+  },
 )
 
 lazy val root = project
   .in(file("."))
-  .aggregate(
+  .enablePlugins(ScalaNativePlugin)
+  .settings(commonSettings)
+  .dependsOn(
     cpuHealz,
-    soundChanger
+    soundChanger,
   )
 
 lazy val cpuHealz = project
@@ -21,7 +24,7 @@ lazy val cpuHealz = project
   .enablePlugins(ScalaNativePlugin)
   .settings(
     name := "cpu-healz",
-    commonSettings
+    commonSettings,
   )
 
 lazy val soundChanger = project
@@ -30,5 +33,5 @@ lazy val soundChanger = project
   .settings(
     name := "sound-changer",
     commonSettings,
-    libraryDependencies += "xyz.matthieucourt" %%% "layoutz" % "0.7.0"
+    libraryDependencies += "xyz.matthieucourt" %%% "layoutz" % "0.7.0",
   )
