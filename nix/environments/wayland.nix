@@ -22,5 +22,10 @@ in
         slurp
         screenshot
       ];
+
+      services.fnott = {
+        enable = true;
+        configFile = ~/dotfiles/config/fnott/fnott.ini;
+      };
     };
 }
