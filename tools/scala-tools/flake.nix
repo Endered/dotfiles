@@ -38,6 +38,7 @@
         dontFixup = true;
       };
     in {
+      packages.x86_64-linux.scala-tools = scala-tools;
       packages.x86_64-linux.default = pkgs.runCommand "wrapped-scala-tools" {} ''
         mkdir -p $out/bin
         ln -s ${scala-tools}/bin/scala-tools $out/bin/my-cpu-measure-tool
