@@ -49,6 +49,8 @@
           clang_17
           pkg-config
           my-sn-bindgen
+
+          glib # required for sbt-derivation's depsWarmup
         ];
 
         src = pkgs.nix-gitignore.gitignoreSource [] ./.;
@@ -56,7 +58,9 @@
         depsSha256 = "sha256-ldPHOLaeI1OlWg5gqlaRek6D2xXs2wVg9Tyk3GTMJxA=";
 
         depsWarmupCommand = ''
-          sbt -mem 4096 compile
+          export BINDGEN_PATH="${my-sn-bindgen}/bin/sn-bindgen"
+	  pkg-config --cflags gio-2.0
+          sbt -mem 4096 'compile'
         '';
 
         buildPhase = ''
