@@ -33,10 +33,9 @@ block = "sound"
 
 [[block]]
 block = "custom"
-command = "bluetoothctl info | grep -oP '(?<=Battery Percentage:).*' | grep -oP '(?<=\\()\\d+' | sed -e 's/$/%/' | tr '\n' , | sed  -e 's/,$//'"
-interval = 60
+command = "bluetooth-battery-watcher"
+persistent = true
 hide_when_empty = true
-format = " BL: $text "
 
 [[block]]
 block = "memory"
