@@ -8,8 +8,9 @@ object Main {
     val basename = executablePath.getFileName().toString()
 
     basename match {
-      case "my-cpu-measure-tool" => cpuhealz.run(args)
-      case "sound-changer"       => soundchanger.run(args)
+      case "my-cpu-measure-tool"       => cpuhealz.run(args)
+      case "sound-changer"             => soundchanger.run(args)
+      case "bluetooth-battery-watcher" => bluetoothbatterywatcher.run(args)
       case _ => throw new Error(s"Unknown executable file name ${basename}")
     }
   }
