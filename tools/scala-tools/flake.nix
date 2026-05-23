@@ -82,6 +82,7 @@
         ln -s ${scala-tools}/bin/scala-tools $out/bin/my-cpu-measure-tool
         ln -s ${scala-tools}/bin/scala-tools $out/bin/sound-changer
         ln -s ${scala-tools}/bin/scala-tools $out/bin/bluetooth-battery-watcher
+        ln -s ${my-sn-bindgen}/bin/sn-bindgen $out/bin/sn-bindgen
       '';
     };
 }
