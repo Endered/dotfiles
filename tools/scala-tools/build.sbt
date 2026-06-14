@@ -74,35 +74,14 @@ lazy val libgio = project
   .settings(
     name := "libgio",
     commonSettings,
-    bindgenBindings := Seq(
-      Binding(
-        (Compile / resourceDirectory).value / "scala-native" / "header.h",
-        "libgio",
-      ).addCImport("gio/gio.h")
-        .addClangFlag(gioCflags)
-        .withMultiFile(true)
-        .withOpaqueStructs(Set("G*"))
-        .pipe(gioIncludePath.foldLeft(_)(_.addExcludedSystemPath(_))),
-    ),
     nativeConfig ~= {
       _.withCompileOptions(_ ++ gioCflags)
         .withLinkingOptions(_ ++ pkgConfig("gio-2.0", "--libs"))
-    },
-    trackInternalDependencies := TrackLevel.TrackIfMissing,
-    bindgenBinary := {
-      val existing = bindgenBinary.value
-      sys.env
-        .get("BINDGEN_PATH")
-        .map(path => Paths.get(path).toFile())
-        .getOrElse(existing)
     },
   )
 
 // Seq("-I/hoge/fuga", ...)
 lazy val gioCflags = pkgConfig("gio-2.0", "--cflags")
-// Seq("/hoge/fuga", ...)
-lazy val gioIncludePath =
-  gioCflags.filter(_.startsWith("-I")).map(_.drop(2)).map(Paths.get(_))
 
 def pkgConfig(pkgName: String, option: String): Seq[String] = {
   val buffer = ListBuffer.empty[String]

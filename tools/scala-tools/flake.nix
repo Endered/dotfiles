@@ -46,7 +46,7 @@
 
         nativeBuildInputs = with pkgs; [
           which
-          clang_17
+          clang
           pkg-config
           my-sn-bindgen
 
