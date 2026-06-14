@@ -48,20 +48,11 @@
           which
           clang
           pkg-config
-          my-sn-bindgen
-
-          glib # required for sbt-derivation's depsWarmup
         ];
 
         src = pkgs.nix-gitignore.gitignoreSource [] ./.;
 
         depsSha256 = "sha256-ldPHOLaeI1OlWg5gqlaRek6D2xXs2wVg9Tyk3GTMJxA=";
-
-        depsWarmupCommand = ''
-          export BINDGEN_PATH="${my-sn-bindgen}/bin/sn-bindgen"
-	  pkg-config --cflags gio-2.0
-          sbt -mem 4096 'compile'
-        '';
 
         buildPhase = ''
           sbt -mem 4096 nativeLinkReleaseFull
@@ -70,8 +61,6 @@
         installPhase = ''
           install -D -m 0755 target/scala-3.8.3/root-release-full $out/bin/scala-tools
         '';
-
-        BINDGEN_PATH = "${my-sn-bindgen}/bin/sn-bindgen";
 
         dontFixup = true;
       };
