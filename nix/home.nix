@@ -27,6 +27,7 @@ in
     ~/dotfiles/nix/environments/js.nix
     ~/dotfiles/nix/environments/emacs.nix
     ~/dotfiles/nix/environments/file-open.nix
+    ~/dotfiles/nix/environments/toumi.nix
   ];
 
   nixpkgs.config.allowUnfree = true;
