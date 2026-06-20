@@ -1,11 +1,11 @@
 { pkgs, lib, ... }:
 let toumi = pkgs.stdenv.mkDerivation {
       pname = "toumi";
-      version = "0.0.1";
+      version = "0.0.2";
 
       src = pkgs.fetchurl {
-        url = "https://github.com/Endered/toumi/releases/download/v0.0.1/toumi";
-        hash = "sha256-aJ3mvPlcNCUGOEjyzl+7s1wzmwoSfizKJa7AKTscnAQ=";
+        url = "https://github.com/Endered/toumi/releases/download/v0.0.2/toumi";
+        hash = "sha256-M6TdVN/OayuMkLwvlsY7PvUaQSvuJZOWWb0mXZ0LOFo=";
       };
 
       dontBuild = true;
