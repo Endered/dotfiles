@@ -2,9 +2,9 @@
 let
   cfg = config.my-settings.scala;
   my-metals = pkgs.metals.overrideAttrs (prev: {
-    version = "1.6.7";
+    version = "2.0.0-M14";
     deps = prev.deps.overrideAttrs (_: {
-      outputHash = "sha256-bGx3PQGgaTueQ/v/Xk7gp03TzllyMs7nCx9QWXNFdt0=";
+      outputHash = "sha256-mPw1K2RQfebX3FYy/e3zeBaLNr+3REBmbFrjeG+74YM=";
     });
   });
 in
