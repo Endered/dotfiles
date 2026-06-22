@@ -6,8 +6,8 @@ pkgs.stdenv.mkDerivation rec {
   src = pkgs.fetchFromGitHub {
     owner = "JDimproved";
     repo = pname;
-    rev = "JDim-v0.12.0";
-    hash = "sha256-+w9SyTXvR0RA6iymrVJC4pB/OZsEYxqj/xadXYJxJo0=";
+    rev = "JDim-v0.16.0";
+    hash = "sha256-XflYZyukPANNSLsmP9ZWVpVdYiMzTyHvvdso9ay2VBQ=";
   };
 
   buildInputs = with pkgs; [
