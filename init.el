@@ -680,7 +680,8 @@
   (add-hook 'scala-mode-hook
 	    (lambda ()
 	      (scala-ts-mode)
-	      (setq-local project-find-functions (list #'my/find-scala-project-root))))
+	      (setq-local project-find-functions (list #'my/find-scala-project-root))
+	      (setq-local indent-tabs-mode nil)))
   (with-eval-after-load 'lsp-metals
     (setf lsp-metals-inlay-hints-enable-type-parameters t)
     (setf lsp-metals-inlay-hints-enable-inferred-types t)
