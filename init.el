@@ -688,7 +688,34 @@
   (with-eval-after-load 'lsp-metals
     (setf lsp-metals-inlay-hints-enable-type-parameters t)
     (setf lsp-metals-inlay-hints-enable-inferred-types t)
-    (setf lsp-metals-server-args '("-Dmetals.client=emacs"))
+    (setf lsp-metals-server-args
+	  '(
+	    "-Dmetals.client=emacs"
+	    "-J-Djol.magicFieldOffset=true"
+	    "-J-Djol.tryWithSudo=true"
+	    "-J-Djdk.attach.allowAttachSelf"
+	    "-J--add-opens=java.base/java.nio=ALL-UNNAMED"
+	    "-J--add-exports=jdk.compiler/com.sun.tools.javac.api=ALL-UNNAMED"
+	    "-J--add-exports=jdk.compiler/com.sun.tools.javac.code=ALL-UNNAMED"
+	    "-J--add-exports=jdk.compiler/com.sun.tools.javac.comp=ALL-UNNAMED"
+	    "-J--add-exports=jdk.compiler/com.sun.tools.javac.file=ALL-UNNAMED"
+	    "-J--add-exports=jdk.compiler/com.sun.tools.javac.jvm=ALL-UNNAMED"
+	    "-J--add-exports=jdk.compiler/com.sun.tools.javac.main=ALL-UNNAMED"
+	    "-J--add-exports=jdk.compiler/com.sun.tools.javac.model=ALL-UNNAMED"
+	    "-J--add-exports=jdk.compiler/com.sun.tools.javac.parser=ALL-UNNAMED"
+	    "-J--add-exports=jdk.compiler/com.sun.tools.javac.processing=ALL-UNNAMED"
+	    "-J--add-exports=jdk.compiler/com.sun.tools.javac.resources=ALL-UNNAMED"
+	    "-J--add-exports=jdk.compiler/com.sun.tools.javac.tree=ALL-UNNAMED"
+	    "-J--add-exports=jdk.compiler/com.sun.tools.javac.util=ALL-UNNAMED"
+	    "-J--add-opens=java.base/sun.nio.ch=ALL-UNNAMED"
+	    "-J--add-opens=jdk.compiler/com.sun.tools.javac.code=ALL-UNNAMED"
+	    "-J--add-opens=jdk.compiler/com.sun.tools.javac.comp=ALL-UNNAMED"
+	    "-J--add-opens=jdk.compiler/com.sun.tools.javac.file=ALL-UNNAMED"
+	    "-J--add-opens=jdk.compiler/com.sun.tools.javac.parser=ALL-UNNAMED"
+	    "-J-XX:+DisplayVMOutputToStderr"
+	    "-J-Xlog:disable"
+	    "-J-Xlog:all=warning,gc=warning:stderr"
+	    ))
     (evil-define-key* 'normal lsp-mode-map " gs" 'lsp-metals-goto-super-method))
   (with-eval-after-load 'eglot
     (with-eval-after-load 'scala-mode
