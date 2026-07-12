@@ -57,7 +57,7 @@ in
     vifm
     vlc
     translate-shell
-    neofetch
+    fastfetch
     direnv
     wired
     bottom
