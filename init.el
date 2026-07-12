@@ -688,6 +688,8 @@
   (with-eval-after-load 'lsp-metals
     (setf lsp-metals-inlay-hints-enable-type-parameters t)
     (setf lsp-metals-inlay-hints-enable-inferred-types t)
+    (add-to-list 'warning-suppress-log-types '(lsp-mode)) ;; disable warnings
+    (add-to-list 'warning-suppress-types '(lsp-mode)) ;; disable warnings
     (setf lsp-metals-server-args
 	  '(
 	    "-Dmetals.client=emacs"
