@@ -59,6 +59,7 @@ in
   config = lib.mkIf (!cfg.disable) {
     home.packages = with pkgs; [
       my-sbt
+      graalvmPackages.graalvm-ce-musl
       (pkgs.writeShellScriptBin "metals"
         ''exec ${pkgs.emacs-lsp-booster}/bin/emacs-lsp-booster --disable-bytecode -- ${my-metals}/bin/metals "$@"'')
       # It use a hacky way for inject clang to scala-cli without global install

@@ -360,6 +360,7 @@
     (add-to-list 'company-backends '(company-capf :with company-yasnippet))
     (define-key company-active-map (kbd "C-n") 'company-select-next)
     (define-key company-active-map (kbd "C-p") 'company-select-previous))
+  (global-company-mode 1)
   (define-key evil-normal-state-map " mc" 'global-company-mode))
 
 (progn ;rust settings
