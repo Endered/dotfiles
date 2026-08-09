@@ -223,7 +223,7 @@
 (progn ;clipboard settings
   (install-if-not-exists 'xclip)
   (xclip-mode 1)
-  (setq select-enable-clipboard nil)
+  (setq select-enable-clipboard t)
   (defun toggle-enable-clipboard ()
     (interactive)
     (let ((current select-enable-clipboard))
@@ -694,7 +694,7 @@
     (add-to-list 'warning-suppress-types '(lsp-mode)) ;; disable warnings
     (setf lsp-metals-server-args
 	  '(
-	    "-Dmetals.client=emacs"
+	    "-J-Dmetals.client=emacs"
 	    "-J-Djol.magicFieldOffset=true"
 	    "-J-Djol.tryWithSudo=true"
 	    "-J-Djdk.attach.allowAttachSelf"
@@ -1054,6 +1054,12 @@
     (start-process "port-forwarding" nil "ssh" direction (format "%s:%s:%s" port-from location-to port-to) connect-to))
   (define-key evil-normal-state-map " up" 'my/port-forwarding))
 
+(progn ;; mouse settings
+  (use-package inhibit-mouse
+    :ensure t
+    :init
+    (inhibit-mouse-mode 1)
+    (define-key evil-normal-state-map " mm" 'inhibit-mouse-mode)))
 
 (progn ;;bookmark settings
   (define-key evil-normal-state-map " mB" 'bookmark-bmenu-list)
