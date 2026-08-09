@@ -629,7 +629,8 @@
 
 (progn ;scala settings
   (install-if-not-exists 'scala-mode)
-  (install-if-not-exists 'scala-ts-mode)
+  (use-package scala-ts-mode
+    :vc (:url "https://github.com/Endered/scala-ts-mode" :rev "endered/update-0.26.2"))
   (install-if-not-exists 'lsp-metals)
   (add-to-list 'auto-mode-alist '("\\.sc$" . scala-mode))
 
