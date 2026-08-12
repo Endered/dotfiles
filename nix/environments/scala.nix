@@ -4,7 +4,7 @@ let
   my-metals = pkgs.stdenv.mkDerivation (finalAttrs: {
     # copied from https://github.com/NixOS/nixpkgs/issues/485281
     name = "metals";
-    version = "2.0.0-M16";
+    version = "2.0.0-M17";
 
     deps = pkgs.stdenv.mkDerivation {
       name = "metals-deps";
@@ -21,7 +21,7 @@ let
       '';
       outputHashMode = "recursive";
       outputHashAlgo = "sha256";
-      outputHash = "sha256-AOcUfkJFKDgH8IMZQo1W6P+OZkgzo2xS6bdLp8WMrTQ=";
+      outputHash = "sha256-PPa1ycYQ/lN20rqlDhOd1u1f0CjlKNYolL4pTar6Zdk=";
     };
 
     nativeBuildInputs = [ pkgs.makeWrapper ];
