@@ -41,10 +41,10 @@ let
     '';
   });
   my-sbt = pkgs.sbt.overrideAttrs (prev : rec {
-    version = "2.0.1";
+    version = "2.0.7";
     src = prev.src.overrideAttrs (_: {
       url = "https://github.com/sbt/sbt/releases/download/v${version}/sbt-${version}.tgz";
-      hash = "sha256-dQ7GGY12eaTBgQuNTWNJGK0SGw18ZN9onAur3rhF17g=";
+      hash = "sha256-Q5RRUgckJTu/IvOjSwutk3nxjv+2WhF1XNi/cFt8IC8=";
     });
   });
 in
