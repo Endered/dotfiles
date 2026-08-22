@@ -52,7 +52,7 @@
 
         src = pkgs.nix-gitignore.gitignoreSource [] ./.;
 
-        depsSha256 = "sha256-ldPHOLaeI1OlWg5gqlaRek6D2xXs2wVg9Tyk3GTMJxA=";
+        depsSha256 = "sha256-A1LuUYAPvTZBR5XBuF6ftTu3NoayeQDj6A+U7vK2WZM=";
 
         buildPhase = ''
           sbt -mem 4096 nativeLinkReleaseFull

@@ -52,6 +52,9 @@ lazy val soundChanger = project
     name := "sound-changer",
     commonSettings,
     libraryDependencies += "xyz.matthieucourt" %%% "layoutz" % "0.7.0",
+    libraryDependencies += "io.circe" %%% "circe-core" % "0.14.16",
+    libraryDependencies += "io.circe" %%% "circe-generic" % "0.14.16",
+    libraryDependencies += "io.circe" %%% "circe-parser" % "0.14.16",
   )
 
 lazy val bluetoothBatteryWatcher = project
