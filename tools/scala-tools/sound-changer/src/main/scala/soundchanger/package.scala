@@ -16,33 +16,27 @@ case class SoundState(
     cursor: Int,
 ) {
   def selectedDevice: Device = devices(cursor)
+  def updateSelected(update: Device => Device): SoundState = copy(
+    devices = devices.zipWithIndex.map { (d, i) =>
+      if (i == cursor) {
+        update(d)
+      } else {
+        d
+      }
+    },
+  )
 }
 
-case class Volume(
-    `value_percent`: String,
-) derives Decoder {
-  def value: Int = `value_percent` match {
-    case s"${v}%" =>
-      v.toInt
-  }
-}
-case class Volumes(
-    `front-left`: Volume,
-    `front-right`: Volume,
-) derives Decoder {
-  def averageVolume = {
-    (`front-left`.value + `front-right`.value) / 2
-  }
-}
 case class Device(
     name: String,
     description: String,
     mute: Boolean,
-    state: String,
-    volume: Volumes,
-) derives Decoder {
-  def averageVolume = volume.averageVolume
-  def isSelected = state == "RUNNING"
+    running: Boolean,
+    volume: Int,
+) {
+  def toggleMute: Device = copy(mute = !mute)
+  def changeVolume(diff: Int): Device =
+    copy(volume = Math.max(0, volume + diff))
 }
 
 def getAverageVolume(): Option[Int] = {
@@ -86,9 +80,44 @@ def changeMute(name: String): Unit = {
 }
 
 def getDeviceNames(): Seq[Device] = {
+  case class Volume(
+      `value_percent`: String,
+  ) derives Decoder {
+    def value: Int = `value_percent` match {
+      case s"${v}%" =>
+        v.toInt
+    }
+  }
+  case class Volumes(
+      `front-left`: Volume,
+      `front-right`: Volume,
+  ) derives Decoder {
+    def averageVolume = {
+      (`front-left`.value + `front-right`.value) / 2
+    }
+  }
+  case class JsonDevice(
+      name: String,
+      description: String,
+      mute: Boolean,
+      state: String,
+      volume: Volumes,
+  ) derives Decoder {
+    def averageVolume = volume.averageVolume
+    def isSelected = state == "RUNNING"
+
+    def toDevice: Device = Device(
+      name = name,
+      description = description,
+      mute = mute,
+      running = isSelected,
+      volume = averageVolume,
+    )
+  }
+
   val res = "pactl -f json list sinks".!!
-  val parsed = decode[Seq[Device]](res)
-  parsed.right.get.sortBy(_.description)
+  val parsed = decode[Seq[JsonDevice]](res)
+  parsed.right.get.map(_.toDevice).sortBy(_.description)
 }
 
 def renderWhen(render: Boolean)(text: String) = {
@@ -116,17 +145,17 @@ object SoundChangerApp extends layoutz.LayoutzApp[SoundState, String] {
       .match {
         case "right" =>
           changeVolume(state.selectedDevice.name, +1)
-          getSoundState(state.cursor)
+          state.updateSelected(_.changeVolume(+1))
         case "left" =>
           changeVolume(state.selectedDevice.name, -1)
-          getSoundState(state.cursor)
+          state.updateSelected(_.changeVolume(-1))
         case "up" =>
           state.copy(cursor = state.cursor - 1)
         case "down" =>
           state.copy(cursor = state.cursor + 1)
         case "mute" =>
           changeMute(state.selectedDevice.name)
-          getSoundState(state.cursor)
+          state.updateSelected(_.toggleMute)
         case "change" =>
           changeDefaultSink(state.selectedDevice.name)
           getSoundState(state.cursor)
@@ -158,10 +187,10 @@ object SoundChangerApp extends layoutz.LayoutzApp[SoundState, String] {
     def renderDevice(device: Device, cursor: Boolean) = {
       columns(
         renderWhen(cursor)(" => "),
-        "[" + renderWhen(device.isSelected)("X") + "]: ",
+        "[" + renderWhen(device.running)("X") + "]: ",
         inlineBar(
           if (device.mute) " Mute " else "Unmute",
-          device.averageVolume.toDouble / 100,
+          device.volume.toDouble / 100,
         ),
         device.description,
       )
