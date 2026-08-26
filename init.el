@@ -1,6 +1,8 @@
 (require 'cl)
 (require 'package)
 
+(setq gc-cons-threshold 12800000)
+
 (setq package-archives
       '(("melpa" . "https://melpa.org/packages/")
 	;; ("melpa-stable" . "https://stable.melpa.org/packages/")
@@ -8,7 +10,7 @@
 	("gnu" . "https://elpa.gnu.org/packages/")))
 (setq package-install-upgrade-built-in t)
 
-(package-initialize)
+;; (package-initialize)
 
 (add-to-list 'load-path "~/dotfiles/emacs/")
 
@@ -383,7 +385,7 @@
     (add-to-list 'company-backends '(company-capf :with company-yasnippet))
     (define-key company-active-map (kbd "C-n") 'company-select-next)
     (define-key company-active-map (kbd "C-p") 'company-select-previous))
-  (global-company-mode 1)
+  (add-hook 'after-init-hook (lambda () (global-company-mode 1)))
   (define-key evil-normal-state-map " mc" 'global-company-mode))
 
 (progn ;rust settings
@@ -802,7 +804,7 @@
    `(eglot--managed-mode (" [" eglot--mode-line-format "] ")))
   (setq doom-modeline-lsp nil)
   (setq doom-modeline-buffer-file-name-style 'file-name)
-  (doom-modeline-mode 1))
+  (add-hook 'after-init-hook (lambda () (doom-modeline-mode 1))))
 
 (progn ;; customize
   (setq custom-file "~/.emacs.d/custom.el")
@@ -1091,7 +1093,7 @@
 
 (progn ;; tree sitter settings
   (install-if-not-exists 'tree-sitter-langs)
-  (global-tree-sitter-mode))
+  (add-hook 'after-init-hook (lambda () (global-tree-sitter-mode))))
 
 (progn ;; treesit settings
   (setq treesit-font-lock-level 4))
