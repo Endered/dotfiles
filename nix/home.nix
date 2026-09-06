@@ -81,6 +81,8 @@ in
     gforth
     just
 
+    tesseract
+
     # clipboard
     xsel
     xclip

@@ -1,0 +1,12 @@
+#!/usr/bin/env bash
+
+path=$(mktemp)
+
+geometry="$(slurp)"
+grim -g "$geometry" -t png "${path}"
+text="$(tesseract "${path}" - -l eng+jpn)"
+rm "${path}"
+
+notify-send "image2text" "text: ${text}"
+echo -n "${text}"
+echo -n "${text}" | wl-copy
