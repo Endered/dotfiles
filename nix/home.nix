@@ -80,6 +80,7 @@ in
     (builtins.getFlake (builtins.toString ../tools/scala-tools)).packages.x86_64-linux.default
     gforth
     just
+    qrencode
 
     tesseract
 
