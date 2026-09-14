@@ -711,7 +711,7 @@
 	      (setq-local indent-tabs-mode nil)))
   (add-hook 'scala-ts-mode-hook
 	    (lambda ()
-	      (setq-local electric-indent-chars (-filter (lambda (c) (not (eq c ?\.))) electric-indent-chars))))
+	      (setq-local electric-indent-chars (cl-remove-if-not (lambda (c) (not (eq c ?\.))) electric-indent-chars))))
   (with-eval-after-load 'lsp-metals
     (setf lsp-metals-inlay-hints-enable-type-parameters t)
     (setf lsp-metals-inlay-hints-enable-inferred-types t)
@@ -797,14 +797,18 @@
   (install-if-not-exists 'nix-mode)
   )
 
-(progn ;; mode-line settings
-  (install-if-not-exists 'doom-modeline)
-  (add-to-list
-   'mode-line-misc-info
-   `(eglot--managed-mode (" [" eglot--mode-line-format "] ")))
-  (setq doom-modeline-lsp nil)
-  (setq doom-modeline-buffer-file-name-style 'file-name)
-  (add-hook 'after-init-hook (lambda () (doom-modeline-mode 1))))
+(when t ;; mode-line settings
+  (use-package moody
+    :ensure t
+    :config
+    (moody-replace-mode-line-front-space)
+    (moody-replace-mode-line-buffer-identification)
+    (moody-replace-vc-mode))
+
+  (use-package minions
+    :ensure t
+    :config
+    (minions-mode)))
 
 (progn ;; customize
   (setq custom-file "~/.emacs.d/custom.el")
