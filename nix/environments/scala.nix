@@ -4,7 +4,7 @@ let
   my-metals = pkgs.stdenv.mkDerivation (finalAttrs: {
     # copied from https://github.com/NixOS/nixpkgs/issues/485281
     name = "metals";
-    version = "2.0.0-M17";
+    version = "1.6.9";
 
     deps = pkgs.stdenv.mkDerivation {
       name = "metals-deps";
@@ -21,7 +21,7 @@ let
       '';
       outputHashMode = "recursive";
       outputHashAlgo = "sha256";
-      outputHash = "sha256-PPa1ycYQ/lN20rqlDhOd1u1f0CjlKNYolL4pTar6Zdk=";
+      outputHash = "sha256-fGrQrqRr4hZClI6aYJopCrp1umK+MMTdRrPzT1sLdTo=";
     };
 
     nativeBuildInputs = [ pkgs.makeWrapper ];
@@ -41,10 +41,10 @@ let
     '';
   });
   my-sbt = pkgs.sbt.overrideAttrs (prev : rec {
-    version = "2.0.7";
+    version = "2.0.9";
     src = prev.src.overrideAttrs (_: {
       url = "https://github.com/sbt/sbt/releases/download/v${version}/sbt-${version}.tgz";
-      hash = "sha256-Q5RRUgckJTu/IvOjSwutk3nxjv+2WhF1XNi/cFt8IC8=";
+      hash = "sha256-NRCH+1rQ2LJx8htMb45JEsj22/geHQb+IVuxZfFGaLM=";
     });
   });
 in
