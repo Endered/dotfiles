@@ -746,6 +746,17 @@
 	    "-J-Xlog:all=warning,gc=warning:stderr"
 	    ))
     (evil-define-key* 'normal lsp-mode-map " gs" 'lsp-metals-goto-super-method))
+  (defun my/neotree-scala-switch-test-source (&optional path)
+    (interactive)
+    (require 'neotree)
+    (let* ((path (or path buffer-file-name))
+	   (path (if (file-regular-p path) (file-name-directory path)))
+	   (path (cond ((string-match-p "/test/" path)
+			(dired-string-replace-match "/test/" path "/main/"))
+		       (t
+			(dired-string-replace-match "/main/" path "/test/")))))
+      (make-directory path t)
+      (neotree-find path)))
   (with-eval-after-load 'eglot
     (with-eval-after-load 'scala-mode
       (setq-default eglot-workspace-configuration '(:metals (:inlayHints (
