@@ -11,6 +11,24 @@ let
     };
     cargoHash = "sha256-/BJvq/AEMMxOfN+hTpQovm3GjZwniKzxKrnofRAyc7k=";
   };
+  i3statusviewer = pkgs.stdenv.mkDerivation {
+    pname = "i3statusviewer";
+    version = "0.0.2";
+
+    src = pkgs.fetchurl {
+      url = "https://github.com/Endered/i3statusviewer/releases/download/v0.0.2/i3statusviewer";
+      hash = "sha256-3JcNpXmkfmoA5E2MB8WcN3CzcMDbkybE4FG8X/PNaOY=";
+    };
+
+    dontBuild = true;
+    dontUnpack = true;
+
+    installPhase = ''
+        install -Dm 755 $src $out/bin/i3statusviewer
+        ln -s $out/bin/i3statusviewer $out/bin/i3statusviewer-viewer
+        ln -s $out/bin/i3statusviewer $out/bin/i3statusviewer-translator
+      '';
+  };
 in
 {
   options.my-settings.i3 = {
@@ -26,7 +44,7 @@ in
 
   config = lib.mkIf (!cfg.disable)
     {
-      home.packages = with pkgs; [ i3status-rust multi-i3status ];
+      home.packages = with pkgs; [ i3status-rust multi-i3status i3statusviewer ];
       home.file = {
         ".config/i3status-rust/config.toml" = {
           source = ~/dotfiles/config/i3status-rust/config.toml;
