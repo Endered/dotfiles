@@ -136,7 +136,6 @@
   (evil-escape-mode 1)
   (setq evil-escape-delay 1)
   (unless (display-graphic-p)
-    (etcc-on)
     (evil-terminal-cursor-changer-activate)
     (setq evil-motion-state-cursor 'box
 	  evil-visual-state-cursor 'box
